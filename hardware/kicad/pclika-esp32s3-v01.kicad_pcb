@@ -110,7 +110,6 @@
   (net 30 "ESP_EN")
   (net 31 "GPIO0_BOOT")
 
-  ; Board outline 65×45mm
   (gr_rect
     (start 0 0)
     (end 65.0 45.0)
@@ -195,7 +194,6 @@
     (gr_circle (center 0 0) (end 2.8 0) (stroke (width 0.05) (type solid)) (layer "F.CrtYd") (uuid "b3507dbc-e2ff-48e7-8b33-89988ab53694"))
   )
 
-  ; ESP32-S3 RF antenna keepout — no copper on F.Cu in this zone
   (zone
     (net 0)
     (net_name "")
@@ -212,7 +210,6 @@
     ))
   )
 
-  ; GND plane — In1.Cu full-board copper pour
   (zone
     (net 1)
     (net_name "GND")
@@ -228,7 +225,6 @@
     ))
   )
 
-  ; +3V3 plane — In2.Cu copper pour
   (zone
     (net 3)
     (net_name "+3V3")

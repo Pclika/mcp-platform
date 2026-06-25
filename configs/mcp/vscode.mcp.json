@@ -1,0 +1,8 @@
+{
+  "servers": {
+    "pclikaPlatform": {
+      "type": "http",
+      "url": "https://REPLACE-WITH-PCLIKA-MCP-ENDPOINT"
+    }
+  }
+}

@@ -1,0 +1,33 @@
+# Operating system
+.DS_Store
+Thumbs.db
+
+# Editors
+.idea/
+.vscode/
+*.code-workspace
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Node
+node_modules/
+dist/
+build/
+
+# Embedded tooling
+.pio/
+.arduinoIDE/
+sdkconfig
+sdkconfig.old
+
+# Logs
+*.log
+
+# Local environment
+.env
+.env.local
+

@@ -1,0 +1,27 @@
+{
+  "schema_version": "0.1.0",
+  "platform": "pclika-core",
+  "tools": [
+    {
+      "name": "device_info",
+      "description": "Return board identity, firmware version, and capability flags."
+    },
+    {
+      "name": "sensor_read",
+      "description": "Read the current value from a supported sensor module."
+    },
+    {
+      "name": "display_text",
+      "description": "Render a short text payload on a supported display module."
+    },
+    {
+      "name": "servo_move",
+      "description": "Move a supported servo output to the requested angle."
+    },
+    {
+      "name": "serial_log_read",
+      "description": "Read recent serial log output from the connected device."
+    }
+  ]
+}
+

@@ -1,0 +1,14 @@
+# Template for Codex MCP configuration
+# Replace the placeholder command or endpoint when the Pclika bridge is implemented.
+
+[mcp_servers.pclikaPlatform]
+command = "node"
+args = ["bridge/mcp-server/index.js"]
+enabled = false
+startup_timeout_sec = 15
+tool_timeout_sec = 60
+
+# Optional future HTTP variant:
+# [mcp_servers.pclikaPlatform]
+# url = "https://REPLACE-WITH-PCLIKA-MCP-ENDPOINT"
+# enabled = false

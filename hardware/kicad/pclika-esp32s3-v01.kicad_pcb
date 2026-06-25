@@ -158,7 +158,7 @@
     (property "Reference" "H1" (at 0 -3.2) (layer "F.SilkS") (uuid "ce232616-3b3f-4f44-90c7-b0ab27ea493f") (effects (font (size 1 1) (thickness 0.15))))
     (property "Value" "MountingHole_2.5" (at 0 3.2) (layer "F.Fab") (uuid "3c2646b5-8041-487e-91ca-ded852ea8e70") (effects (font (size 1 1) (thickness 0.15))))
     (pad "" thru_hole circle (at 0 0) (size 2.7 2.7) (drill 2.5) (layers "*.Cu" "*.Mask") (uuid "a5899591-3663-4e4f-ae5d-398a72353c01"))
-    (gr_circle (center 0 0) (end 2.8 0) (stroke (width 0.05) (type solid)) (layer "F.CrtYd") (uuid "a7f66e78-7ad9-47ce-8172-d4787d958908"))
+    (fp_circle (center 0 0) (end 2.8 0) (stroke (width 0.05) (type solid)) (layer "F.CrtYd") (uuid "a7f66e78-7ad9-47ce-8172-d4787d958908"))
   )
   (footprint "MountingHole:MountingHole_2.7mm_M2.5"
     (layer "F.Cu")
@@ -169,7 +169,7 @@
     (property "Reference" "H2" (at 0 -3.2) (layer "F.SilkS") (uuid "38bfae1c-cd15-46e9-9855-41c359a0ec4c") (effects (font (size 1 1) (thickness 0.15))))
     (property "Value" "MountingHole_2.5" (at 0 3.2) (layer "F.Fab") (uuid "e0a9c208-2aff-43e1-8d37-2ed0fc4d1c2f") (effects (font (size 1 1) (thickness 0.15))))
     (pad "" thru_hole circle (at 0 0) (size 2.7 2.7) (drill 2.5) (layers "*.Cu" "*.Mask") (uuid "e79c2333-39fc-4412-8ed2-6eeba5abb1be"))
-    (gr_circle (center 0 0) (end 2.8 0) (stroke (width 0.05) (type solid)) (layer "F.CrtYd") (uuid "10af705b-9e70-4c90-8df8-c634392b95ec"))
+    (fp_circle (center 0 0) (end 2.8 0) (stroke (width 0.05) (type solid)) (layer "F.CrtYd") (uuid "10af705b-9e70-4c90-8df8-c634392b95ec"))
   )
   (footprint "MountingHole:MountingHole_2.7mm_M2.5"
     (layer "F.Cu")
@@ -180,7 +180,7 @@
     (property "Reference" "H3" (at 0 -3.2) (layer "F.SilkS") (uuid "a71e262b-cedf-484c-8fd3-2439ad108682") (effects (font (size 1 1) (thickness 0.15))))
     (property "Value" "MountingHole_2.5" (at 0 3.2) (layer "F.Fab") (uuid "d9d9f1ba-57d3-4d9a-98f0-d41ad87e3769") (effects (font (size 1 1) (thickness 0.15))))
     (pad "" thru_hole circle (at 0 0) (size 2.7 2.7) (drill 2.5) (layers "*.Cu" "*.Mask") (uuid "b8ea6c7f-54cd-4661-95f1-e7f75cbd09c6"))
-    (gr_circle (center 0 0) (end 2.8 0) (stroke (width 0.05) (type solid)) (layer "F.CrtYd") (uuid "e7f36484-1162-4c0b-9ce7-9d029d0a0696"))
+    (fp_circle (center 0 0) (end 2.8 0) (stroke (width 0.05) (type solid)) (layer "F.CrtYd") (uuid "e7f36484-1162-4c0b-9ce7-9d029d0a0696"))
   )
   (footprint "MountingHole:MountingHole_2.7mm_M2.5"
     (layer "F.Cu")
@@ -191,7 +191,7 @@
     (property "Reference" "H4" (at 0 -3.2) (layer "F.SilkS") (uuid "b3e78f27-15b8-403e-9fca-7668c44c9d84") (effects (font (size 1 1) (thickness 0.15))))
     (property "Value" "MountingHole_2.5" (at 0 3.2) (layer "F.Fab") (uuid "953fc6e3-894e-4b25-bc8e-811fb343e934") (effects (font (size 1 1) (thickness 0.15))))
     (pad "" thru_hole circle (at 0 0) (size 2.7 2.7) (drill 2.5) (layers "*.Cu" "*.Mask") (uuid "3f6d388a-fc53-45d8-9b30-dce5a549ede2"))
-    (gr_circle (center 0 0) (end 2.8 0) (stroke (width 0.05) (type solid)) (layer "F.CrtYd") (uuid "b3507dbc-e2ff-48e7-8b33-89988ab53694"))
+    (fp_circle (center 0 0) (end 2.8 0) (stroke (width 0.05) (type solid)) (layer "F.CrtYd") (uuid "b3507dbc-e2ff-48e7-8b33-89988ab53694"))
   )
 
   (zone

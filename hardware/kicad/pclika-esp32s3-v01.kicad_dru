@@ -1,0 +1,36 @@
+(rules
+  (version 1)
+  (rule "Default clearance"
+    (constraint clearance (min 0.15mm))
+  )
+  (rule "Power net clearance"
+    (constraint clearance (min 0.2mm))
+    (condition "A.NetClass == 'Power'")
+  )
+  (rule "USB differential pair"
+    (constraint diff_pair_gap (min 0.15mm) (opt 0.15mm) (max 0.2mm))
+    (constraint diff_pair_max_uncoupled_length (max 1mm))
+    (condition "A.NetClass == 'USB_Diff'")
+  )
+  (rule "Min track width"
+    (constraint track_width (min 0.15mm))
+  )
+  (rule "Power track width"
+    (constraint track_width (min 0.5mm))
+    (condition "A.NetClass == 'Power'")
+  )
+  (rule "Min via"
+    (constraint via_diameter (min 0.5mm))
+    (constraint hole_size (min 0.3mm))
+  )
+  (rule "Min hole to hole"
+    (constraint hole_to_hole (min 0.25mm))
+  )
+  (rule "ESP32 keepout — antenna"
+    (constraint disallow copper track via pad)
+    (condition "A.insideCourtyard('U1') && A.Layer == 'F.Cu'")
+  )
+  (rule "Edge clearance"
+    (constraint edge_clearance (min 0.3mm))
+  )
+)

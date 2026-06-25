@@ -13,8 +13,6 @@
     (comment 3 "Contact: starinvc@gmail.com")
   )
   (lib_symbols)
-  (bus_alias)
-  ;;; === BLOCK A: USB-C + ESD + Polyfuse ===
 (symbol (lib_id "Connector:USB_C_Receptacle_USB2.0_14P") (at 25 45 0) (unit 1)
   (in_bom yes) (on_board yes) (uuid "2e123a69-209f-4a9d-ac10-deea9f15161c")
       (property "Reference" "J1" (at 25 41.5 0)
@@ -132,7 +130,6 @@
     (path "/aa334982-7a2e-4320-9e69-9cbe6f0fb26f" (reference "D1") (unit 1))
   ))
 )
-  ;;; === BLOCK B: AMS1117-3.3 LDO ===
 (symbol (lib_id "Regulator_Linear:AMS1117-3.3") (at 105 35 0) (unit 1)
   (in_bom yes) (on_board yes) (uuid "38553a3b-b476-4c9a-99bc-27baadb80b4e")
       (property "Reference" "U2" (at 105 31.5 0)
@@ -266,7 +263,6 @@
     (path "/bd3a499c-15a1-445a-9284-9ec7f767f42b" (reference "R3") (unit 1))
   ))
 )
-  ;;; === BLOCK C: CH340C USB-UART Bridge ===
 (symbol (lib_id "Interface_USB:CH340C") (at 185 50 0) (unit 1)
   (in_bom yes) (on_board yes) (uuid "9787e580-572d-44b0-a63a-9f026123926e")
       (property "Reference" "U4" (at 185 46.5 0)
@@ -381,7 +377,6 @@
     (path "/c53022a9-9240-4bd4-af0b-19dba772ab86" (reference "R4") (unit 1))
   ))
 )
-  ;;; === BLOCK D: ESP32-S3-WROOM-1 Module ===
 (symbol (lib_id "MCU_Espressif:ESP32-S3-WROOM-1") (at 140 148 0) (unit 1)
   (in_bom yes) (on_board yes) (uuid "702626e6-080e-4bfb-ad59-23cb313ba796")
       (property "Reference" "U1" (at 140 144.5 0)
@@ -486,7 +481,6 @@
     (path "/fb787811-6872-417b-a73d-8b4a00f632dd" (reference "C8") (unit 1))
   ))
 )
-  ;;; === BLOCK E: Buttons, LEDs ===
 (symbol (lib_id "Device:SW_Push") (at 230 95 0) (unit 1)
   (in_bom yes) (on_board yes) (uuid "d3012c49-8657-4d6a-bdc4-ecce4e380061")
       (property "Reference" "SW1" (at 230 91.5 0)
@@ -715,7 +709,6 @@
     (path "/7ea29832-f0bb-4d47-a064-a62fb5265931" (reference "R13") (unit 1))
   ))
 )
-  ;;; === BLOCK F: Expansion Connectors ===
 (symbol (lib_id "Connector_JST:JST_SH_SM04B-SRSS-TB_1x04-1MP_P1.00mm_Horizontal") (at 30 225 0) (unit 1)
   (in_bom yes) (on_board yes) (uuid "b3c32a78-9374-4383-b295-c04f46ab08b8")
       (property "Reference" "J2" (at 30 221.5 0)
@@ -996,7 +989,6 @@
     (path "/09d96d3b-f9ee-420b-85b3-f36d4ab82f9b" (reference "J11") (unit 1))
   ))
 )
-  ;;; === Power rails ===
 (symbol (lib_id "power:+5V") (at 27 20 0) (unit 1)
   (in_bom yes) (on_board yes) (uuid "a7de4257-dcb8-4c7b-99b6-9e9accf826a2")
       (property "Reference" "#PWR001" (at 27 17.5 0)
@@ -1273,7 +1265,6 @@
     (path "/0f8bee3a-2d86-4a74-bd33-c392cb95063c" (reference "#PWR005") (unit 1))
   ))
 )
-  ;;; === Net labels — USB signals ===
   (net_label (text "USB_D+") (at 35 30 0)
     (fields_autoplaced yes)
     (effects (font (size 1.27 1.27)) (justify right))
@@ -1299,7 +1290,6 @@
     (effects (font (size 1.27 1.27)) (justify right))
     (uuid "44198bdc-146d-4633-931a-d469a91b8af4")
   )
-  ;;; === Net labels — UART / download ===
   (net_label (text "UART0_TX") (at 175 48 0)
     (fields_autoplaced yes)
     (effects (font (size 1.27 1.27)) (justify right))
@@ -1330,7 +1320,6 @@
     (effects (font (size 1.27 1.27)) (justify right))
     (uuid "400be2a2-4f32-4656-a797-9c8383ec943a")
   )
-  ;;; === Net labels — ESP32-S3 GPIO ===
   (net_label (text "I2C_SDA") (at 88 105 0)
     (fields_autoplaced yes)
     (effects (font (size 1.27 1.27)) (justify right))
@@ -1446,7 +1435,6 @@
     (effects (font (size 1.27 1.27)) (justify right))
     (uuid "a8205a47-9768-48b9-862c-909bb928267b")
   )
-  ;;; === Net labels — connector buses ===
   (net_label (text "I2C_SDA") (at 32 222 0)
     (fields_autoplaced yes)
     (effects (font (size 1.27 1.27)) (justify right))

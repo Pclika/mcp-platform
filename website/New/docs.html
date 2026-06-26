@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Docs — Pclika MCP Platform</title>
+    <meta name="description" content="Pclika documentation — quickstart, API reference, MCP tool schemas, firmware guides, prompt templates, and troubleshooting." />
+    <meta property="og:title" content="Docs — Pclika MCP Platform" />
+    <meta property="og:description" content="Everything you need to connect AI tools to real hardware. Quickstart in 5 minutes." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://pclika.com/docs" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="canonical" href="https://pclika.com/docs" />
+    <link rel="icon" type="image/svg+xml" href="ico.svg" />
+    <link rel="stylesheet" href="https://use.typekit.net/upd0woi.css" />
+    <link rel="stylesheet" href="css/base.css" />
+    <style>
+      :root { --teal: #00C8A0; --copper: #C87941; }
+
+      body { text-transform: none; font-size: 14px; line-height: 1.7; }
+
+      .page-nav {
+        position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+        padding: 1rem 1.5rem;
+        display: flex; justify-content: space-between; align-items: center;
+        background: rgba(0,0,0,0.92); backdrop-filter: blur(8px);
+        border-bottom: 1px solid #1a1a1a;
+      }
+      .page-nav a { text-transform: uppercase; font-size: 0.85rem; }
+      .page-nav .nav-links { display: flex; gap: 2rem; }
+      .logo-mark { font-family: 'lores-12', sans-serif; font-size: 1.4rem; }
+
+      .hero {
+        padding: 160px 1.5rem 60px;
+        max-width: 1100px; margin: 0 auto;
+      }
+      .hero-label {
+        font-size: 0.8rem; text-transform: uppercase;
+        letter-spacing: 0.15em; color: var(--teal); margin-bottom: 1.5rem;
+      }
+      .hero h1 {
+        font-family: 'lores-12', sans-serif;
+        font-size: clamp(2rem, 6vw, 4rem);
+        line-height: 1.1; margin: 0 0 1.5rem; text-transform: uppercase;
+      }
+      .hero p { font-size: 1.1rem; opacity: 0.6; max-width: 680px; }
+
+      /* Search bar */
+      .search-bar {
+        max-width: 1100px; margin: 0 auto;
+        padding: 0 1.5rem 3rem;
+      }
+      .search-input {
+        width: 100%; max-width: 520px;
+        background: #0a0a0a; border: 1px solid #2a2a2a;
+        color: #fff; padding: 0.9rem 1.2rem;
+        font-family: 'forma-djr-mono', monospace; font-size: 0.9rem;
+        border-radius: 0; outline: none;
+      }
+      .search-input::placeholder { opacity: 0.35; }
+      .search-input:focus { border-color: var(--teal); }
+
+      /* Layout */
+      .docs-layout {
+        max-width: 1100px; margin: 0 auto;
+        padding: 0 1.5rem;
+        display: grid;
+        grid-template-columns: 220px 1fr;
+        gap: 4rem; align-items: start;
+      }
+      @media (max-width: 720px) {
+        .docs-layout { grid-template-columns: 1fr; }
+        .docs-sidebar { display: none; }
+      }
+
+      /* Sidebar */
+      .docs-sidebar { position: sticky; top: 80px; }
+      .sidebar-section { margin-bottom: 2rem; }
+      .sidebar-title {
+        font-size: 0.7rem; text-transform: uppercase;
+        letter-spacing: 0.15em; color: var(--teal);
+        margin-bottom: 0.8rem; padding-bottom: 0.5rem;
+        border-bottom: 1px solid #111;
+      }
+      .sidebar-links { display: flex; flex-direction: column; gap: 0.4rem; }
+      .sidebar-links a {
+        font-size: 0.82rem; opacity: 0.55; padding: 0.15rem 0;
+        transition: opacity 0.15s;
+      }
+      .sidebar-links a:hover { opacity: 1; }
+      .sidebar-links a.active { opacity: 1; color: var(--teal); }
+
+      /* Doc cards */
+      .doc-section { margin-bottom: 4rem; }
+      .doc-section-label {
+        font-size: 0.75rem; text-transform: uppercase;
+        letter-spacing: 0.2em; color: var(--teal);
+        margin-bottom: 1.5rem; padding-bottom: 0.8rem;
+        border-bottom: 1px solid #111;
+      }
+      .doc-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 1px; background: #111;
+        border: 1px solid #111; margin-bottom: 2rem;
+      }
+      .doc-card {
+        background: #000; padding: 1.5rem;
+        display: flex; flex-direction: column; gap: 0.6rem;
+        transition: background 0.2s; text-decoration: none !important; color: inherit;
+      }
+      .doc-card:hover { background: #080808; text-decoration: none; }
+      .doc-card-icon { font-size: 1.4rem; opacity: 0.6; }
+      .doc-card-title { font-size: 0.95rem; font-weight: 500; }
+      .doc-card-desc { font-size: 0.82rem; opacity: 0.45; line-height: 1.6; }
+      .doc-card-tag {
+        font-size: 0.7rem; text-transform: uppercase;
+        letter-spacing: 0.1em; margin-top: auto; padding-top: 0.8rem;
+        border-top: 1px solid #0f0f0f; opacity: 0.3;
+      }
+
+      /* Quickstart inline */
+      .quickstart-box {
+        border: 1px solid #1a1a1a; padding: 2.5rem;
+        background: #050505; margin-bottom: 2rem;
+      }
+      .qs-title {
+        font-family: 'lores-12', sans-serif;
+        font-size: 1.1rem; text-transform: uppercase; margin: 0 0 1.5rem;
+      }
+      .qs-steps { display: flex; flex-direction: column; gap: 0; }
+      .qs-step {
+        display: grid; grid-template-columns: 24px 1fr;
+        gap: 1rem; padding: 1rem 0;
+        border-bottom: 1px solid #0f0f0f;
+      }
+      .qs-step:last-child { border-bottom: none; }
+      .qs-step-n {
+        font-size: 0.7rem; opacity: 0.25;
+        font-family: 'forma-djr-mono', monospace; padding-top: 0.1rem;
+      }
+      .qs-step-label { font-size: 0.85rem; margin-bottom: 0.4rem; }
+      .qs-code {
+        font-family: 'forma-djr-mono', monospace; font-size: 0.8rem;
+        color: var(--teal); background: rgba(0,200,160,0.05);
+        padding: 0.4rem 0.8rem; border-radius: 3px;
+        display: block; white-space: pre-wrap; word-break: break-all;
+        margin-top: 0.3rem;
+      }
+      .qs-note { font-size: 0.78rem; opacity: 0.38; margin-top: 0.2rem; }
+
+      /* Tool reference table */
+      .tool-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+      .tool-table th {
+        text-align: left; padding: 0.6rem 0.8rem;
+        font-size: 0.7rem; text-transform: uppercase;
+        letter-spacing: 0.1em; opacity: 0.4;
+        border-bottom: 1px solid #111;
+      }
+      .tool-table td {
+        padding: 0.7rem 0.8rem; border-bottom: 1px solid #0d0d0d;
+        vertical-align: top;
+      }
+      .tool-table tr:last-child td { border-bottom: none; }
+      .tool-name {
+        font-family: 'forma-djr-mono', monospace;
+        color: var(--teal); font-size: 0.82rem;
+      }
+
+      .footnote {
+        max-width: 1100px; margin: 0 auto;
+        padding: 2rem 1.5rem 5rem;
+        border-top: 1px solid #111;
+        font-size: 0.8rem; opacity: 0.35;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="page-nav">
+      <a class="logo-mark" href="index.html">Pclika</a>
+      <div class="nav-links">
+            <a href="platform.html">Platform</a>
+            <a href="hardware.html">Hardware</a>
+            <a href="modules.html">Modules</a>
+            <a href="examples.html">Examples</a>
+            <a href="kits.html">Kits</a>
+            <a href="docs.html">Docs</a>
+            <a href="b2b.html">B2B</a>
+            <a href="https://github.com/Pclika/mcp-platform" target="_blank" rel="noreferrer">GitHub</a>
+          </div>
+    </nav>
+
+    <main>
+      <div class="hero">
+        <div class="hero-label">Documentation · PCK-MMXXVI-C4A32096</div>
+        <h1>From zero to<br>first tool call<br>in 5 minutes.</h1>
+        <p>
+          Complete reference for the Pclika MCP Platform — bridge setup, firmware,
+          tool schemas, prompt templates, and troubleshooting.
+        </p>
+      </div>
+
+      <div class="search-bar">
+        <input class="search-input" type="text" placeholder="Search docs… (e.g. sensor_read, flash, CMakeLists)" id="doc-search" />
+      </div>
+
+      <div class="docs-layout">
+        <!-- Sidebar -->
+        <aside class="docs-sidebar">
+          <div class="sidebar-section">
+            <div class="sidebar-title">Getting Started</div>
+            <div class="sidebar-links">
+              <a href="#quickstart" class="active">Quickstart</a>
+              <a href="#requirements">Requirements</a>
+              <a href="#install-bridge">Install bridge</a>
+              <a href="#flash">Flash firmware</a>
+            </div>
+          </div>
+          <div class="sidebar-section">
+            <div class="sidebar-title">Reference</div>
+            <div class="sidebar-links">
+              <a href="#tool-reference">MCP Tool Reference</a>
+              <a href="#schemas">Tool Schemas</a>
+              <a href="#protocol">Protocol</a>
+              <a href="#configs">Client Configs</a>
+            </div>
+          </div>
+          <div class="sidebar-section">
+            <div class="sidebar-title">Guides</div>
+            <div class="sidebar-links">
+              <a href="#sensors">Sensor Drivers</a>
+              <a href="#displays">Display Drivers</a>
+              <a href="#examples">Example Projects</a>
+              <a href="#prompts">Prompt Templates</a>
+            </div>
+          </div>
+          <div class="sidebar-section">
+            <div class="sidebar-title">Help</div>
+            <div class="sidebar-links">
+              <a href="#troubleshooting">Troubleshooting</a>
+              <a href="https://github.com/Pclika/mcp-platform/issues" target="_blank">GitHub Issues</a>
+              <a href="b2b.html">Enterprise support</a>
+            </div>
+          </div>
+        </aside>
+
+        <!-- Main content -->
+        <div class="docs-main">
+
+          <!-- QUICKSTART -->
+          <div class="doc-section" id="quickstart">
+            <div class="doc-section-label">Quickstart — 5 minutes</div>
+            <div class="quickstart-box">
+              <div class="qs-title">Connect AI to hardware</div>
+              <div class="qs-steps">
+                <div class="qs-step">
+                  <div class="qs-step-n">1</div>
+                  <div>
+                    <div class="qs-step-label">Install the Python bridge</div>
+                    <code class="qs-code">pip install ./bridge/mcp-server</code>
+                    <div class="qs-note">Requires Python 3.10+ and pyserial</div>
+                  </div>
+                </div>
+                <div class="qs-step">
+                  <div class="qs-step-n">2</div>
+                  <div>
+                    <div class="qs-step-label">Clone and flash the firmware</div>
+                    <code class="qs-code">git clone https://github.com/Pclika/mcp-platform
+cd mcp-platform/examples/hello-mcp
+idf.py set-target esp32s3
+idf.py build flash monitor</code>
+                    <div class="qs-note">Requires ESP-IDF v5.x installed</div>
+                  </div>
+                </div>
+                <div class="qs-step">
+                  <div class="qs-step-n">3</div>
+                  <div>
+                    <div class="qs-step-label">Register the MCP server in Claude Code</div>
+                    <code class="qs-code">claude mcp add pclika-bridge -- pclika-bridge --port /dev/ttyUSB0</code>
+                    <div class="qs-note">On Windows: --port COM3   On macOS: --port /dev/cu.usbserial-*</div>
+                  </div>
+                </div>
+                <div class="qs-step">
+                  <div class="qs-step-n">4</div>
+                  <div>
+                    <div class="qs-step-label">Verify the connection</div>
+                    <code class="qs-code">device_info()</code>
+                    <div class="qs-note">Returns board ID, FW version, seal, and capabilities list</div>
+                  </div>
+                </div>
+                <div class="qs-step">
+                  <div class="qs-step-n">5</div>
+                  <div>
+                    <div class="qs-step-label">Read your first sensor</div>
+                    <code class="qs-code">sensor_read(sensor_id="temp_humidity")</code>
+                    <div class="qs-note">→ { value: 24.3, unit: "°C", timestamp_ms: 12840 }</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p style="font-size:.85rem;opacity:.45;">
+              Full quickstart with screenshots: <a href="https://github.com/Pclika/mcp-platform/blob/main/docs/quickstart.md" target="_blank">docs/quickstart.md</a>
+            </p>
+          </div>
+
+          <!-- TOOL REFERENCE -->
+          <div class="doc-section" id="tool-reference">
+            <div class="doc-section-label">MCP Tool Reference</div>
+            <table class="tool-table">
+              <thead>
+                <tr>
+                  <th>Tool</th>
+                  <th>Required params</th>
+                  <th>Returns</th>
+                  <th>Schema</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><span class="tool-name">device_info</span></td><td>—</td><td>board_id, fw_version, capabilities</td><td>base</td></tr>
+                <tr><td><span class="tool-name">sensor_read</span></td><td>sensor_id</td><td>value, unit, timestamp_ms</td><td>base</td></tr>
+                <tr><td><span class="tool-name">display_text</span></td><td>text</td><td>ok, lines_written</td><td>base</td></tr>
+                <tr><td><span class="tool-name">servo_move</span></td><td>angle</td><td>ok, channel, angle, duration_ms</td><td>base</td></tr>
+                <tr><td><span class="tool-name">led_control</span></td><td>state</td><td>ok, state</td><td>base</td></tr>
+                <tr><td><span class="tool-name">button_read</span></td><td>—</td><td>pressed, press_count</td><td>base</td></tr>
+                <tr><td><span class="tool-name">wifi_scan</span></td><td>—</td><td>networks[], count, scan_time_ms</td><td>base</td></tr>
+                <tr><td><span class="tool-name">gpio_read</span></td><td>pin</td><td>pin, level, pull</td><td>base</td></tr>
+                <tr><td><span class="tool-name">gpio_write</span></td><td>pin, level</td><td>ok, pin, level</td><td>base</td></tr>
+                <tr><td><span class="tool-name">serial_log_read</span></td><td>—</td><td>lines[], count</td><td>base</td></tr>
+                <tr><td><span class="tool-name">firmware_version</span></td><td>—</td><td>version, idf_version, seal</td><td>base</td></tr>
+                <tr><td><span class="tool-name">env_read</span></td><td>—</td><td>temperature_c, humidity_pct, pressure_hpa</td><td>sensor</td></tr>
+                <tr><td><span class="tool-name">imu_read</span></td><td>—</td><td>accel{x,y,z}, gyro{x,y,z}</td><td>sensor</td></tr>
+                <tr><td><span class="tool-name">distance_read</span></td><td>—</td><td>distance_mm, valid</td><td>sensor</td></tr>
+                <tr><td><span class="tool-name">light_read</span></td><td>—</td><td>lux, raw</td><td>sensor</td></tr>
+                <tr><td><span class="tool-name">camera_capture</span></td><td>—</td><td>base64 JPEG, width, height</td><td>vision</td></tr>
+                <tr><td><span class="tool-name">camera_status</span></td><td>—</td><td>initialized, sensor_model, fps</td><td>vision</td></tr>
+                <tr><td><span class="tool-name">modbus_read</span></td><td>slave_id, function, address, count</td><td>values[], ok</td><td>industrial</td></tr>
+                <tr><td><span class="tool-name">relay_set</span></td><td>channel, state</td><td>ok, all_states</td><td>industrial</td></tr>
+                <tr><td><span class="tool-name">adc_read_multi</span></td><td>channels[]</td><td>readings[{ch, raw, voltage}]</td><td>industrial</td></tr>
+                <tr><td><span class="tool-name">servo_sweep</span></td><td>—</td><td>ok, mode</td><td>motion</td></tr>
+                <tr><td><span class="tool-name">motor_set</span></td><td>channel, speed, direction</td><td>ok</td><td>motion</td></tr>
+                <tr><td><span class="tool-name">stepper_move</span></td><td>steps</td><td>ok, steps_moved, position_steps</td><td>motion</td></tr>
+              </tbody>
+            </table>
+            <p style="font-size:.82rem;opacity:.4;margin-top:1rem;">
+              Full schema with inputSchema + outputSchema:
+              <a href="https://github.com/Pclika/mcp-platform/tree/main/bridge/tool-schemas" target="_blank">bridge/tool-schemas/</a>
+            </p>
+          </div>
+
+          <!-- DOC CARDS -->
+          <div class="doc-section" id="guides">
+            <div class="doc-section-label">Guides & References</div>
+            <div class="doc-grid">
+              <a class="doc-card" href="https://github.com/Pclika/mcp-platform/blob/main/docs/quickstart.md" target="_blank">
+                <div class="doc-card-icon">⚡</div>
+                <div class="doc-card-title">Quickstart Guide</div>
+                <div class="doc-card-desc">Install → flash → first tool call. Covers all four AI clients.</div>
+                <div class="doc-card-tag">docs/quickstart.md</div>
+              </a>
+              <a class="doc-card" href="https://github.com/Pclika/mcp-platform/blob/main/docs/api-reference.md" target="_blank">
+                <div class="doc-card-icon">📖</div>
+                <div class="doc-card-title">API Reference</div>
+                <div class="doc-card-desc">Complete tool schema listing — inputs, outputs, types, constraints.</div>
+                <div class="doc-card-tag">docs/api-reference.md</div>
+              </a>
+              <a class="doc-card" href="https://github.com/Pclika/mcp-platform/blob/main/docs/troubleshooting.md" target="_blank">
+                <div class="doc-card-icon">🔧</div>
+                <div class="doc-card-title">Troubleshooting</div>
+                <div class="doc-card-desc">Serial port errors, tool not found, firmware crash, CRC failures.</div>
+                <div class="doc-card-tag">docs/troubleshooting.md</div>
+              </a>
+              <a class="doc-card" href="https://github.com/Pclika/mcp-platform/tree/main/prompts" target="_blank">
+                <div class="doc-card-icon">🤖</div>
+                <div class="doc-card-title">Prompt Templates</div>
+                <div class="doc-card-desc">ESP32 system context, sensor debugging, firmware review prompts.</div>
+                <div class="doc-card-tag">prompts/</div>
+              </a>
+              <a class="doc-card" href="https://github.com/Pclika/mcp-platform/tree/main/configs/mcp" target="_blank">
+                <div class="doc-card-icon">⚙️</div>
+                <div class="doc-card-title">Client Configs</div>
+                <div class="doc-card-desc">Ready-made MCP configs for Cursor, VS Code, Claude Code, Codex, OpenCode.</div>
+                <div class="doc-card-tag">configs/mcp/</div>
+              </a>
+              <a class="doc-card" href="https://github.com/Pclika/mcp-platform/tree/main/firmware/esp-idf/components" target="_blank">
+                <div class="doc-card-icon">📦</div>
+                <div class="doc-card-title">Firmware Components</div>
+                <div class="doc-card-desc">pclika_runtime + pclika_bridge ESP-IDF component reference.</div>
+                <div class="doc-card-tag">firmware/esp-idf/components/</div>
+              </a>
+            </div>
+          </div>
+
+          <!-- EXAMPLES -->
+          <div class="doc-section" id="examples">
+            <div class="doc-section-label">Example Projects</div>
+            <div class="doc-grid">
+              <a class="doc-card" href="https://github.com/Pclika/mcp-platform/tree/main/examples/hello-mcp" target="_blank">
+                <div class="doc-card-title">hello-mcp</div>
+                <div class="doc-card-desc">Board identity + LED blink. The "hello world" of MCP hardware.</div>
+                <div class="doc-card-tag">examples/hello-mcp/</div>
+              </a>
+              <a class="doc-card" href="https://github.com/Pclika/mcp-platform/tree/main/examples/env-monitor" target="_blank">
+                <div class="doc-card-title">env-monitor</div>
+                <div class="doc-card-desc">DHT22 sensor with FreeRTOS task. Demonstrates sensor_read + display_text.</div>
+                <div class="doc-card-tag">examples/env-monitor/</div>
+              </a>
+              <a class="doc-card" href="https://github.com/Pclika/mcp-platform/tree/main/examples/servo-control" target="_blank">
+                <div class="doc-card-title">servo-control</div>
+                <div class="doc-card-desc">4-channel servo sweep with MCP tool handlers and Python demo.</div>
+                <div class="doc-card-tag">examples/servo-control/</div>
+              </a>
+              <a class="doc-card" href="https://github.com/Pclika/mcp-platform/tree/main/examples/wifi-scanner" target="_blank">
+                <div class="doc-card-title">wifi-scanner</div>
+                <div class="doc-card-desc">ESP32 AP scan returning structured JSON via wifi_scan tool.</div>
+                <div class="doc-card-tag">examples/wifi-scanner/</div>
+              </a>
+              <a class="doc-card" href="https://github.com/Pclika/mcp-platform/tree/main/examples/vision-snapshot" target="_blank">
+                <div class="doc-card-title">vision-snapshot</div>
+                <div class="doc-card-desc">OV2640 JPEG capture returned as Base64 via camera_capture.</div>
+                <div class="doc-card-tag">examples/vision-snapshot/</div>
+              </a>
+              <a class="doc-card" href="https://github.com/Pclika/mcp-platform/tree/main/examples/industrial-gateway" target="_blank">
+                <div class="doc-card-title">industrial-gateway</div>
+                <div class="doc-card-desc">Modbus RTU, 8-ch relay, ADC, digital I/O via 5 MCP tools.</div>
+                <div class="doc-card-tag">examples/industrial-gateway/</div>
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="footnote">
+        Pclika MCP Platform Documentation · Apache-2.0 · Seal: PCK-MMXXVI-C4A32096
+      </div>
+    </main>
+
+    <script>
+      // Simple client-side search — highlights matching cards
+      document.getElementById('doc-search').addEventListener('input', function() {
+        const q = this.value.toLowerCase().trim();
+        if (!q) {
+          document.querySelectorAll('.doc-card, .tool-table tr').forEach(el => el.style.opacity = '');
+          return;
+        }
+        document.querySelectorAll('.doc-card').forEach(card => {
+          card.style.opacity = card.textContent.toLowerCase().includes(q) ? '1' : '0.2';
+        });
+        document.querySelectorAll('.tool-table tbody tr').forEach(row => {
+          row.style.opacity = row.textContent.toLowerCase().includes(q) ? '1' : '0.15';
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,121 @@
+{
+  "schema_version": "0.1.0",
+  "platform": "pclika-motion",
+  "mcp_server": "pclikaPlatform",
+  "seal": "PCK-MMXXVI-C4A32096",
+  "description": "Motion control tools — servo, DC motor, stepper",
+  "tools": [
+    {
+      "name": "servo_read",
+      "description": "Read the current angle and motion state of a servo channel.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "channel": { "type": "integer", "default": 0, "minimum": 0, "maximum": 15 }
+        },
+        "required": []
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "channel":       { "type": "integer" },
+          "angle":         { "type": "number",  "description": "Current angle in degrees." },
+          "target_angle":  { "type": "number",  "description": "Target angle being moved to." },
+          "moving":        { "type": "boolean", "description": "True if currently sweeping." },
+          "pulse_us":      { "type": "integer", "description": "Current PWM pulse width in microseconds." }
+        },
+        "required": ["channel", "angle", "moving"]
+      }
+    },
+    {
+      "name": "servo_sweep",
+      "description": "Sweep a servo back and forth between two angles continuously. Call servo_stop to halt.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "channel":    { "type": "integer", "default": 0 },
+          "angle_min":  { "type": "number",  "description": "Minimum angle. Default: 0.", "default": 0 },
+          "angle_max":  { "type": "number",  "description": "Maximum angle. Default: 180.", "default": 180 },
+          "speed":      { "type": "integer", "description": "Sweep speed 1–100. Default: 50.", "default": 50 }
+        },
+        "required": []
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "ok":      { "type": "boolean" },
+          "channel": { "type": "integer" },
+          "mode":    { "type": "string", "enum": ["sweep"] }
+        },
+        "required": ["ok"]
+      }
+    },
+    {
+      "name": "servo_stop",
+      "description": "Stop an active servo sweep and hold position.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "channel": { "type": "integer", "default": 0 }
+        },
+        "required": []
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "ok":      { "type": "boolean" },
+          "channel": { "type": "integer" },
+          "angle":   { "type": "number", "description": "Angle held at stop." }
+        },
+        "required": ["ok"]
+      }
+    },
+    {
+      "name": "motor_set",
+      "description": "Set DC motor speed and direction (TB6612FNG or equivalent driver).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "channel":    { "type": "integer", "description": "Motor channel (0 or 1 for dual driver).", "default": 0, "minimum": 0, "maximum": 1 },
+          "speed":      { "type": "integer", "description": "Speed 0–255 (duty cycle).", "minimum": 0, "maximum": 255 },
+          "direction":  { "type": "string",  "enum": ["forward", "reverse", "brake", "coast"], "description": "Motor direction." }
+        },
+        "required": ["channel", "speed", "direction"]
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "ok":        { "type": "boolean" },
+          "channel":   { "type": "integer" },
+          "speed":     { "type": "integer" },
+          "direction": { "type": "string" }
+        },
+        "required": ["ok"]
+      }
+    },
+    {
+      "name": "stepper_move",
+      "description": "Move a stepper motor a specified number of steps (A4988/DRV8825 driver).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "channel":   { "type": "integer", "default": 0 },
+          "steps":     { "type": "integer", "description": "Number of steps. Positive = forward, negative = reverse." },
+          "speed_rpm": { "type": "number",  "description": "Rotation speed in RPM. Default: 60.", "default": 60 },
+          "microstepping": { "type": "integer", "enum": [1, 2, 4, 8, 16, 32], "default": 1, "description": "Microstepping mode." }
+        },
+        "required": ["steps"]
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "ok":            { "type": "boolean" },
+          "steps_moved":   { "type": "integer" },
+          "duration_ms":   { "type": "integer" },
+          "position_steps":{ "type": "integer", "description": "Absolute position in steps since last home." }
+        },
+        "required": ["ok", "steps_moved"]
+      }
+    }
+  ]
+}

@@ -1,0 +1,137 @@
+{
+  "schema_version": "0.1.0",
+  "platform": "pclika-sensor",
+  "mcp_server": "pclikaPlatform",
+  "seal": "PCK-MMXXVI-C4A32096",
+  "description": "Extended sensor tools — environment, IMU, distance, air quality",
+  "tools": [
+    {
+      "name": "env_read",
+      "description": "Read temperature, humidity, and optionally pressure from an environmental sensor (DHT22, SHT31, BME280).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "sensor_id": { "type": "string", "description": "Sensor ID. Options: 'dht22', 'sht31', 'bme280'. Default: auto-detect.", "default": "auto" },
+          "channel":   { "type": "integer", "default": 0 }
+        },
+        "required": []
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "temperature_c":  { "type": "number", "description": "Temperature in °C." },
+          "humidity_pct":   { "type": "number", "description": "Relative humidity in %." },
+          "pressure_hpa":   { "type": ["number", "null"], "description": "Pressure in hPa. Null if sensor doesn't support it." },
+          "dew_point_c":    { "type": ["number", "null"], "description": "Calculated dew point in °C." },
+          "sensor_id":      { "type": "string" },
+          "timestamp_ms":   { "type": "integer" }
+        },
+        "required": ["temperature_c", "humidity_pct", "sensor_id"]
+      }
+    },
+    {
+      "name": "imu_read",
+      "description": "Read 6-axis IMU data (accelerometer + gyroscope) from MPU6050 or compatible sensor.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "channel": { "type": "integer", "default": 0 },
+          "include_temp": { "type": "boolean", "description": "Include die temperature reading. Default: false.", "default": false }
+        },
+        "required": []
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "accel": {
+            "type": "object",
+            "description": "Acceleration in m/s².",
+            "properties": {
+              "x": { "type": "number" },
+              "y": { "type": "number" },
+              "z": { "type": "number" }
+            }
+          },
+          "gyro": {
+            "type": "object",
+            "description": "Angular velocity in °/s.",
+            "properties": {
+              "x": { "type": "number" },
+              "y": { "type": "number" },
+              "z": { "type": "number" }
+            }
+          },
+          "temp_c":       { "type": ["number", "null"], "description": "Die temperature in °C (if requested)." },
+          "timestamp_ms": { "type": "integer" }
+        },
+        "required": ["accel", "gyro"]
+      }
+    },
+    {
+      "name": "distance_read",
+      "description": "Read distance measurement from a ToF (Time-of-Flight) sensor such as VL53L0X.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "channel": { "type": "integer", "default": 0 },
+          "mode":    { "type": "string", "enum": ["single", "continuous"], "default": "single", "description": "Measurement mode." }
+        },
+        "required": []
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "distance_mm":  { "type": "number",  "description": "Distance in millimetres." },
+          "valid":        { "type": "boolean", "description": "False if measurement is out of range or sensor error." },
+          "signal_rate":  { "type": ["number", "null"], "description": "Signal return rate (quality indicator)." },
+          "timestamp_ms": { "type": "integer" }
+        },
+        "required": ["distance_mm", "valid"]
+      }
+    },
+    {
+      "name": "light_read",
+      "description": "Read ambient light level in lux from BH1750 or compatible sensor.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "channel":    { "type": "integer", "default": 0 },
+          "resolution": { "type": "string", "enum": ["high", "low", "auto"], "default": "auto", "description": "Measurement resolution." }
+        },
+        "required": []
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "lux":          { "type": "number",  "description": "Illuminance in lux." },
+          "raw":          { "type": "integer", "description": "Raw 16-bit register value." },
+          "resolution":   { "type": "string" },
+          "timestamp_ms": { "type": "integer" }
+        },
+        "required": ["lux"]
+      }
+    },
+    {
+      "name": "co2_read",
+      "description": "Read CO₂ concentration and related measurements from SCD40/SCD41 or SGP41.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "channel": { "type": "integer", "default": 0 }
+        },
+        "required": []
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "co2_ppm":        { "type": "number",  "description": "CO₂ concentration in ppm." },
+          "temperature_c":  { "type": ["number", "null"] },
+          "humidity_pct":   { "type": ["number", "null"] },
+          "voc_index":      { "type": ["number", "null"], "description": "VOC index (SGP41 only, 0–500)." },
+          "timestamp_ms":   { "type": "integer" }
+        },
+        "required": ["co2_ppm"]
+      }
+    }
+  ]
+}

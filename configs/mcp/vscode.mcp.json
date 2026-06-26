@@ -1,8 +1,16 @@
 {
+  "_comment": "VS Code MCP config. Place at: .vscode/mcp.json (project) or in settings.json under 'mcp.servers'",
+  "_mode": "stdio — switch to 'sse' by replacing servers.pclikaPlatform.type with 'sse' and url below",
+
   "servers": {
     "pclikaPlatform": {
-      "type": "http",
-      "url": "https://REPLACE-WITH-PCLIKA-MCP-ENDPOINT"
-    }
-  }
-}
+      "type": "stdio",
+      "command": "pclika-bridge",
+      "args": ["--port", "auto", "--baud", "115200"],
+      "env": {},
+      "description": "Pclika MCP Bridge — ESP32-S3 hardware via USB-Serial"
+    },
+    "pclikaHDL": {
+      "type": "stdio",
+      "command": "pclika-hdl-bridge",
+      "args": ["--device", "ice40up5k", "--package", "sg48", "-

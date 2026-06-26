@@ -1,14 +1,8 @@
-# Template for Codex MCP configuration
-# Replace the placeholder command or endpoint when the Pclika bridge is implemented.
+# Pclika MCP config for Codex CLI
+# Docs: https://pclika.com/docs/clients/codex
+#
+# STDIO mode (default): Codex spawns pclika-bridge as a subprocess.
+# SSE  mode (adaptive): Run 'pclika-bridge --serve' once, then use url variant below.
+# Auto-install: run 'pclika-setup' after 'pip install pclika-bridge'
 
-[mcp_servers.pclikaPlatform]
-command = "node"
-args = ["bridge/mcp-server/index.js"]
-enabled = false
-startup_timeout_sec = 15
-tool_timeout_sec = 60
-
-# Optional future HTTP variant:
-# [mcp_servers.pclikaPlatform]
-# url = "https://REPLACE-WITH-PCLIKA-MCP-ENDPOINT"
-# enabled = false
+# ── STDIO mode (default) ───────────────────────

@@ -1,0 +1,13 @@
+idf_component_register(
+    SRCS
+        "pclika_bridge.c"
+        "pclika_protocol.c"
+    INCLUDE_DIRS
+        "include"
+    REQUIRES
+        pclika_runtime
+        driver
+        log
+        esp_timer
+        json
+)

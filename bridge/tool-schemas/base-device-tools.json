@@ -1,27 +1,268 @@
 {
-  "schema_version": "0.1.0",
+  "schema_version": "0.3.0",
   "platform": "pclika-core",
+  "mcp_server": "pclikaPlatform",
+  "seal": "PCK-MMXXVI-C4A32096",
   "tools": [
     {
       "name": "device_info",
-      "description": "Return board identity, firmware version, and capability flags."
+      "description": "Return the connected board identity, firmware version, platform seal, and capability flags. Call this first to confirm connection.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "board_id":     { "type": "string",  "description": "Unique board identifier derived from MAC address." },
+          "fw_version":   { "type": "string",  "description": "Firmware version string, e.g. '0.1.0'." },
+          "platform":     { "type": "string",  "description": "Platform name, e.g. 'esp32s3'." },
+          "seal":         { "type": "string",  "description": "Platform integrity seal." },
+          "capabilities": { "type": "array", "items": { "type": "string" }, "description": "List of registered capability identifiers." },
+          "heap_free":    { "type": "integer", "description": "Free heap memory in bytes." },
+          "uptime_ms":    { "type": "integer", "description": "Device uptime in milliseconds." }
+        },
+        "required": ["board_id", "fw_version", "platform", "capabilities"]
+      }
     },
     {
       "name": "sensor_read",
-      "description": "Read the current value from a supported sensor module."
+      "description": "Read the current value from a supported sensor module. Common sensor_id values: 'temp_humidity', 'pressure', 'light', 'imu', 'distance', 'co2'.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "sensor_id": {
+            "type": "string",
+            "description": "Sensor identifier. Use device_info to see available sensors."
+          },
+          "channel": {
+            "type": "integer",
+            "description": "Sensor channel index when multiple sensors of the same type are connected. Default: 0.",
+            "default": 0
+          }
+        },
+        "required": ["sensor_id"]
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "sensor_id":    { "type": "string" },
+          "channel":      { "type": "integer" },
+          "value":        { "description": "Primary reading. Type depends on sensor: number, object, or array." },
+          "unit":         { "type": "string",  "description": "Unit string, e.g. '°C', '%RH', 'lux', 'mm'." },
+          "timestamp_ms": { "type": "integer", "description": "Device timestamp at time of read (ms since boot)." },
+          "raw":          { "description": "Raw ADC or register value, for diagnostics." }
+        },
+        "required": ["sensor_id", "value", "unit"]
+      }
     },
     {
       "name": "display_text",
-      "description": "Render a short text payload on a supported display module."
+      "description": "Render a text string on the connected display (OLED or TFT). Supports multi-line output and optional clear.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "text":       { "type": "string",  "description": "Text to display. Use \\n for line breaks.", "maxLength": 256 },
+          "line":       { "type": "integer", "description": "Starting line index (0 = top). Default: 0.", "default": 0 },
+          "clear":      { "type": "boolean", "description": "Clear the display before writing. Default: false.", "default": false },
+          "display_id": { "type": "string",  "description": "Display identifier when multiple displays are connected. Default: 'primary'.", "default": "primary" }
+        },
+        "required": ["text"]
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "ok":           { "type": "boolean" },
+          "display_id":   { "type": "string" },
+          "lines_written":{ "type": "integer", "description": "Number of text lines rendered." }
+        },
+        "required": ["ok"]
+      }
     },
     {
       "name": "servo_move",
-      "description": "Move a supported servo output to the requested angle."
+      "description": "Move a servo motor to the specified angle (0–180 degrees). Channel 0 is the first servo connector.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "angle":   { "type": "number",  "description": "Target angle in degrees (0–180).", "minimum": 0, "maximum": 180 },
+          "channel": { "type": "integer", "description": "Servo channel index (0-based). Default: 0.", "default": 0, "minimum": 0, "maximum": 15 },
+          "speed":   { "type": "integer", "description": "Movement speed (1–100). Default: 100.", "default": 100, "minimum": 1, "maximum": 100 }
+        },
+        "required": ["angle"]
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "ok":          { "type": "boolean" },
+          "channel":     { "type": "integer" },
+          "angle":       { "type": "number" },
+          "duration_ms": { "type": "integer", "description": "Estimated time to reach target angle in ms." }
+        },
+        "required": ["ok", "channel", "angle"]
+      }
     },
     {
       "name": "serial_log_read",
-      "description": "Read recent serial log output from the connected device."
+      "description": "Return recent serial log output from the connected device. Use for debugging and confirming operations completed.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "lines":  { "type": "integer", "description": "Number of recent log lines to return. Default: 50.", "default": 50, "minimum": 1, "maximum": 500 },
+          "filter": { "type": "string",  "description": "Optional substring filter.", "default": "" }
+        },
+        "required": []
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "lines":     { "type": "array", "items": { "type": "string" }, "description": "Log lines, oldest first." },
+          "count":     { "type": "integer", "description": "Number of lines returned." },
+          "truncated": { "type": "boolean", "description": "True if the buffer was larger than requested." }
+        },
+        "required": ["lines", "count"]
+      }
+    },
+    {
+      "name": "led_control",
+      "description": "Control the onboard LED or addressable RGB LEDs.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "state":      { "type": "string",  "enum": ["on", "off", "blink"] },
+          "r":          { "type": "integer", "minimum": 0, "maximum": 255 },
+          "g":          { "type": "integer", "minimum": 0, "maximum": 255 },
+          "b":          { "type": "integer", "minimum": 0, "maximum": 255 },
+          "brightness": { "type": "integer", "default": 128, "minimum": 0, "maximum": 255 },
+          "blink_hz":   { "type": "number",  "default": 1.0 }
+        },
+        "required": ["state"]
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "ok":    { "type": "boolean" },
+          "state": { "type": "string" }
+        },
+        "required": ["ok", "state"]
+      }
+    },
+    {
+      "name": "button_read",
+      "description": "Read the current state of the onboard or external button.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "button_id":    { "type": "string",  "default": "boot" },
+          "reset_count":  { "type": "boolean", "default": false }
+        },
+        "required": []
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "button_id":    { "type": "string" },
+          "pressed":      { "type": "boolean", "description": "True if currently pressed." },
+          "press_count":  { "type": "integer", "description": "Total presses since last reset_count." },
+          "last_press_ms":{ "type": "integer", "description": "ms since boot when last pressed. -1 if never." }
+        },
+        "required": ["button_id", "pressed", "press_count"]
+      }
+    },
+    {
+      "name": "wifi_scan",
+      "description": "Scan for nearby Wi-Fi access points.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "max_results": { "type": "integer", "default": 20, "minimum": 1, "maximum": 50 }
+        },
+        "required": []
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "networks": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "ssid":     { "type": "string" },
+                "rssi":     { "type": "integer", "description": "Signal strength in dBm." },
+                "channel":  { "type": "integer" },
+                "security": { "type": "string", "description": "e.g. 'WPA2', 'OPEN', 'WPA3'." },
+                "bssid":    { "type": "string", "description": "MAC address of AP." }
+              }
+            }
+          },
+          "count":        { "type": "integer" },
+          "scan_time_ms": { "type": "integer" }
+        },
+        "required": ["networks", "count"]
+      }
+    },
+    {
+      "name": "gpio_read",
+      "description": "Read the current digital level of a GPIO pin.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "pin":  { "type": "integer", "minimum": 0 },
+          "pull": { "type": "string",  "enum": ["up", "down", "none"], "default": "none" }
+        },
+        "required": ["pin"]
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "pin":   { "type": "integer" },
+          "level": { "type": "integer", "enum": [0, 1] },
+          "pull":  { "type": "string" }
+        },
+        "required": ["pin", "level"]
+      }
+    },
+    {
+      "name": "gpio_write",
+      "description": "Set the digital output level of a GPIO pin.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "pin":   { "type": "integer", "minimum": 0 },
+          "level": { "type": "integer", "enum": [0, 1] }
+        },
+        "required": ["pin", "level"]
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "ok":    { "type": "boolean" },
+          "pin":   { "type": "integer" },
+          "level": { "type": "integer" }
+        },
+        "required": ["ok", "pin", "level"]
+      }
+    },
+    {
+      "name": "firmware_version",
+      "description": "Return firmware version, build date, platform seal, and supported tool list.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "version":      { "type": "string" },
+          "build_date":   { "type": "string", "description": "ISO 8601 build date." },
+          "idf_version":  { "type": "string", "description": "ESP-IDF version used to build." },
+          "seal":         { "type": "string" },
+          "tools":        { "type": "array", "items": { "type": "string" }, "description": "List of MCP tool names supported by this firmware." }
+        },
+        "required": ["version", "seal", "tools"]
+      }
     }
   ]
 }
-

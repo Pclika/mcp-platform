@@ -1,0 +1,125 @@
+{
+  "schema_version": "0.1.0",
+  "platform": "pclika-vision",
+  "mcp_server": "pclikaPlatform",
+  "seal": "PCK-MMXXVI-C4A32096",
+  "description": "Camera and vision tools — OV2640 / ESP32-S3 camera module",
+  "tools": [
+    {
+      "name": "camera_capture",
+      "description": "Capture a JPEG frame from the connected camera module (OV2640 or compatible).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "resolution": {
+            "type": "string",
+            "enum": ["QVGA", "VGA", "SVGA", "XGA", "HD", "SXGA", "UXGA"],
+            "description": "Frame resolution. Default: VGA (640×480).",
+            "default": "VGA"
+          },
+          "quality": {
+            "type": "integer",
+            "description": "JPEG quality 10–63 (lower = better quality). Default: 20.",
+            "default": 20,
+            "minimum": 10,
+            "maximum": 63
+          },
+          "format": {
+            "type": "string",
+            "enum": ["jpeg", "rgb565"],
+            "description": "Pixel format. Default: jpeg.",
+            "default": "jpeg"
+          }
+        },
+        "required": []
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "ok":           { "type": "boolean" },
+          "width":        { "type": "integer", "description": "Frame width in pixels." },
+          "height":       { "type": "integer", "description": "Frame height in pixels." },
+          "size_bytes":   { "type": "integer", "description": "JPEG payload size in bytes." },
+          "base64":       { "type": "string",  "description": "Base64-encoded JPEG or RGB565 frame." },
+          "timestamp_ms": { "type": "integer" }
+        },
+        "required": ["ok", "width", "height"]
+      }
+    },
+    {
+      "name": "camera_status",
+      "description": "Query camera module status, current settings, and sensor model.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "initialized":   { "type": "boolean", "description": "True if camera sensor is detected and initialized." },
+          "sensor_model":  { "type": "string",  "description": "Detected sensor PID, e.g. 'OV2640', 'OV5640'." },
+          "resolution":    { "type": "string" },
+          "quality":       { "type": "integer" },
+          "brightness":    { "type": "integer" },
+          "saturation":    { "type": "integer" },
+          "flip_vertical": { "type": "boolean" },
+          "flip_horizontal":{ "type": "boolean" },
+          "fps":           { "type": "number", "description": "Frames per second at current resolution." }
+        },
+        "required": ["initialized"]
+      }
+    },
+    {
+      "name": "camera_configure",
+      "description": "Configure camera sensor parameters (exposure, white balance, flip, etc.).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "resolution":      { "type": "string", "enum": ["QVGA", "VGA", "SVGA", "XGA", "HD", "SXGA", "UXGA"] },
+          "quality":         { "type": "integer", "minimum": 10, "maximum": 63 },
+          "brightness":      { "type": "integer", "minimum": -2, "maximum": 2 },
+          "contrast":        { "type": "integer", "minimum": -2, "maximum": 2 },
+          "saturation":      { "type": "integer", "minimum": -2, "maximum": 2 },
+          "awb":             { "type": "boolean", "description": "Auto white balance." },
+          "aec":             { "type": "boolean", "description": "Auto exposure control." },
+          "flip_vertical":   { "type": "boolean" },
+          "flip_horizontal": { "type": "boolean" }
+        },
+        "required": []
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "ok":      { "type": "boolean" },
+          "applied": { "type": "object", "description": "Map of setting name → applied value." }
+        },
+        "required": ["ok"]
+      }
+    },
+    {
+      "name": "image_read",
+      "description": "Read a previously saved image from device flash or SD card by filename.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "filename": { "type": "string", "description": "Filename on the device, e.g. '/sdcard/snapshot_001.jpg'." },
+          "offset":   { "type": "integer", "description": "Byte offset for chunked read. Default: 0.", "default": 0 },
+          "length":   { "type": "integer", "description": "Bytes to read. Default: entire file.", "default": -1 }
+        },
+        "required": ["filename"]
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "ok":         { "type": "boolean" },
+          "filename":   { "type": "string" },
+          "size_bytes": { "type": "integer" },
+          "base64":     { "type": "string", "description": "Base64-encoded file data." },
+          "more":       { "type": "boolean", "description": "True if file has remaining chunks." }
+        },
+        "required": ["ok", "filename"]
+      }
+    }
+  ]
+}

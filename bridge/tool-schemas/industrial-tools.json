@@ -1,0 +1,151 @@
+{
+  "schema_version": "0.1.0",
+  "platform": "pclika-industrial",
+  "mcp_server": "pclikaPlatform",
+  "seal": "PCK-MMXXVI-C4A32096",
+  "description": "Industrial I/O tools — Modbus RTU/TCP, relay, ADC, digital I/O arrays",
+  "tools": [
+    {
+      "name": "modbus_read",
+      "description": "Read Modbus registers from a remote device (RTU over RS-485 or TCP). Supports holding/input registers and coils.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "slave_id":   { "type": "integer", "description": "Modbus slave address (1–247).", "minimum": 1, "maximum": 247 },
+          "function":   { "type": "string",  "enum": ["holding_registers", "input_registers", "coils", "discrete_inputs"], "description": "Modbus function code category." },
+          "address":    { "type": "integer", "description": "Register start address (0-based).", "minimum": 0 },
+          "count":      { "type": "integer", "description": "Number of registers / coils to read (1–125).", "minimum": 1, "maximum": 125 },
+          "transport":  { "type": "string",  "enum": ["rtu", "tcp"], "description": "Transport layer. Default: rtu.", "default": "rtu" },
+          "timeout_ms": { "type": "integer", "description": "Request timeout in ms. Default: 500.", "default": 500 }
+        },
+        "required": ["slave_id", "function", "address", "count"]
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "ok":       { "type": "boolean" },
+          "slave_id": { "type": "integer" },
+          "address":  { "type": "integer" },
+          "values":   { "type": "array", "items": { "type": "integer" }, "description": "Register values (uint16 for registers, 0/1 for coils)." },
+          "count":    { "type": "integer" }
+        },
+        "required": ["ok", "values"]
+      }
+    },
+    {
+      "name": "modbus_write",
+      "description": "Write Modbus holding registers or coils to a remote device.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "slave_id":  { "type": "integer", "minimum": 1, "maximum": 247 },
+          "function":  { "type": "string",  "enum": ["holding_registers", "coils"] },
+          "address":   { "type": "integer", "minimum": 0 },
+          "values":    { "type": "array", "items": { "type": "integer" }, "description": "Values to write. Uint16 for registers, 0/1 for coils.", "minItems": 1 },
+          "transport": { "type": "string",  "enum": ["rtu", "tcp"], "default": "rtu" }
+        },
+        "required": ["slave_id", "function", "address", "values"]
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "ok":            { "type": "boolean" },
+          "slave_id":      { "type": "integer" },
+          "address":       { "type": "integer" },
+          "values_written":{ "type": "integer" }
+        },
+        "required": ["ok"]
+      }
+    },
+    {
+      "name": "relay_set",
+      "description": "Control relay module outputs. Supports single relay or relay array (up to 8 channels).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "channel": { "type": "integer", "description": "Relay channel index (0-based). Use -1 to set all channels.", "minimum": -1, "maximum": 7 },
+          "state":   { "type": "string",  "enum": ["on", "off", "toggle"], "description": "Relay state." },
+          "pulse_ms":{ "type": "integer", "description": "If set, pulse relay on for this many ms then return to previous state. Optional.", "minimum": 10 }
+        },
+        "required": ["channel", "state"]
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "ok":       { "type": "boolean" },
+          "channel":  { "type": "integer" },
+          "state":    { "type": "string", "enum": ["on", "off"] },
+          "all_states":{ "type": "array", "items": { "type": "string", "enum": ["on", "off"] }, "description": "State of every relay channel." }
+        },
+        "required": ["ok", "channel", "state"]
+      }
+    },
+    {
+      "name": "digital_io_read",
+      "description": "Read a bank of digital inputs simultaneously (e.g. 8-channel I/O expander via I2C or direct GPIO).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "bank":    { "type": "integer", "description": "I/O bank index. Default: 0.", "default": 0 },
+          "channel": { "type": "integer", "description": "Read specific channel only. Omit for all channels.", "minimum": 0 }
+        },
+        "required": []
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "bank":    { "type": "integer" },
+          "levels":  { "type": "array", "items": { "type": "integer", "enum": [0, 1] }, "description": "Digital level per channel, index 0–N." },
+          "mask":    { "type": "integer", "description": "All channel levels as a bitmask." }
+        },
+        "required": ["levels"]
+      }
+    },
+    {
+      "name": "adc_read_multi",
+      "description": "Read multiple ADC channels simultaneously from internal ADC or external ADC (MCP3204/ADS1115).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "channels": {
+            "type": "array",
+            "items": { "type": "integer", "minimum": 0 },
+            "description": "List of ADC channel indices to read. Example: [0, 1, 2, 3].",
+            "minItems": 1,
+            "maxItems": 8
+          },
+          "adc_source": {
+            "type": "string",
+            "enum": ["internal", "mcp3204", "ads1115"],
+            "description": "ADC source. Default: internal (ESP32 built-in).",
+            "default": "internal"
+          },
+          "vref":  { "type": "number",  "description": "Reference voltage in V. Default: 3.3.", "default": 3.3 },
+          "bits":  { "type": "integer", "enum": [10, 12, 16], "description": "ADC resolution bits.", "default": 12 }
+        },
+        "required": ["channels"]
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "readings": {
+            "type": "array",
+            "description": "Per-channel readings.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "channel": { "type": "integer" },
+                "raw":     { "type": "integer", "description": "Raw ADC count." },
+                "voltage": { "type": "number",  "description": "Computed voltage in V." }
+              }
+            }
+          },
+          "adc_source":  { "type": "string" },
+          "vref":        { "type": "number" },
+          "timestamp_ms":{ "type": "integer" }
+        },
+        "required": ["readings"]
+      }
+    }
+  ]
+}

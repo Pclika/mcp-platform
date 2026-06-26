@@ -1,43 +1,36 @@
-# MCP Configuration Templates
+# Pclika MCP Client Configurations
 
-This directory contains starter templates for connecting MCP-compatible coding tools to the future Pclika MCP bridge.
+Two connection modes — pick one, all five clients work the same way.
 
-## Status
+## Quick Start
 
-These are starter templates, not active production configs.
+```bash
+pip install pclika-bridge
+pclika-setup          # auto-detect installed clients + write configs
+```
 
-They exist to standardize:
+---
 
-- server naming
-- configuration layout
-- expected activation pattern
+## Mode A — STDIO (default)
 
-The actual bridge implementation command or server endpoint still needs to be finalized.
+Each AI client spawns its own `pclika-bridge` subprocess.
+No extra process needed. Works out of the box.
 
-## Standard Server Name
+| Client     | Config file             | Install location |
+|------------|-------------------------|------------------|
+| Claude Code | `claude-code.commands.md` | Run the `claude mcp add` commands once |
+| Cursor      | `cursor.mcp.json`       | `~/.cursor/mcp.json` |
+| VS Code     | `vscode.mcp.json`       | `.vscode/mcp.json` or `settings.json` |
+| Codex       | `codex.config.toml`     | `~/.config/codex/config.toml` |
+| OpenCode    | `opencode.jsonc`        | `~/.config/opencode/config.json` |
 
-Use:
+Auto-install for all detected clients:
+```bash
+pclika-setup
+```
 
-- `pclikaPlatform`
+---
 
-## Included Templates
+## Mode B — SSE / Adaptive (multi-client)
 
-- `codex.config.toml`
-- `claude-code.commands.md`
-- `cursor.mcp.json`
-- `vscode.mcp.json`
-- `opencode.jsonc`
-
-## Activation Rule
-
-Once the bridge is implemented:
-
-1. replace the placeholder command or endpoint
-2. set required environment variables if any
-3. test `device_info`
-4. test one example capability such as `sensor_read`
-
-## Related Docs
-
-- [../../docs/software/standard-invocation.md](../../docs/software/standard-invocation.md)
-- [../../bridge/server-instructions.md](../../bridge/server-instructions.md)
+Run **

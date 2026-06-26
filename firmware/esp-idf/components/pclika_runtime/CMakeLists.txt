@@ -1,0 +1,18 @@
+idf_component_register(
+    SRCS
+        "pclika_system.c"
+        "pclika_sensor.c"
+        "pclika_display.c"
+        "pclika_servo.c"
+        "pclika_gpio.c"
+        "pclika_wifi.c"
+        "pclika_logging.c"
+    INCLUDE_DIRS
+        "include"
+    REQUIRES
+        nvs_flash
+        esp_wifi
+        driver
+        esp_timer
+        log
+)

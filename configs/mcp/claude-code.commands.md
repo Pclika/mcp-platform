@@ -1,31 +1,31 @@
-# Claude Code MCP Setup Template
+# Claude Code MCP Setup
 
-Use the future Pclika bridge with a short, stable server name:
+Add both pclika MCP servers: the hardware platform bridge and the HDL bridge.
 
-- `pclikaPlatform`
-
-## Local Scope
-
-Run from the project directory once the bridge command is ready:
+## Hardware Platform Bridge (pclikaPlatform)
 
 ```bash
-claude mcp add pclikaPlatform -- node bridge/mcp-server/index.js
+# Local scope (this project only)
+claude mcp add pclikaPlatform -- pclika-bridge --port auto --baud 921600
+
+# User scope (all projects)
+claude mcp add --scope user pclikaPlatform -- pclika-bridge --port auto --baud 921600
 ```
 
-## User Scope
-
-If you want the server available across projects:
+## HDL Bridge (pclikaHDL)
 
 ```bash
-claude mcp add --scope user pclikaPlatform -- node /absolute/path/to/bridge/mcp-server/index.js
-```
+# Local scope — adjust --project to your HDL project root
+claude mcp add pclikaHDL -- pclika-hdl-bridge \
+  --project . \
+  --device ice40up5k \
+  --package sg48 \
+  --freq 12
 
-## HTTP Variant
-
-If the platform later exposes a remote MCP server:
-
-```bash
-claude mcp add --transport http pclikaPlatform https://REPLACE-WITH-PCLIKA-MCP-ENDPOINT
+# User scope
+claude mcp add --scope user pclikaHDL -- pclika-hdl-bridge \
+  --project /absolute/path/to/hdl-project \
+  --device ice40up5k --package sg48 --freq 12
 ```
 
 ## Verify
@@ -34,4 +34,17 @@ claude mcp add --transport http pclikaPlatform https://REPLACE-WITH-PCLIKA-MCP-E
 claude mcp list
 ```
 
-In Claude Code, use `/mcp` to confirm the server is connected.
+In Claude Code session, use `/mcp` to confirm both servers are connected.
+
+## Available Tools (pclikaPlatform)
+
+`device_info`, `gpio_read`, `gpio_write`, `gpio_configure`,
+`sensor_read`, `display_text`, `serial_log_read`,
+`servo_move`, `servo_read`, `wifi_scan`, `wifi_connect`
+
+## Available Tools (pclikaHDL)
+
+`device_info`, `synth_run`, `synth_status`, `impl_run`, `impl_status`,
+`timing_report`, `resource_usage`, `lint_report`,
+`sim_run`, `sim_result`, `constraint_validate`,
+`bitstream_flash`, `waveform_export`

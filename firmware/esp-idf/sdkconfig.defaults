@@ -1,0 +1,46 @@
+# Pclika Platform — ESP32-S3 sdkconfig defaults
+# These are applied on top of IDF defaults when running `idf.py set-target esp32s3`
+
+# ── Target ────────────────────────────────────────────────────────────────────
+CONFIG_IDF_TARGET="esp32s3"
+
+# ── Flash ─────────────────────────────────────────────────────────────────────
+CONFIG_ESPTOOLPY_FLASHMODE_QIO=y
+CONFIG_ESPTOOLPY_FLASHFREQ_80M=y
+CONFIG_ESPTOOLPY_FLASHSIZE_8MB=y
+
+# ── PSRAM (for Pro/Vision variants) ──────────────────────────────────────────
+# Uncomment for N8R8/N16R8 modules
+# CONFIG_ESP32S3_SPIRAM_SUPPORT=y
+# CONFIG_SPIRAM_MODE_OCT=y
+
+# ── FreeRTOS ─────────────────────────────────────────────────────────────────
+CONFIG_FREERTOS_HZ=1000
+CONFIG_FREERTOS_USE_TRACE_FACILITY=n
+
+# ── Memory ───────────────────────────────────────────────────────────────────
+CONFIG_ESP_MAIN_TASK_STACK_SIZE=8192
+CONFIG_NEWLIB_STDOUT_LINE_ENDING_CRLF=y
+
+# ── Logging ───────────────────────────────────────────────────────────────────
+CONFIG_LOG_DEFAULT_LEVEL_INFO=y
+CONFIG_LOG_MAXIMUM_LEVEL_DEBUG=y
+CONFIG_LOG_COLORS=y
+CONFIG_LOG_TIMESTAMP_SOURCE_RTOS=y
+
+# ── Wi-Fi ─────────────────────────────────────────────────────────────────────
+CONFIG_ESP_WIFI_STATIC_RX_BUFFER_NUM=4
+CONFIG_ESP_WIFI_DYNAMIC_RX_BUFFER_NUM=8
+CONFIG_ESP_WIFI_TX_BUFFER_TYPE_DYNAMIC=y
+
+# ── UART Bridge ──────────────────────────────────────────────────────────────
+# UART0 used for MCP bridge (USB-CDC on ESP32-S3)
+CONFIG_ESP_CONSOLE_USB_CDC=y
+
+# ── Security baseline ─────────────────────────────────────────────────────────
+CONFIG_NVS_ENCRYPTION=n
+# Enable for production: CONFIG_SECURE_BOOT=y
+
+# ── Partition table ───────────────────────────────────────────────────────────
+CONFIG_PARTITION_TABLE_CUSTOM=y
+CONFIG_PARTITION_TABLE_CUSTOM_FILENAME="partitions.csv"

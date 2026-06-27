@@ -1,0 +1,21 @@
+{% if taxons|length > 0 %}
+    <ul class="pc-header__nav" {{ sylius_test_html_attribute('menu') }}>
+        <li>
+            <a href="{{ path('sylius_shop_homepage') }}" class="pc-textslide{% if app.request.get('_route') == 'sylius_shop_homepage' %} pc-current{% endif %}">
+                <span class="pc-textslide__inner">Home</span>
+            </a>
+        </li>
+        {% for taxon in taxons %}
+            <li>
+                <a href="{{ path('sylius_shop_product_index', {'slug': taxon.slug}) }}" class="pc-textslide">
+                    <span class="pc-textslide__inner">{{ taxon.name }}</span>
+                </a>
+            </li>
+        {% endfor %}
+        <li>
+            <a href="{{ path('sylius_shop_contact_request') }}" class="pc-textslide{% if app.request.get('_route') == 'sylius_shop_contact_request' %} pc-current{% endif %}">
+                <span class="pc-textslide__inner">Contact</span>
+            </a>
+        </li>
+    </ul>
+{% endif %}

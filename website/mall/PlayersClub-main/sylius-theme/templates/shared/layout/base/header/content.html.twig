@@ -1,0 +1,11 @@
+<div class="pc-header">
+    <h1 class="pc-header__brand">
+        <a href="{{ path('sylius_shop_homepage') }}" class="pc-textslide{% if app.request.get('_route') == 'sylius_shop_homepage' %} pc-current{% endif %}">
+            <span class="pc-textslide__inner">
+                <img src="/ico.svg" alt="PCLIKA" width="25" height="25" style="display:inline-block;vertical-align:middle;">
+            </span>
+        </a>
+    </h1>
+    {% hook 'navbar' %}
+</div>
+<hr class="pc-separator" />

@@ -1,0 +1,48 @@
+---
+interface Tab {
+  href: string;
+  label: string;
+  current?: boolean;
+}
+
+interface Props {
+  tabs: Tab[];
+}
+
+const { tabs } = Astro.props as Props;
+---
+
+<nav class="storefront-tabs" aria-label="Storefront navigation">
+  {tabs.map((tab) => (
+    <a href={tab.href} class:list={["storefront-tabs__link", tab.current && "is-current"]}>
+      {tab.label}
+    </a>
+  ))}
+</nav>
+
+<style>
+  .storefront-tabs {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    padding: 0 0 1.5rem;
+  }
+
+  .storefront-tabs__link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.25rem;
+    padding: 0 0.8rem;
+    border: 1px solid var(--border-color);
+    color: var(--color-text-alt);
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .storefront-tabs__link.is-current {
+    color: var(--color-text);
+    border-color: var(--color-text);
+  }
+</style>

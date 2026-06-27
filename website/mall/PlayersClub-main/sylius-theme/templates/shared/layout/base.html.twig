@@ -1,0 +1,62 @@
+{#
+ # Players Club Sylius base layout override
+ # Adds: skip-to-content link, cookie consent, breadcrumb zone, SEO structured data
+ #}
+{% import "@SyliusUi/macro/rtl.html.twig" as rtl %}
+
+{% set generic_hook = 'sylius_shop.base' %}
+{% set prefixes = prefixes|default([])|merge([generic_hook]) %}
+
+<!DOCTYPE html>
+<html lang="{{ app.request.locale|slice(0, 2) }}" {{ rtl.default(sylius.localeCode) }}>
+    <head>
+        {% block metatags %}
+            {% hook '#metatags' with { _prefixes: prefixes } %}
+        {% endblock %}
+
+        <title>{% block title %}{{ sylius.channel.name }}{% endblock %}</title>
+
+        {% block stylesheets %}
+            {% hook '#stylesheets' with { _prefixes: prefixes } %}
+        {% endblock %}
+
+        <!-- Schema.org structured data -->
+        {% include '@SyliusShop/shared/seo_structured_data.html.twig' %}
+
+        {% hook 'head' with { _prefixes: prefixes } %}
+    </head>
+
+    <body data-route="{{ app.request.get('_route') }}">
+        <!-- Accessibility skip link -->
+        <a href="#main-content" class="pc-skip-link">{{ 'sylius.ui.skip_to_content'|trans }}</a>
+
+        {% block body %}
+            <div class="{% apply escape %}{% hook '#body_classes' with { _prefixes: prefixes } %}{% endapply %}">
+                {% block header %}
+                    {% hook 'header' with { _prefixes: prefixes } %}
+                {% endblock %}
+
+                <!-- Breadcrumb navigation -->
+                <div class="container" style="padding: 0.75rem 0;">
+                    {% include '@SyliusShop/shared/breadcrumb.html.twig' %}
+                </div>
+
+                <main id="main-content" tabindex="-1">
+                    {% block content %}{% endblock %}
+                </main>
+
+                {% block footer %}
+                    {% hook 'footer' with { _prefixes: prefixes } %}
+                {% endblock %}
+            </div>
+            {% hook 'offcanvas' with { _prefixes: prefixes } %}
+        {% endblock %}
+
+        {% block javascripts %}
+            {% hook '#javascripts' with { _prefixes: prefixes } %}
+        {% endblock %}
+
+        <!-- Cookie consent banner -->
+        {% include '@SyliusShop/shared/cookie_consent.html.twig' %}
+    </body>
+</html>

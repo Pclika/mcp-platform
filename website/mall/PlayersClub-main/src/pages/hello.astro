@@ -1,0 +1,123 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Separator from "../components/Separator.astro";
+import StorefrontSection from "../components/StorefrontSection.astro";
+
+const title = "Hello | PCLIKA";
+---
+
+<BaseLayout title={title} description="A public letter to makers, developers, and AI hardware builders exploring Pclika.">
+  <section class="hello-page">
+    <StorefrontSection
+      eyebrow="Open Letter"
+      title="Build, Play & Monetize Your Hardware with Pclika"
+      description="A simple introduction to what Pclika stands for, who it is for, and how creators can turn ideas into real hardware products."
+    />
+    <Separator />
+
+    <article class="hello-letter">
+      <p>Hey Makers, Developers, and AI Hardware Enthusiasts,</p>
+
+      <p>
+        If you are an Embedded Developer, Edge AI Developer, Hardware Developer, Firmware Developer, Model Deployment Developer,
+        Agent Developer, Skill Developer, Full-stack Developer, or AI/ML Engineer, this is your open playground.
+        Pclika is an open hardware ecosystem built for easy creation, fun innovation, and real commercial output, with no high threshold and no complex restrictions.
+      </p>
+
+      <p>
+        Our core rule is simple: anyone can easily build exclusive Pclika hardware. We have already sorted out the underlying hardware architecture,
+        base frameworks, and technical foundations. You do not need to start from scratch. You can focus on creativity and ideas, and turn them into unique hardware products faster.
+      </p>
+
+      <p>
+        Best of all, your creations belong entirely to you. Once your hardware project is ready, you can sell it directly or launch it through crowdfunding.
+        You keep product ownership and profit returns, so your technical exploration can become real commercial value.
+      </p>
+
+      <div class="hello-block">
+        <p class="hello-block__title">One-stop hardware support</p>
+        <p>
+          To let every developer innovate with less burden and focus on scenario creation, Pclika provides a full-process hardware support system:
+        </p>
+        <ul>
+          <li>PCB design, board making, and prototype verification</li>
+          <li>SMT patch processing and component assembly production</li>
+          <li>Professional hardware debugging and performance optimization</li>
+          <li>Small-batch trial production and mass-production docking support</li>
+        </ul>
+      </div>
+
+      <div class="hello-block">
+        <p class="hello-block__title">Rich and playable application scenarios</p>
+        <ol>
+          <li>
+            Embedded and MCU smart hardware scenarios for portable sensing modules, controllers, wearables, and interactive intelligent devices.
+          </li>
+          <li>
+            Edge AI local intelligent scenarios for offline voice interaction, local image recognition, environmental intelligence, and low-latency AI computing.
+          </li>
+          <li>
+            AI Agent smart body hardware scenarios for autonomous desktop robots, smart IoT terminals, and hardware that can think, plan, and act independently.
+          </li>
+          <li>
+            Custom Skill interactive hardware scenarios for scheduling, data monitoring, device linkage, and personalized scene behavior.
+          </li>
+          <li>
+            Innovative consumer and industrial small hardware, from playful gadgets and desktop devices to compact intelligent industrial terminals.
+          </li>
+        </ol>
+      </div>
+
+      <p>
+        Pclika makes hardware development easy, fun, and valuable. Turn your technical ideas into playable, sellable, and innovative hardware products with a much lower entry barrier.
+      </p>
+
+      <p class="hello-signoff">Pclika Team</p>
+    </article>
+  </section>
+</BaseLayout>
+
+<style>
+  .hello-page {
+    padding-bottom: 5rem;
+  }
+
+  .hello-letter {
+    display: grid;
+    gap: 1.15rem;
+    max-width: 58rem;
+    padding: 1.75rem 0 0;
+  }
+
+  .hello-letter p,
+  .hello-letter li {
+    margin: 0;
+    line-height: 1.65;
+    color: var(--color-text-alt);
+  }
+
+  .hello-block {
+    display: grid;
+    gap: 0.85rem;
+    padding: 1rem 0;
+  }
+
+  .hello-block__title {
+    color: var(--color-text);
+    font-weight: 700;
+  }
+
+  .hello-letter ul,
+  .hello-letter ol {
+    margin: 0;
+    padding-left: 1.2rem;
+    display: grid;
+    gap: 0.7rem;
+  }
+
+  .hello-signoff {
+    padding-top: 1rem;
+    color: var(--color-text);
+    font-weight: 700;
+  }
+</style>

@@ -1,0 +1,80 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Separator from "../../components/Separator.astro";
+import StorefrontSection from "../../components/StorefrontSection.astro";
+import StorefrontForm from "../../components/StorefrontForm.astro";
+import StorefrontCardGrid from "../../components/StorefrontCardGrid.astro";
+import StorefrontCard from "../../components/StorefrontCard.astro";
+import StorefrontSummary from "../../components/StorefrontSummary.astro";
+import { checkoutSummary, paymentMethods } from "../../lib/storefront";
+import { syliusPaths } from "../../lib/sylius";
+
+const title = "Checkout - Payment | PCLIKA";
+---
+
+<BaseLayout title={title} description="Select a payment method aligned with the Sylius checkout flow.">
+  <section>
+    <StorefrontSection
+      eyebrow="Checkout Step 3"
+      title="Select Payment Method"
+      description="This step should bind the payment selection to the current Sylius order payment collection."
+    />
+    <Separator />
+
+    <div class="checkout-layout">
+      <StorefrontForm action={syliusPaths.checkoutPayment()} method="post">
+        <StorefrontCardGrid>
+          {paymentMethods.map((method, index) => (
+            <StorefrontCard title={method.name} subtitle={method.id}>
+              <label class="payment-option">
+                <input type="radio" name="payments[0][method]" value={method.id} checked={index === 0} />
+                <span>{method.description}</span>
+              </label>
+            </StorefrontCard>
+          ))}
+        </StorefrontCardGrid>
+
+        <p class="storefront-help">Target Sylius route: <code>{syliusPaths.checkoutPayment()}</code></p>
+        <div class="storefront-form__actions">
+          <a class="storefront-button storefront-button--secondary" href="/checkout/select-shipping">Back to shipping</a>
+          <a class="storefront-button" href="/checkout/complete">Review order</a>
+        </div>
+      </StorefrontForm>
+
+      <StorefrontSummary
+        items={checkoutSummary.items}
+        subtotal={checkoutSummary.subtotal}
+        shipping={checkoutSummary.shipping}
+        tax={checkoutSummary.tax}
+        total={checkoutSummary.total}
+      />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .checkout-layout {
+    display: grid;
+    gap: 1.5rem;
+    padding: 1.5rem 0 4rem;
+  }
+
+  @media screen and (min-width: 52em) {
+    .checkout-layout {
+      grid-template-columns: minmax(0, 1.7fr) minmax(18rem, 28rem);
+      align-items: start;
+    }
+  }
+
+  .payment-option {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.75rem;
+    align-items: start;
+  }
+
+  .payment-option span {
+    line-height: 1.5;
+    color: var(--color-text-alt);
+  }
+</style>

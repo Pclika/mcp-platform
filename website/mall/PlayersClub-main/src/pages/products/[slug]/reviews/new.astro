@@ -1,0 +1,63 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../../../layouts/BaseLayout.astro";
+import Separator from "../../../../components/Separator.astro";
+import StorefrontSection from "../../../../components/StorefrontSection.astro";
+import StorefrontForm from "../../../../components/StorefrontForm.astro";
+import { syliusPaths } from "../../../../lib/sylius";
+
+export const getStaticPaths = async () => {
+  const products = await getCollection("products");
+  return products.map((product) => ({
+    params: { slug: product.id },
+    props: { product },
+  }));
+};
+
+const { product } = Astro.props;
+const title = `Write Review | ${product.data.name}`;
+---
+
+<BaseLayout title={title} description="Review creation page aligned to Sylius review submission flow.">
+  <section class="storefront-narrow">
+    <StorefrontSection
+      eyebrow="Review Submission"
+      title={`Review ${product.data.name}`}
+      description="This form should eventually post directly to the Sylius product review create route."
+      compact
+    />
+    <Separator />
+
+    <StorefrontForm action={syliusPaths.newProductReview(product.id)} method="post">
+      <label>
+        <span>Review title</span>
+        <input name="review[title]" />
+      </label>
+      <label>
+        <span>Rating</span>
+        <select name="review[rating]">
+          <option value="5">5 - Excellent</option>
+          <option value="4">4 - Good</option>
+          <option value="3">3 - Average</option>
+          <option value="2">2 - Needs work</option>
+          <option value="1">1 - Poor</option>
+        </select>
+      </label>
+      <label>
+        <span>Review body</span>
+        <textarea name="review[comment]"></textarea>
+      </label>
+      <div class="storefront-form__actions">
+        <button type="submit">Submit review</button>
+      </div>
+    </StorefrontForm>
+  </section>
+</BaseLayout>
+
+<style>
+  .storefront-narrow {
+    max-width: 34rem;
+    margin: 0 auto;
+    padding-bottom: 4rem;
+  }
+</style>

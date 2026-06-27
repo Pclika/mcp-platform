@@ -1,0 +1,43 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import AccountShell from "../../../components/AccountShell.astro";
+import StorefrontCardGrid from "../../../components/StorefrontCardGrid.astro";
+import StorefrontCard from "../../../components/StorefrontCard.astro";
+import { mockAddresses } from "../../../lib/storefront";
+import { storefrontAliases } from "../../../lib/sylius";
+
+const title = "Address Book | PCLIKA";
+const tabs = [
+  { href: storefrontAliases.accountDashboard, label: "Dashboard" },
+  { href: storefrontAliases.accountOrders, label: "Orders" },
+  { href: storefrontAliases.accountAddressBook, label: "Addresses", current: true },
+  { href: storefrontAliases.accountProfile, label: "Profile" },
+  { href: storefrontAliases.accountPassword, label: "Password" },
+];
+---
+
+<BaseLayout title={title} description="Address book aligned to Sylius storefront address routes.">
+  <section>
+    <AccountShell
+      title="Address Book"
+      description="Saved addresses should eventually map to the Sylius customer address book entities."
+      tabs={tabs}
+    >
+      <p><a href={storefrontAliases.accountAddressBookAdd}>Add new address</a></p>
+      <StorefrontCardGrid>
+        {mockAddresses.map((address) => (
+          <StorefrontCard
+            title={address.label}
+            subtitle={address.default ? "Default address" : "Saved address"}
+            href={`${storefrontAliases.accountAddressBook}/${address.id}/edit`}
+            actionLabel="Edit address"
+          >
+            <p>{address.name}</p>
+            <p>{address.street}, {address.city}, {address.province} {address.postcode}</p>
+            <p>{address.country} • {address.phone}</p>
+          </StorefrontCard>
+        ))}
+      </StorefrontCardGrid>
+    </AccountShell>
+  </section>
+</BaseLayout>

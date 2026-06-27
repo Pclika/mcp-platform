@@ -1,0 +1,46 @@
+---
+interface Props {
+  title: string;
+  body: string;
+  href?: string;
+  hrefLabel?: string;
+}
+
+const { title, body, href, hrefLabel } = Astro.props as Props;
+---
+
+<aside class="storefront-notice">
+  <strong>{title}</strong>
+  <p>{body}</p>
+  {href && hrefLabel && (
+    <a href={href} class="storefront-notice__link">{hrefLabel}</a>
+  )}
+</aside>
+
+<style>
+  .storefront-notice {
+    display: grid;
+    gap: 0.5rem;
+    padding: 1rem 1.1rem;
+    margin: 1.5rem 0 0;
+    border: 1px solid var(--border-color);
+    background: var(--color-placeholder);
+  }
+
+  .storefront-notice strong {
+    font-size: 0.82rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .storefront-notice p {
+    margin: 0;
+    line-height: 1.5;
+    color: var(--color-text-alt);
+  }
+
+  .storefront-notice__link {
+    font-size: 0.85rem;
+    font-weight: 700;
+  }
+</style>

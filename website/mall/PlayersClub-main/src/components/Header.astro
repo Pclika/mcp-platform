@@ -1,0 +1,173 @@
+---
+import TextSlider from "../components/TextSlider.astro";
+import Separator from "../components/Separator.astro";
+import Ico from "../assets/images/ico.svg";
+import { storefrontAliases } from "../lib/sylius";
+
+const currentPath = Astro.url.pathname;
+
+const categories = [
+  { slug: storefrontAliases.home, label: "Home" },
+  { slug: "/hello", label: "Hello" },
+  { slug: "/taxons/board", label: "Boards" },
+  { slug: "/taxons/sensor", label: "Sensors" },
+  { slug: "/taxons/display", label: "Displays" },
+  { slug: "/taxons/driver", label: "Drivers" },
+  { slug: "/taxons/bridge", label: "Bridge" },
+  { slug: "/taxons/power", label: "Power" },
+];
+
+const activeLabel =
+  categories.find((c) => c.slug === currentPath || (c.slug !== "/" && currentPath.startsWith(c.slug)))?.label ||
+  (currentPath.startsWith(storefrontAliases.account) ? "Account" : null);
+---
+
+<header>
+  <h1>
+    <a href="/" class={activeLabel === "Home" ? "current" : ""}>
+      <Ico width={25} height={25} />
+    </a>
+  </h1>
+  <ul>
+    {categories.filter(c => c.label !== "Home").map(cat => (
+      <li>
+        <a
+          href={cat.slug}
+          class={activeLabel === cat.label ? "current" : ""}
+          data-astro-prefetch><TextSlider content={cat.label} /></a>
+      </li>
+    ))}
+    <li class="nav-cart">
+      <a href="/cart" class="cart-link">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="m1 1 4 0 2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+        <span class="cart-badge" id="cart-badge" style="display:none;">0</span>
+      </a>
+    </li>
+    <li class="nav-auth">
+      <a href={storefrontAliases.login} class={`auth-link ${currentPath === storefrontAliases.login ? "current" : ""}`}>Sign In</a>
+    </li>
+    <li class="nav-auth">
+      <a href={storefrontAliases.account} class={`auth-link ${activeLabel === "Account" ? "current" : ""}`}>Account</a>
+    </li>
+  </ul>
+</header>
+<Separator />
+
+<style>
+  header {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: 700;
+    padding: 10px 0 0;
+    gap: 1.25rem;
+    min-height: 44px;
+  }
+  header a.current {
+    pointer-events: none;
+  }
+  h1 {
+    font-size: 1rem;
+    font-weight: inherit;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    flex: 0 0 auto;
+  }
+  h1 a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 25px;
+    height: 25px;
+  }
+  ul {
+    display: flex;
+    list-style: none;
+    gap: 1.15rem;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+    flex: 1;
+    justify-content: flex-end;
+    flex-wrap: nowrap;
+    min-width: 0;
+  }
+  li {
+    display: inline-flex;
+    align-items: center;
+    line-height: 1;
+    flex: 0 0 auto;
+  }
+  ul a {
+    display: inline-flex;
+    align-items: center;
+    line-height: 1;
+    white-space: nowrap;
+  }
+  .nav-cart {
+    margin-left: auto;
+  }
+  .cart-link {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+  }
+  .cart-badge {
+    position: absolute;
+    top: -6px;
+    right: -8px;
+    background: var(--color-text);
+    color: var(--color-bg);
+    font-size: 0.65rem;
+    font-weight: 700;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .nav-auth a {
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+  @media screen and (max-width: 62em) {
+    header {
+      gap: 0.8rem;
+    }
+    ul {
+      gap: 0.8rem;
+    }
+    .nav-auth a,
+    ul a {
+      font-size: 0.82rem;
+    }
+  }
+  @media screen and (max-width: 50em) {
+    header {
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    h1 {
+      width: auto;
+    }
+    ul {
+      flex-basis: 100%;
+      justify-content: flex-start;
+      overflow-x: auto;
+      padding-bottom: 0.2rem;
+      scrollbar-width: none;
+    }
+    ul::-webkit-scrollbar {
+      display: none;
+    }
+    .nav-cart {
+      margin-left: 0.3rem;
+    }
+  }
+</style>

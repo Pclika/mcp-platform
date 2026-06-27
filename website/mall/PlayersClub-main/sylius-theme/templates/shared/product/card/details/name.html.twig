@@ -1,0 +1,8 @@
+{% set product = hookable_metadata.context.product %}
+
+<div class="pc-product-copy">
+    <div class="pc-product-name" {{ sylius_test_html_attribute('product-name', product.name) }}>
+        {{ product.name }}
+    </div>
+    <div class="pc-product-sku">SKU / {{ product.code }}</div>
+</div>

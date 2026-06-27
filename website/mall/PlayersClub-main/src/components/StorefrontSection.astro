@@ -1,0 +1,48 @@
+---
+interface Props {
+  eyebrow?: string;
+  title: string;
+  description?: string;
+  compact?: boolean;
+}
+
+const { eyebrow, title, description, compact = false } = Astro.props as Props;
+---
+
+<header class:list={["storefront-section", compact && "storefront-section--compact"]}>
+  {eyebrow && <p class="storefront-eyebrow">{eyebrow}</p>}
+  <h2>{title}</h2>
+  {description && <p class="storefront-description">{description}</p>}
+</header>
+
+<style>
+  .storefront-section {
+    display: grid;
+    gap: 0.8rem;
+    padding: 2rem 0 1.5rem;
+  }
+
+  .storefront-section--compact {
+    padding-bottom: 1rem;
+  }
+
+  .storefront-eyebrow {
+    margin: 0;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-alt);
+  }
+
+  .storefront-section h2 {
+    margin: 0;
+  }
+
+  .storefront-description {
+    max-width: 46rem;
+    margin: 0;
+    line-height: 1.5;
+    color: var(--color-text-alt);
+  }
+</style>

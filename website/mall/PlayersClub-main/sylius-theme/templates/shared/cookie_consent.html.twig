@@ -1,0 +1,90 @@
+{#
+ # Cookie Consent Banner — GDPR / CCPA compliant
+ # Renders a fixed bottom banner with Accept / Reject / Settings buttons.
+ #}
+<div class="pc-cookie-bar" id="pc-cookie-bar" role="dialog" aria-labelledby="cookie-title" aria-describedby="cookie-desc" aria-modal="false">
+    <div class="pc-cookie-bar__inner">
+        <div class="pc-cookie-bar__text">
+            <strong id="cookie-title">Cookie Consent</strong>
+            <p id="cookie-desc">
+                We use cookies to ensure the best experience on our store — essential cookies for cart and checkout,
+                analytics cookies to improve the site, and marketing cookies for relevant offers.
+                By clicking "Accept All" you agree to all uses. See our
+                <a href="{{ path('sylius_shop_homepage') }}#privacy">Privacy Policy</a> for details.
+            </p>
+        </div>
+        <div class="pc-cookie-bar__actions">
+            <button class="pc-cookie-btn pc-cookie-btn--settings" id="cookie-settings" aria-label="Cookie settings">Settings</button>
+            <button class="pc-cookie-btn pc-cookie-btn--reject" id="cookie-reject" aria-label="Reject non-essential cookies">Reject All</button>
+            <button class="pc-cookie-btn pc-cookie-btn--accept" id="cookie-accept" aria-label="Accept all cookies">Accept All</button>
+        </div>
+    </div>
+    <!-- Settings panel (hidden by default) -->
+    <div class="pc-cookie-settings" id="pc-cookie-settings" style="display:none;">
+        <div class="pc-cookie-settings__row">
+            <input type="checkbox" id="cookie-essential" checked disabled>
+            <label for="cookie-essential"><strong>Essential</strong> — Required for cart, checkout and security. Always enabled.</label>
+        </div>
+        <div class="pc-cookie-settings__row">
+            <input type="checkbox" id="cookie-analytics" checked>
+            <label for="cookie-analytics"><strong>Analytics</strong> — Help us understand how you browse the store so we can improve it.</label>
+        </div>
+        <div class="pc-cookie-settings__row">
+            <input type="checkbox" id="cookie-marketing" checked>
+            <label for="cookie-marketing"><strong>Marketing</strong> — Let us show relevant product recommendations and offers.</label>
+        </div>
+        <div class="pc-cookie-settings__actions">
+            <button class="pc-cookie-btn pc-cookie-btn--accept" id="cookie-save">Save Preferences</button>
+        </div>
+    </div>
+</div>
+
+<script>
+(function(){
+    var bar = document.getElementById('pc-cookie-bar');
+    var accept = document.getElementById('cookie-accept');
+    var reject = document.getElementById('cookie-reject');
+    var settings = document.getElementById('cookie-settings');
+    var panel = document.getElementById('pc-cookie-settings');
+    var save = document.getElementById('cookie-save');
+    var btn = document.getElementById('cookie-settings-btn');
+
+    function hide() { bar.style.display = 'none'; }
+    function setConsent(level) {
+        localStorage.setItem('pclika_cookie_consent', level);
+        localStorage.setItem('pclika_cookie_analytics', document.getElementById('cookie-analytics').checked);
+        localStorage.setItem('pclika_cookie_marketing', document.getElementById('cookie-marketing').checked);
+        hide();
+    }
+
+    if (localStorage.getItem('pclika_cookie_consent')) { hide(); }
+
+    accept.addEventListener('click', function() {
+        document.getElementById('cookie-analytics').checked = true;
+        document.getElementById('cookie-marketing').checked = true;
+        setConsent('all');
+    });
+
+    reject.addEventListener('click', function() {
+        document.getElementById('cookie-analytics').checked = false;
+        document.getElementById('cookie-marketing').checked = false;
+        setConsent('reject');
+    });
+
+    settings.addEventListener('click', function() {
+        panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+    });
+
+    save.addEventListener('click', function() {
+        setConsent('custom');
+    });
+
+    if (btn) {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            bar.style.display = 'flex';
+            panel.style.display = 'block';
+        });
+    }
+})();
+</script>

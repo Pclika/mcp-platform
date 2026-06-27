@@ -1,0 +1,88 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Separator from "../../components/Separator.astro";
+import StorefrontSection from "../../components/StorefrontSection.astro";
+
+export const getStaticPaths = async () => {
+  const products = await getCollection("products");
+  const categories = [...new Set(products.map((product) => product.data.category.toLowerCase()))];
+  return categories.map((slug) => ({
+    params: { slug },
+    props: {
+      slug,
+      products: products.filter((product) => product.data.category.toLowerCase() === slug),
+    },
+  }));
+};
+
+const { slug, products: taxonProducts } = Astro.props;
+const title = `${slug} | PCLIKA`;
+---
+
+<BaseLayout title={title} description="Taxon listing aligned to the Sylius storefront category route.">
+  <section>
+    <StorefrontSection
+      eyebrow="Taxon Listing"
+      title={`Category: ${slug}`}
+      description="This page represents the Sylius product index by taxon. The final version should be driven by taxon and channel data instead of static markdown collections."
+    />
+    <Separator />
+
+    <div class="taxon-grid">
+      {taxonProducts.map((product) => (
+        <a
+          href={`/products/${product.id}`}
+          class="taxon-card"
+          style={`--image: url('${product.data.image.src}');`}
+        >
+          <span>{product.data.name}</span>
+          <strong>{product.data.price}</strong>
+        </a>
+      ))}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .taxon-grid {
+    display: grid;
+    gap: 1rem;
+    padding: 1.5rem 0 4rem;
+  }
+
+  @media screen and (min-width: 44em) {
+    .taxon-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media screen and (min-width: 64em) {
+    .taxon-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  .taxon-card {
+    display: grid;
+    gap: 0.65rem;
+    min-height: 17rem;
+    align-content: end;
+    padding: 1rem;
+    color: #fff;
+    background-image: linear-gradient(to top, rgba(0,0,0,0.78), rgba(0,0,0,0.18)), var(--image);
+    background-size: cover;
+    background-position: center;
+  }
+
+  .taxon-card span {
+    font-size: 1.05rem;
+    font-weight: 700;
+  }
+
+  .taxon-card strong {
+    font-size: 0.84rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+</style>

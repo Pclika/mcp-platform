@@ -1,0 +1,33 @@
+---
+name: "OLED Display 128x64"
+sku: "DSP-OLED-1"
+category: "Display"
+price: "$12.00"
+image:
+  src: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iNTAwIj48cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjUwMCIgZmlsbD0iI2ZhZmFmYSIvPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSI0MDAiIGhlaWdodD0iNTAwIiBmaWxsPSIjYzhmZmQ0IiBvcGFjaXR5PSIwLjIwIi8+PHRleHQgeD0iMjAwIiB5PSIyNDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCxzYW5zLXNlcmlmIiBmb250LXNpemU9IjE4IiBmaWxsPSIjODg4IiBmb250LXdlaWdodD0iNzAwIj5PTEVEIERpc3BsYXkgMTI4eDY0PC90ZXh0PjxsaW5lIHgxPSI0MCIgeTE9IjI3MCIgeDI9IjM2MCIgeTI9IjI3MCIgc3Ryb2tlPSIjY2NjIiBzdHJva2Utd2lkdGg9IjEiLz48dGV4dCB4PSIyMDAiIHk9IjMxMCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIxMiIgZmlsbD0iI2JiYiI+UENMSUtBPC90ZXh0Pjwvc3ZnPg=="
+  alt: "OLED Display 128x64"
+images:
+  - src: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iNTAwIj48cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjUwMCIgZmlsbD0iI2ZhZmFmYSIvPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSI0MDAiIGhlaWdodD0iNTAwIiBmaWxsPSIjYzhmZmQ0IiBvcGFjaXR5PSIwLjE4Ii8+PHRleHQgeD0iMjAwIiB5PSIxODAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCxzYW5zLXNlcmlmIiBmb250LXNpemU9IjEzIiBmaWxsPSIjNzc3Ij5QaW5vdXQ8L3RleHQ+PHJlY3QgeD0iNjAiIHk9IjIwMCIgd2lkdGg9IjI4MCIgaGVpZ2h0PSIxMjAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2NjYyIgc3Ryb2tlLXdpZHRoPSIxIi8+PHRleHQgeD0iMjAwIiB5PSIyMzAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iMTAiIGZpbGw9IiM5OTkiPk9MRUQgRGlzcGxheSAxMjh4NiDigJQgUGlub3V0PC90ZXh0Pjx0ZXh0IHg9IjIwMCIgeT0iMjUyIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0ibW9ub3NwYWNlIiBmb250LXNpemU9IjkiIGZpbGw9IiNiYmIiPkdORCBWQ0MgU0RBIFNDTCBUWCBSWDwvdGV4dD48dGV4dCB4PSIyMDAiIHk9IjM0MCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIxMiIgZmlsbD0iI2JiYiI+UENMSUtBPC90ZXh0Pjwvc3ZnPg=="
+    alt: "OLED Display 128x64 — Pinout"
+  - src: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iNTAwIj48cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjUwMCIgZmlsbD0iI2ZhZmFmYSIvPjxyZWN0IHg9IjQwIiB5PSI0MCIgd2lkdGg9IjMyMCIgaGVpZ2h0PSI0MjAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2NjYyIgc3Ryb2tlLXdpZHRoPSIxIi8+PHRleHQgeD0iMjAwIiB5PSIyMDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCxzYW5zLXNlcmlmIiBmb250LXNpemU9IjEzIiBmaWxsPSIjNzc3Ij5Bc3NlbWJseSBWaWV3PC90ZXh0PjxyZWN0IHg9IjEwMCIgeT0iMjMwIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjOTk5IiBzdHJva2Utd2lkdGg9IjEiIHN0cm9rZS1kYXNoYXJyYXk9IjQiLz48dGV4dCB4PSIyMDAiIHk9IjI4MCIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIxMCIgZmlsbD0iI2FhYSI+WyBNb3VudGluZyBob2xlcyBdPC90ZXh0Pjx0ZXh0IHg9IjIwMCIgeT0iMzQwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0ibW9ub3NwYWNlIiBmb250LXNpemU9IjEyIiBmaWxsPSIjYmJiIj5QQ0xJS0E8L3RleHQ+PC9zdmc+"
+    alt: "OLED Display 128x64 — Assembly"
+
+specs:
+  chip: "SSD1306"
+  voltage: "3.3V-5V"
+  protocol: "I2C (addr 0x3C)"
+  resolution: "128 x 64 px"
+  dimensions: "27 x 27 x 4 mm"
+  weight: "3 g"
+---
+
+Monochrome 0.96-inch OLED with 128x64 pixel resolution. SSD1306 controller over I2C. Crisp white pixels on true black background. Perfect for status readouts and telemetry panels.
+
+## Hardware Specifications
+
+  - **Chip**: SSD1306
+  - **Voltage**: 3.3V-5V
+  - **Protocol**: I2C (addr 0x3C)
+  - **Resolution**: 128 x 64 px
+  - **Dimensions**: 27 x 27 x 4 mm
+  - **Weight**: 3 g

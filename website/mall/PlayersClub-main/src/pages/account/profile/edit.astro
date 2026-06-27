@@ -1,0 +1,39 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import AccountShell from "../../../components/AccountShell.astro";
+import StorefrontForm from "../../../components/StorefrontForm.astro";
+import { storefrontAliases, syliusPaths } from "../../../lib/sylius";
+
+const title = "Edit Profile | PCLIKA";
+const tabs = [
+  { href: storefrontAliases.accountDashboard, label: "Dashboard" },
+  { href: storefrontAliases.accountOrders, label: "Orders" },
+  { href: storefrontAliases.accountAddressBook, label: "Addresses" },
+  { href: storefrontAliases.accountProfile, label: "Profile", current: true },
+  { href: storefrontAliases.accountPassword, label: "Password" },
+];
+---
+
+<BaseLayout title={title} description="Profile edit page aligned to Sylius storefront account profile route.">
+  <section>
+    <AccountShell
+      title="Edit Profile"
+      description="This page should align to the Sylius account profile update route and customer profile model."
+      tabs={tabs}
+    >
+      <StorefrontForm action={syliusPaths.accountProfileEdit()} method="post">
+        <div class="storefront-form__grid storefront-form__grid--2">
+          <label><span>First name</span><input value="Yaser" name="customer[firstName]" /></label>
+          <label><span>Last name</span><input value="Dht" name="customer[lastName]" /></label>
+        </div>
+        <div class="storefront-form__grid storefront-form__grid--2">
+          <label><span>Email</span><input type="email" value="9986650@qq.com" name="customer[email]" /></label>
+          <label><span>Locale</span><input value="zh_Hans" name="customer[localeCode]" /></label>
+        </div>
+        <div class="storefront-form__actions">
+          <button type="submit">Save profile</button>
+        </div>
+      </StorefrontForm>
+    </AccountShell>
+  </section>
+</BaseLayout>

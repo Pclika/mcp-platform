@@ -1,0 +1,219 @@
+{
+  "schema_version": "0.1.0",
+  "platform": "pclika-hdl",
+  "mcp_server": "pclikaHDL",
+  "seal": "PCK-MMXXVI-9198580D",
+  "tools": [
+    {
+      "name": "device_info",
+      "description": "Return the target FPGA device info: family, device name, package, speed grade, and available resource totals (LUT, FF, BRAM, DSP, PLL).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      }
+    },
+    {
+      "name": "synth_run",
+      "description": "Trigger Yosys synthesis on the current HDL source. Returns a job ID. Use synth_status to poll for results.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "top_module": {
+            "type": "string",
+            "description": "Name of the top-level Verilog/VHDL module to synthesize."
+          },
+          "target_device": {
+            "type": "string",
+            "description": "Target device family (e.g. ice40, ecp5). Defaults to configured device.",
+            "default": "ice40"
+          }
+        },
+        "required": ["top_module"]
+      }
+    },
+    {
+      "name": "synth_status",
+      "description": "Return the result of the most recent synthesis run: status (running/done/failed), module count, cell count, warnings, errors.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "job_id": {
+            "type": "string",
+            "description": "Job ID from synth_run. If omitted, returns status of most recent run."
+          }
+        },
+        "required": []
+      }
+    },
+    {
+      "name": "impl_run",
+      "description": "Trigger nextpnr place-and-route on the last successful synthesis result. Returns a job ID.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "seed": {
+            "type": "integer",
+            "description": "P&R random seed. Change seed if routing fails. Default: 1."
+          },
+          "freq_mhz": {
+            "type": "number",
+            "description": "Target clock frequency in MHz for timing-driven P&R."
+          }
+        },
+        "required": []
+      }
+    },
+    {
+      "name": "impl_status",
+      "description": "Return the result of the most recent place-and-route run: status, routing success/fail, wire usage percentage.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "job_id": {
+            "type": "string",
+            "description": "Job ID from impl_run. If omitted, returns status of most recent run."
+          }
+        },
+        "required": []
+      }
+    },
+    {
+      "name": "timing_report",
+      "description": "Return the timing analysis from the last P&R run: critical path delay, worst slack, violated paths count, and per-clock-domain summary.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "verbose": {
+            "type": "boolean",
+            "description": "If true, include full critical path details. Default: false.",
+            "default": false
+          }
+        },
+        "required": []
+      }
+    },
+    {
+      "name": "resource_usage",
+      "description": "Return FPGA resource utilization from the last P&R run: LUT, FF, BRAM, DSP, PLL — each as used count, total count, and percentage.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      }
+    },
+    {
+      "name": "lint_report",
+      "description": "Run Verilator lint check on the current HDL source and return all warnings and errors with file name, line number, and message.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "top_module": {
+            "type": "string",
+            "description": "Top-level module to lint. If omitted, lints all files in hdl/rtl/."
+          },
+          "strict": {
+            "type": "boolean",
+            "description": "If true, treat warnings as errors. Default: false.",
+            "default": false
+          }
+        },
+        "required": []
+      }
+    },
+    {
+      "name": "sim_run",
+      "description": "Trigger Verilator or GHDL simulation for a specified testbench. Returns a job ID.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "testbench": {
+            "type": "string",
+            "description": "Name of the testbench module to simulate (must exist in hdl/tb/)."
+          },
+          "timeout_cycles": {
+            "type": "integer",
+            "description": "Maximum simulation cycles before timeout. Default: 1000000.",
+            "default": 1000000
+          },
+          "save_waveform": {
+            "type": "boolean",
+            "description": "If true, save VCD waveform for waveform_export. Default: false.",
+            "default": false
+          }
+        },
+        "required": ["testbench"]
+      }
+    },
+    {
+      "name": "sim_result",
+      "description": "Return the result of the most recent simulation: pass/fail, cycle count, assertion results, last 50 lines of simulation log.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "job_id": {
+            "type": "string",
+            "description": "Job ID from sim_run. If omitted, returns result of most recent simulation."
+          }
+        },
+        "required": []
+      }
+    },
+    {
+      "name": "constraint_validate",
+      "description": "Validate the device constraint file (.pcf / .lpf / .xdc) against the current design's port list and the target device's pin map.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "constraint_file": {
+            "type": "string",
+            "description": "Path to the constraint file relative to the project root. If omitted, uses the default constraint for the target device."
+          }
+        },
+        "required": []
+      }
+    },
+    {
+      "name": "bitstream_flash",
+      "description": "Flash the latest bitstream to the connected FPGA via USB using iceprog (iCE40) or openFPGALoader (ECP5). Returns programming result.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "device_path": {
+            "type": "string",
+            "description": "USB device path. If omitted, auto-detects the connected FPGA programmer."
+          },
+          "verify": {
+            "type": "boolean",
+            "description": "If true, read back bitstream after programming to verify. Default: true.",
+            "default": true
+          }
+        },
+        "required": []
+      }
+    },
+    {
+      "name": "waveform_export",
+      "description": "Export a portion of the last simulation waveform as a text summary of signal values over time. Requires sim_run was called with save_waveform: true.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "signals": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "List of signal names to include in export. If empty, exports all top-level signals."
+          },
+          "start_cycle": {
+            "type": "integer",
+            "description": "Start cycle for waveform export. Default: 0."
+          },
+          "end_cycle": {
+            "type": "integer",
+            "description": "End cycle for waveform export. Default: last cycle."
+          }
+        },
+        "required": []
+      }
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "servers": {
+    "pclikaHDL": {
+      "type": "stdio",
+      "command": "pclika-hdl-bridge",
+      "args": [
+        "--project", "${workspaceFolder}",
+        "--device", "ice40up5k",
+        "--freq", "12"
+      ]
+    }
+  }
+}

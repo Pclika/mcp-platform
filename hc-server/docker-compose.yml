@@ -1,0 +1,23 @@
+version: "3.9"
+
+services:
+  hc-server:
+    build: .
+    container_name: pclika-hc
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    volumes:
+      - hc_data:/data
+    environment:
+      - KEYS_FILE=/data/keys.json
+      - ADMIN_KEY=${ADMIN_KEY:-changeme}
+      - PORT=8080
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+volumes:
+  hc_data:

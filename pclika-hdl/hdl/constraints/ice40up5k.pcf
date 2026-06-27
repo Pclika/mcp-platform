@@ -1,0 +1,60 @@
+# ice40up5k.pcf — iCE40UP5K shared pin constraints (SG48 package)
+#
+# iCEBreaker v1.0 board pinout
+# Reference: https://docs.icebreaker-fpga.org/hardware/pinout/
+#
+# Seal: PCK-MMXXVI-9198580D
+
+# ── Clock ──────────────────────────────────────────────────────────────────
+set_io -pullup no  clk         35
+
+# ── RGB LED (active-low) ───────────────────────────────────────────────────
+set_io -pullup no  led_r       41
+set_io -pullup no  led_g       40
+set_io -pullup no  led_b       39
+
+# ── UART (USB-UART bridge via FTDI) ───────────────────────────────────────
+set_io -pullup yes uart_rx     6
+set_io -pullup no  uart_tx     9
+
+# ── SPI Flash (onboard) ───────────────────────────────────────────────────
+# Note: used by bootloader — only connect for bitstream passthrough apps
+# set_io flash_sck    15
+# set_io flash_mosi   14
+# set_io flash_miso   17
+# set_io flash_cs_n   16
+
+# ── PMOD connector 1A (top, right side) ───────────────────────────────────
+set_io -pullup no  pmod1a[0]   4
+set_io -pullup no  pmod1a[1]   2
+set_io -pullup no  pmod1a[2]   47
+set_io -pullup no  pmod1a[3]   45
+
+# ── PMOD connector 1B (bottom, right side) ────────────────────────────────
+set_io -pullup no  pmod1b[0]   3
+set_io -pullup no  pmod1b[1]   48
+set_io -pullup no  pmod1b[2]   46
+set_io -pullup no  pmod1b[3]   44
+
+# ── PMOD connector 2 (left side) ──────────────────────────────────────────
+set_io -pullup no  pmod2[0]    43
+set_io -pullup no  pmod2[1]    38
+set_io -pullup no  pmod2[2]    34
+set_io -pullup no  pmod2[3]    31
+set_io -pullup no  pmod2[4]    42
+set_io -pullup no  pmod2[5]    36
+set_io -pullup no  pmod2[6]    32
+set_io -pullup no  pmod2[7]    28
+
+# ── Push buttons ──────────────────────────────────────────────────────────
+set_io -pullup yes btn_n       10   # active low
+set_io -pullup yes btn_up      11
+set_io -pullup yes btn_dn      12
+
+# ── SPI master expansion header ───────────────────────────────────────────
+# Uncomment as needed for external SPI devices (e.g., BME280, ST7735)
+# set_io -pullup no  spi_sck     15
+# set_io -pullup no  spi_mosi    14
+# set_io -pullup yes spi_miso    17
+# set_io -pullup no  spi_cs0_n   16
+# set_io -pullup no  spi_cs1_n   26

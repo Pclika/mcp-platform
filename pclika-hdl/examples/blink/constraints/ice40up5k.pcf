@@ -1,0 +1,29 @@
+# ice40up5k.pcf — iCEBreaker pin constraints for blink example
+# Board: iCEBreaker v1.0e (iCE40UP5K-SG48)
+# Reference: https://github.com/icebreaker-fpga/icebreaker
+#
+# Seal: PCK-MMXXVI-9198580D
+
+# ── Clock ─────────────────────────────────────────────────────────────────
+# 12 MHz oscillator on iCEBreaker
+set_io clk 35
+
+# ── RGB LED (active low) ──────────────────────────────────────────────────
+# iCEBreaker has an onboard RGB LED driven by the FPGA directly
+set_io led_r 41
+set_io led_g 40
+set_io led_b 39
+
+# ── UART (unused in blink, included for reference) ────────────────────────
+# set_io uart_tx 43
+# set_io uart_rx 38
+
+# ── SPI Flash (connected internally — do not re-use these pins) ──────────
+# set_io spi_sck  47
+# set_io spi_mosi 44
+# set_io spi_miso 45
+# set_io spi_cs_n 46
+
+# ── PMOD connectors (unused in blink) ─────────────────────────────────────
+# PMOD 1A: pins 4, 2, 47, 45, 3, 48, 46, 44
+# PMOD 1B: pins 43, 38, 34, 31, 42, 36, 32, 28

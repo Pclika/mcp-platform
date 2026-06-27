@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "pclikaHDL": {
+      "command": "pclika-hdl-bridge",
+      "args": [
+        "--project", "/path/to/your/pclika-hdl-project",
+        "--device", "ice40up5k",
+        "--freq", "12"
+      ]
+    }
+  }
+}

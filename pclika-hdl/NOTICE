@@ -1,0 +1,55 @@
+Pclika HDL Platform
+Copyright 2026 Pclika (https://pclika.com)
+
+=========================================================================
+
+This product includes software developed by Pclika and contributors.
+Source: https://github.com/Pclika/pclika-hdl
+
+=========================================================================
+
+THIRD-PARTY TOOLCHAIN COMPONENTS
+
+This repository integrates with the following open-source tools.
+These tools are NOT bundled in this repository; they are invoked at
+runtime via system PATH. Each retains its own license.
+
+  Yosys — RTL synthesis framework
+  Copyright (c) 2012 Claire Xenia Wolf and contributors
+  License: ISC
+  https://github.com/YosysHQ/yosys
+
+  nextpnr — FPGA place-and-route
+  Copyright (c) 2018 the nextpnr authors
+  License: ISC
+  https://github.com/YosysHQ/nextpnr
+
+  Verilator — Verilog/SystemVerilog simulator and linter
+  Copyright 2003-2024 by Wilson Snyder
+  License: LGPL-3.0 (or Perl Artistic License)
+  https://www.veripool.org/verilator/
+
+  iceprog — iCE40 bitstream programmer (part of icestorm)
+  Copyright (c) 2014-2018 Clifford Wolf and contributors
+  License: ISC
+  https://github.com/YosysHQ/icestorm
+
+  OSS CAD Suite — pre-built toolchain distribution
+  Distributed by YosysHQ GmbH
+  https://github.com/YosysHQ/oss-cad-suite-build
+
+=========================================================================
+
+HARDWARE TARGET REFERENCE
+
+  iCE40UP5K — target FPGA device
+  iCEBreaker — recommended development board
+  Both are products of Lattice Semiconductor and 1BitSquared respectively.
+  Pclika is not affiliated with Lattice Semiconductor or 1BitSquared.
+
+=========================================================================
+
+PLATFORM SEAL
+
+  PCK-MMXXVI-9198580D
+  Verify: https://pclika.com/verify/PCK-9198580D

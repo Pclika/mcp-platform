@@ -1,0 +1,9 @@
+# uart-echo pin constraints — iCE40UP5K SG48 (iCEBreaker)
+# Seal: PCK-MMXXVI-9198580D
+
+set_io -pullup no  clk       35
+set_io -pullup yes uart_rx    6
+set_io -pullup no  uart_tx    9
+set_io -pullup no  led_r     41
+set_io -pullup no  led_g     40
+set_io -pullup no  led_b     39

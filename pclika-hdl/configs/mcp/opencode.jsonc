@@ -1,0 +1,24 @@
+// opencode.jsonc — Pclika HDL Bridge for OpenCode
+//
+// Place this file at: ~/.config/opencode/mcp.jsonc
+// or merge the "mcpServers" block into your existing config.
+//
+// Seal: PCK-MMXXVI-9198580D
+{
+  "mcpServers": {
+    "pclika-hdl-bridge": {
+      "command": "pclika-hdl-bridge",
+      "args": [
+        "--project", "${env:PCLIKA_PROJECT}",
+        "--device",  "${env:PCLIKA_DEVICE:-ice40up5k}",
+        "--package", "${env:PCLIKA_PACKAGE:-sg48}",
+        "--freq",    "${env:PCLIKA_FREQ:-12}"
+      ],
+      "env": {
+        // Set PCLIKA_PROJECT to absolute path of your HDL project root
+        // "PCLIKA_PROJECT": "/home/user/my-fpga-project"
+      },
+      "description": "Pclika HDL platform — iCE40/ECP5 synthesis, P&R, simulation via Yosys/nextpnr/Verilator"
+    }
+  }
+}

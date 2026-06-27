@@ -1,0 +1,23 @@
+# 99-pclika-usb.rules — USB device rules for pclika-hdl toolchain
+#
+# Allows non-root users in the "plugdev" group to flash iCE40 boards.
+# Install: sudo cp 99-pclika-usb.rules /etc/udev/rules.d/
+#          sudo udevadm control --reload-rules && sudo udevadm trigger
+#
+# Seal: PCK-MMXXVI-9198580D
+
+# iCEBreaker / FTDI 2232H (iceprog)
+ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6010", MODE="0664", GROUP="plugdev", TAG+="uaccess"
+
+# iCEstick (FTDI 2232H variant)
+ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6014", MODE="0664", GROUP="plugdev", TAG+="uaccess"
+
+# ESP32-S3 USB-JTAG/Serial (pclika-mcp)
+ATTRS{idVendor}=="303a", ATTRS{idProduct}=="1001", MODE="0664", GROUP="plugdev", TAG+="uaccess"
+
+# CP2102 USB-Serial (common ESP32 dev boards)
+ATTRS{idVendor}=="10c4", ATTRS{idProduct}=="ea60", MODE="0664", GROUP="plugdev", TAG+="uaccess"
+
+# CH340/CH341 USB-Serial
+ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="7523", MODE="0664", GROUP="plugdev", TAG+="uaccess"
+ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="55d4", MODE="0664", GROUP="plugdev", TAG+="uaccess"

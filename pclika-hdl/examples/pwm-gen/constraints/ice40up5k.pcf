@@ -1,0 +1,15 @@
+# pwm-gen pin constraints — iCE40UP5K SG48 (iCEBreaker)
+# Seal: PCK-MMXXVI-9198580D
+
+set_io -pullup no  clk          35
+set_io -pullup yes btn_up       11
+set_io -pullup yes btn_dn       12
+set_io -pullup no  led_r        41
+set_io -pullup no  led_g        40
+set_io -pullup no  led_b        39
+
+# PWM outputs on PMOD1A
+set_io -pullup no  pwm_out[0]    4
+set_io -pullup no  pwm_out[1]    2
+set_io -pullup no  pwm_out[2]   47
+set_io -pullup no  pwm_out[3]   45

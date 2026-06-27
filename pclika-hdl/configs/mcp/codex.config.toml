@@ -1,0 +1,27 @@
+# codex.config.toml — Pclika HDL Bridge for OpenAI Codex CLI
+#
+# Place this file at: ~/.codex/config.toml  (or merge into existing)
+# Then run: codex --mcp pclika-hdl-bridge <task>
+#
+# Seal: PCK-MMXXVI-9198580D
+
+[mcp.servers.pclika-hdl-bridge]
+command = "pclika-hdl-bridge"
+args    = [
+  "--project", "${PCLIKA_PROJECT:-./}",
+  "--device",  "${PCLIKA_DEVICE:-ice40up5k}",
+  "--package", "${PCLIKA_PACKAGE:-sg48}",
+  "--freq",    "${PCLIKA_FREQ:-12}",
+]
+env = {}
+
+# Or using Docker (uncomment):
+# command = "docker"
+# args = [
+#   "run", "--rm", "-i",
+#   "--device", "/dev/bus/usb",
+#   "--privileged",
+#   "-v", "${PCLIKA_PROJECT:-./}:/project",
+#   "pclika-hdl",
+#   "pclika-hdl-bridge --project /project"
+# ]

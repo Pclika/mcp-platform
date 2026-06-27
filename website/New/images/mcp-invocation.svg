@@ -1,0 +1,19 @@
+<svg width="1200" height="900" viewBox="0 0 1200 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="900" fill="#050505"/>
+  <circle cx="260" cy="210" r="210" fill="#FF8B39" fill-opacity="0.16"/>
+  <circle cx="950" cy="700" r="250" fill="#5E2804" fill-opacity="0.4"/>
+  <rect x="132" y="158" width="936" height="584" rx="30" stroke="#FFE4D0" stroke-opacity="0.2" stroke-width="2"/>
+  <rect x="196" y="234" width="808" height="94" rx="18" fill="#1A120D"/>
+  <path d="M234 282H522" stroke="#FFE4D0" stroke-width="3"/>
+  <path d="M560 282H776" stroke="#FFE4D0" stroke-opacity="0.5" stroke-width="3"/>
+  <path d="M820 282H958" stroke="#FF8B39" stroke-width="3"/>
+  <rect x="196" y="388" width="228" height="224" rx="22" fill="#130C08" stroke="#FFE4D0" stroke-opacity="0.15"/>
+  <rect x="486" y="388" width="228" height="224" rx="22" fill="#130C08" stroke="#FFE4D0" stroke-opacity="0.15"/>
+  <rect x="776" y="388" width="228" height="224" rx="22" fill="#130C08" stroke="#FFE4D0" stroke-opacity="0.15"/>
+  <path d="M310 612V704" stroke="#FF8B39" stroke-width="4"/>
+  <path d="M600 612V704" stroke="#FF8B39" stroke-width="4"/>
+  <path d="M890 612V704" stroke="#FF8B39" stroke-width="4"/>
+  <path d="M310 704H600" stroke="#FFB27B" stroke-width="3" stroke-dasharray="8 10"/>
+  <path d="M600 704H890" stroke="#FFB27B" stroke-width="3" stroke-dasharray="8 10"/>
+  <text x="200" y="690" fill="#FFF1E5" fill-opacity="0.92" font-family="monospace" font-size="48">STANDARD INVOCATION</text>
+</svg>

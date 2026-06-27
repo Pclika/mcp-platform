@@ -1,0 +1,39 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Separator from "../../components/Separator.astro";
+import StorefrontSection from "../../components/StorefrontSection.astro";
+import StorefrontCardGrid from "../../components/StorefrontCardGrid.astro";
+import StorefrontCard from "../../components/StorefrontCard.astro";
+import { syliusPaths } from "../../lib/sylius";
+
+export const getStaticPaths = () => [
+  { params: { tokenValue: "PCL-2026-1010" } },
+  { params: { tokenValue: "PCL-2026-1011" } },
+];
+
+const { tokenValue } = Astro.params;
+const title = `Order ${tokenValue} | PCLIKA`;
+---
+
+<BaseLayout title={title} description="Guest order view aligned to the Sylius storefront order route.">
+  <section>
+    <StorefrontSection
+      eyebrow="Order View"
+      title={`Order ${tokenValue}`}
+      description="Guest and post-checkout order pages should eventually render the real Sylius order token resource."
+    />
+    <Separator />
+
+    <StorefrontCardGrid>
+      <StorefrontCard title="Payment" subtitle="Pending confirmation" href={syliusPaths.orderPay(tokenValue)} actionLabel="Continue payment">
+        <p>Use this route when Sylius requires the customer to continue or retry payment.</p>
+      </StorefrontCard>
+      <StorefrontCard title="Shipment" subtitle="Preparing warehouse handoff">
+        <p>Shipment status, tracking number, and operational notes should flow here from the order timeline.</p>
+      </StorefrontCard>
+      <StorefrontCard title="After payment return" subtitle="Sylius payment callback" href={syliusPaths.orderAfterPay("demo-hash")} actionLabel="View after-pay route">
+        <p>Useful for redirects from payment processors and post-authorization updates.</p>
+      </StorefrontCard>
+    </StorefrontCardGrid>
+  </section>
+</BaseLayout>

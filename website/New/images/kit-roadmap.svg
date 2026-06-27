@@ -1,0 +1,18 @@
+<svg width="1200" height="900" viewBox="0 0 1200 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="900" fill="#050505"/>
+  <circle cx="220" cy="210" r="210" fill="#9345FF" fill-opacity="0.16"/>
+  <circle cx="940" cy="680" r="270" fill="#23003C" fill-opacity="0.52"/>
+  <rect x="138" y="150" width="924" height="600" rx="34" stroke="#F1D7FF" stroke-opacity="0.2" stroke-width="2"/>
+  <circle cx="240" cy="450" r="34" fill="#C278FF"/>
+  <circle cx="460" cy="450" r="34" fill="#B05EFF"/>
+  <circle cx="680" cy="450" r="34" fill="#9C46F1"/>
+  <circle cx="900" cy="450" r="34" fill="#882FE2"/>
+  <path d="M274 450H426" stroke="#EED6FF" stroke-width="4" stroke-dasharray="10 10"/>
+  <path d="M494 450H646" stroke="#EED6FF" stroke-width="4" stroke-dasharray="10 10"/>
+  <path d="M714 450H866" stroke="#EED6FF" stroke-width="4" stroke-dasharray="10 10"/>
+  <path d="M210 308H270" stroke="#FFFFFF" stroke-opacity="0.5" stroke-width="3"/>
+  <path d="M430 308H490" stroke="#FFFFFF" stroke-opacity="0.5" stroke-width="3"/>
+  <path d="M650 308H710" stroke="#FFFFFF" stroke-opacity="0.5" stroke-width="3"/>
+  <path d="M870 308H930" stroke="#FFFFFF" stroke-opacity="0.5" stroke-width="3"/>
+  <text x="176" y="708" fill="#F8EBFF" fill-opacity="0.96" font-family="monospace" font-size="48">MCP READY KIT ROADMAP</text>
+</svg>

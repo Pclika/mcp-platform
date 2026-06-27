@@ -1,0 +1,90 @@
+---
+interface Props {
+  action: string;
+  method?: "get" | "post";
+}
+
+const { action, method = "post" } = Astro.props as Props;
+---
+
+<form class="storefront-form" action={action} method={method}>
+  <slot />
+</form>
+
+<style>
+  .storefront-form {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .storefront-form :global(label) {
+    display: grid;
+    gap: 0.35rem;
+    font-size: 0.84rem;
+    font-weight: 700;
+  }
+
+  .storefront-form :global(input),
+  .storefront-form :global(select),
+  .storefront-form :global(textarea) {
+    width: 100%;
+    padding: 0.72rem 0.8rem;
+    border: 1px solid var(--border-color);
+    background: var(--color-bg);
+    color: var(--color-text);
+    font: inherit;
+  }
+
+  .storefront-form :global(textarea) {
+    min-height: 7rem;
+    resize: vertical;
+  }
+
+  .storefront-form :global(.storefront-form__grid) {
+    display: grid;
+    gap: 1rem;
+  }
+
+  @media screen and (min-width: 44em) {
+    .storefront-form :global(.storefront-form__grid--2) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .storefront-form :global(.storefront-form__actions) {
+    display: flex;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .storefront-form :global(button),
+  .storefront-form :global(.storefront-button) {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.85rem 1.4rem;
+    border: 0;
+    background: var(--color-text);
+    color: var(--color-bg);
+    font: inherit;
+    font-size: 0.84rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+
+  .storefront-form :global(.storefront-button--secondary) {
+    background: transparent;
+    color: var(--color-text);
+    border: 1px solid var(--border-color);
+  }
+
+  .storefront-form :global(.storefront-help) {
+    margin: 0;
+    font-size: 0.82rem;
+    line-height: 1.5;
+    color: var(--color-text-alt);
+  }
+</style>

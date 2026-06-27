@@ -1,0 +1,101 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Separator from "../components/Separator.astro";
+import { storefrontAliases } from "../lib/sylius";
+
+const title = "Register | PCLIKA";
+---
+
+<BaseLayout title={title} description="Create an account">
+  <section class="auth-page">
+    <header class="title-header title-header--initial">
+      <h2>Register</h2>
+    </header>
+    <Separator />
+    <div class="auth-form">
+      <div id="auth-error" class="auth-error" style="display:none;"></div>
+      <form id="register-form">
+        <label>
+          <span>Email</span>
+          <input type="email" id="reg-email" placeholder="you@example.com" required />
+        </label>
+        <label>
+          <span>Password</span>
+          <input type="password" id="reg-password" placeholder="Create a password" required minlength="6" />
+        </label>
+        <label>
+          <span>Confirm Password</span>
+          <input type="password" id="reg-confirm" placeholder="Repeat your password" required />
+        </label>
+        <button type="submit" id="reg-btn">Register</button>
+      </form>
+      <p class="auth-alt">Already have an account? <a href={storefrontAliases.login}>Sign In</a></p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .auth-page { max-width: 420px; margin: 0 auto; padding: 2rem 0 6rem; }
+  .auth-error { color: #d32f2f; margin-bottom: 1rem; padding: 0.5rem; border: 1px solid #d32f2f; font-size: 0.85rem; }
+  .auth-form label { display: block; margin-bottom: 1.25rem; }
+  .auth-form span { display: block; font-weight: 700; font-size: 0.85rem; margin-bottom: 0.3rem; }
+  .auth-form input {
+    width: 100%; padding: 0.6rem 0.8rem; font-family: inherit;
+    border: 1px solid var(--color-faded); background: var(--color-bg);
+    font-size: 0.95rem;
+  }
+  .auth-form button {
+    background: var(--color-text); color: var(--color-bg);
+    font-family: inherit; font-weight: 700; font-size: 0.9rem;
+    padding: 0.7rem 2rem; border: 0; cursor: pointer;
+  }
+  .auth-alt { margin-top: 1.5rem; font-size: 0.85rem; color: var(--color-text-alt); }
+</style>
+
+<script>
+  document.getElementById('register-form')?.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    var btn = document.getElementById('reg-btn');
+    var err = document.getElementById('auth-error');
+    var email = document.getElementById('reg-email').value;
+    var password = document.getElementById('reg-password').value;
+    var confirm = document.getElementById('reg-confirm').value;
+
+    err.style.display = 'none';
+    if (password !== confirm) {
+      err.textContent = 'Passwords do not match';
+      err.style.display = 'block';
+      return;
+    }
+    if (password.length < 6) {
+      err.textContent = 'Password must be at least 6 characters';
+      err.style.display = 'block';
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'Creating account...';
+
+    try {
+      var res = await fetch('/api/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
+      var data = await res.json();
+      if (res.ok) {
+        localStorage.setItem('_token', data.token);
+        if (data.user) localStorage.setItem('_user', JSON.stringify(data.user));
+        window.location.href = '/register/thank-you';
+      } else {
+        err.textContent = data.error || 'Registration failed';
+        err.style.display = 'block';
+      }
+    } catch (e) {
+      err.textContent = 'Connection error. Please try again.';
+      err.style.display = 'block';
+    }
+    btn.disabled = false;
+    btn.textContent = 'Register';
+  });
+</script>

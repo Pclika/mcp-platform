@@ -1,0 +1,121 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Separator from "../../components/Separator.astro";
+import StorefrontSection from "../../components/StorefrontSection.astro";
+import StorefrontNotice from "../../components/StorefrontNotice.astro";
+import StorefrontSummary from "../../components/StorefrontSummary.astro";
+import { checkoutSummary } from "../../lib/storefront";
+import { syliusPaths } from "../../lib/sylius";
+
+const title = "Checkout - Complete | PCLIKA";
+---
+
+<BaseLayout title={title} description="Review and complete your order in the Sylius-aligned checkout flow.">
+  <section>
+    <StorefrontSection
+      eyebrow="Checkout Step 4"
+      title="Review and Complete Order"
+      description="This confirmation step should summarize shipment, payment, and line items before the final Sylius checkout completion action."
+    />
+    <Separator />
+
+    <div class="checkout-layout">
+      <div class="checkout-main">
+        <div class="review-block">
+          <h3>Shipping method</h3>
+          <p>DHL Express - 2-4 business days</p>
+        </div>
+
+        <div class="review-block">
+          <h3>Payment method</h3>
+          <p>Credit / Debit Card via Stripe</p>
+        </div>
+
+        <div class="review-block">
+          <h3>Delivery destination</h3>
+          <p>Pclika Labs, 88 Innovation Road, Shenzhen, Guangdong 518000, CN</p>
+        </div>
+
+        <StorefrontNotice
+          title="Completion Action"
+          body={`The final button on this page should submit to ${syliusPaths.checkoutComplete()} and, when payment is required, continue to the Sylius payment route.`}
+        />
+
+        <div class="checkout-actions">
+          <a class="checkout-link checkout-link--secondary" href="/checkout/select-payment">Back to payment</a>
+          <a class="checkout-link" href="/order/thank-you">Place order</a>
+        </div>
+      </div>
+
+      <StorefrontSummary
+        items={checkoutSummary.items}
+        subtotal={checkoutSummary.subtotal}
+        shipping={checkoutSummary.shipping}
+        tax={checkoutSummary.tax}
+        total={checkoutSummary.total}
+      />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .checkout-layout {
+    display: grid;
+    gap: 1.5rem;
+    padding: 1.5rem 0 4rem;
+  }
+
+  @media screen and (min-width: 52em) {
+    .checkout-layout {
+      grid-template-columns: minmax(0, 1.7fr) minmax(18rem, 28rem);
+      align-items: start;
+    }
+  }
+
+  .checkout-main {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .review-block {
+    padding: 1.15rem;
+    border: 1px solid var(--border-color);
+  }
+
+  .review-block h3,
+  .review-block p {
+    margin: 0;
+  }
+
+  .review-block p {
+    margin-top: 0.45rem;
+    line-height: 1.5;
+    color: var(--color-text-alt);
+  }
+
+  .checkout-actions {
+    display: flex;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+  }
+
+  .checkout-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.9rem;
+    padding: 0 1.25rem;
+    background: var(--color-text);
+    color: var(--color-bg);
+    font-size: 0.84rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .checkout-link--secondary {
+    background: transparent;
+    color: var(--color-text);
+    border: 1px solid var(--border-color);
+  }
+</style>

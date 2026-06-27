@@ -1,0 +1,26 @@
+{% set product = hookable_metadata.context.product %}
+
+<a class="pc-product-card--detail" href="{{ path('sylius_shop_product_show', {'slug': product.slug, '_locale': product.translation.locale}) }}" {{ sylius_test_html_attribute('product-content') }}
+   data-product-name="{{ product.name }}"
+   data-product-sku="{{ product.code }}"
+   {% if not product.enabledVariants.empty() %}
+       {% set cheapest = null %}
+       {% for variant in product.enabledVariants %}
+           {% if variant.price is not null and (cheapest is null or variant.price < cheapest.price) %}
+               {% set cheapest = variant %}
+           {% endif %}
+       {% endfor %}
+       {% if cheapest is not null and cheapest.price is not null %}
+           data-product-price="{{ cheapest.price|sylius_format_money(sylius.currencyCode, app.request.locale) }}"
+       {% endif %}
+   {% endif %}>
+    <div class="pc-product-image-shell">
+        {{ component('sylius_shop:main_image', { product: product, class: 'w-100 h-100 object-fit-cover' }) }}
+    </div>
+    <div class="pc-product-copy">
+        <div class="pc-product-name" {{ sylius_test_html_attribute('product-name', product.name) }}>
+            {{ product.name }}
+        </div>
+        <div class="pc-product-sku">SKU / {{ product.code }}</div>
+    </div>
+</a>

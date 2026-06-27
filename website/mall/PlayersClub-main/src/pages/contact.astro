@@ -1,0 +1,68 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Separator from "../components/Separator.astro";
+import StorefrontSection from "../components/StorefrontSection.astro";
+import StorefrontForm from "../components/StorefrontForm.astro";
+import StorefrontCard from "../components/StorefrontCard.astro";
+import StorefrontCardGrid from "../components/StorefrontCardGrid.astro";
+import { syliusPaths } from "../lib/sylius";
+
+const title = "Contact | PCLIKA";
+---
+
+<BaseLayout title={title} description="Contact page aligned with the Sylius storefront support route.">
+  <section>
+    <StorefrontSection
+      eyebrow="Support"
+      title="Contact Pclika"
+      description="Use the standard storefront support flow for order follow-up, sourcing questions, and technical requests."
+    />
+    <Separator />
+
+    <div class="contact-layout">
+      <StorefrontForm action={syliusPaths.contact()} method="post">
+        <div class="storefront-form__grid storefront-form__grid--2">
+          <label>
+            <span>Name</span>
+            <input name="contact[name]" placeholder="Your name" />
+          </label>
+          <label>
+            <span>Email</span>
+            <input type="email" name="contact[email]" placeholder="you@example.com" />
+          </label>
+        </div>
+        <label>
+          <span>Message</span>
+          <textarea name="contact[message]" placeholder="Tell us about your sourcing, integration, or order issue."></textarea>
+        </label>
+        <div class="storefront-form__actions">
+          <button type="submit">Send message</button>
+        </div>
+      </StorefrontForm>
+
+      <StorefrontCardGrid>
+        <StorefrontCard title="Sales support" subtitle="ToB / OEM / ODM">
+          <p>Ideal for prototype sourcing, custom board requirements, certification support, and small-batch production conversations.</p>
+        </StorefrontCard>
+        <StorefrontCard title="Developer support" subtitle="MCP-ready hardware">
+          <p>Use this channel when you need help mapping your hardware flow to Claude, Codex, Cursor, or other MCP-compatible tools.</p>
+        </StorefrontCard>
+      </StorefrontCardGrid>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .contact-layout {
+    display: grid;
+    gap: 1.5rem;
+    padding: 1.5rem 0 4rem;
+  }
+
+  @media screen and (min-width: 52em) {
+    .contact-layout {
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+      align-items: start;
+    }
+  }
+</style>

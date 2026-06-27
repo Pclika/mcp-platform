@@ -1,0 +1,60 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "Aeonik";
+  src: url("../public/Aeonik\ TRIAL/AeonikTRIAL-Regular.otf");
+}
+
+body {
+  font-family: "Aeonik";
+}
+
+html,
+body {
+  height: 100dvh;
+  overflow: hidden;
+}
+
+body {
+  line-height: 1;
+  height: 100dvh;
+}
+
+#webgl {
+  position: fixed;
+  inset: 0;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  height: 100dvh;
+}
+
+#app {
+  height: 100dvh;
+  z-index: 10;
+}
+
+[data-bottom-line-hover] {
+  --line-color: black;
+  --line-height: 2px;
+
+  position: relative;
+}
+
+[data-bottom-line-hover]::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: var(--line-height);
+  background-color: var(--line-color);
+  transform: scaleX(0);
+  transition: transform 0.3s ease-in-out;
+  transform-origin: right;
+}
+
+[data-bottom-line-hover]:hover::before {
+  transform: scaleX(1);
+  transform-origin: left;
+}

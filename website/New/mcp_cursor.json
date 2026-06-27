@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "pclikaPlatform": {
+      "url": "http://localhost:3141/sse",
+      "description": "Pclika MCP Bridge — live hardware access via ESP32-S3"
+    }
+  }
+}

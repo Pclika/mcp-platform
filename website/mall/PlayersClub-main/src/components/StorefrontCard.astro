@@ -1,0 +1,76 @@
+---
+interface Props {
+  title: string;
+  subtitle?: string;
+  href?: string;
+  actionLabel?: string;
+}
+
+const { title, subtitle, href, actionLabel } = Astro.props as Props;
+---
+
+<article class="storefront-card">
+  <div class="storefront-card__header">
+    <h3>{title}</h3>
+    {subtitle && <p>{subtitle}</p>}
+  </div>
+  <div class="storefront-card__content">
+    <slot />
+  </div>
+  {href && actionLabel && (
+    <a href={href} class="storefront-card__action">{actionLabel}</a>
+  )}
+</article>
+
+<style>
+  .storefront-card {
+    display: grid;
+    gap: 1rem;
+    padding: 1.15rem;
+    border: 1px solid var(--border-color);
+    background: var(--color-bg);
+  }
+
+  .storefront-card__header {
+    display: grid;
+    gap: 0.35rem;
+  }
+
+  .storefront-card__header h3 {
+    margin: 0;
+    font-size: 1rem;
+  }
+
+  .storefront-card__header p {
+    margin: 0;
+    line-height: 1.45;
+    color: var(--color-text-alt);
+  }
+
+  .storefront-card__content {
+    display: grid;
+    gap: 0.6rem;
+    line-height: 1.5;
+    color: var(--color-text-alt);
+  }
+
+  .storefront-card__content :global(p) {
+    margin: 0;
+  }
+
+  .storefront-card__content :global(ul) {
+    padding-left: 1rem;
+    margin: 0;
+  }
+
+  .storefront-card__content :global(li) {
+    margin: 0.2rem 0;
+  }
+
+  .storefront-card__action {
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+</style>

@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Solutions — Pclika MCP Platform</title>
+    <meta name="description" content="Pclika solutions for IoT monitoring, maker prototyping, education labs, industrial automation, and AI vision — all via standard MCP tool calls." />
+    <meta property="og:title" content="Solutions — Pclika MCP Platform" />
+    <meta property="og:description" content="Hardware workflows powered by AI. IoT, industrial, education, robotics — one MCP bridge, all use cases." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://pclika.com/solutions" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="canonical" href="https://pclika.com/solutions" />
+    <link rel="icon" type="image/svg+xml" href="ico.svg" />
+    <link rel="stylesheet" href="https://use.typekit.net/upd0woi.css" />
+    <link rel="stylesheet" href="css/base.css" />
+    <style>
+      :root { --teal: #00C8A0; --copper: #C87941; --amber: #F0A500; }
+
+      body { text-transform: none; font-size: 14px; line-height: 1.7; }
+
+      .page-nav {
+        position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+        padding: 1rem 1.5rem;
+        display: flex; justify-content: space-between; align-items: center;
+        background: rgba(0,0,0,0.92); backdrop-filter: blur(8px);
+        border-bottom: 1px solid #1a1a1a;
+      }
+      .page-nav a { text-transform: uppercase; font-size: 0.85rem; }
+      .page-nav .nav-links { display: flex; gap: 2rem; }
+      .logo-mark { display: flex; align-items: center; text-decoration: none !important; }
+
+      .hero {
+        padding: 160px 1.5rem 80px;
+        max-width: 1100px; margin: 0 auto;
+      }
+      .hero-label {
+        font-size: 0.8rem; text-transform: uppercase;
+        letter-spacing: 0.15em; color: var(--teal); margin-bottom: 1.5rem;
+      }
+      .hero h1 {
+        font-family: 'lores-12', sans-serif;
+        font-size: clamp(2rem, 6vw, 4rem);
+        line-height: 1.1; margin: 0 0 1.5rem; text-transform: uppercase;
+      }
+      .hero p { font-size: 1.1rem; opacity: 0.6; max-width: 680px; }
+
+      .solution-block {
+        max-width: 1100px; margin: 0 auto;
+        padding: 0 1.5rem;
+        border-top: 1px solid #111;
+      }
+      .solution-block + .solution-block { margin-top: 0; }
+
+      .sol-inner {
+        display: grid;
+        grid-template-columns: 340px 1fr;
+        gap: 4rem; padding: 5rem 0;
+        align-items: start;
+      }
+      @media (max-width: 760px) {
+        .sol-inner { grid-template-columns: 1fr; gap: 2rem; }
+      }
+
+      .sol-num {
+        font-family: 'lores-12', sans-serif;
+        font-size: 5rem; line-height: 1; opacity: 0.07;
+        position: absolute; top: 0; left: 0;
+      }
+      .sol-left { position: relative; padding-top: 4rem; }
+      .sol-tag {
+        font-size: 0.75rem; text-transform: uppercase;
+        letter-spacing: 0.2em; color: var(--teal); margin-bottom: 1rem;
+      }
+      .sol-title {
+        font-family: 'lores-12', sans-serif;
+        font-size: clamp(1.5rem, 3vw, 2.2rem);
+        text-transform: uppercase; margin: 0 0 1rem; line-height: 1.2;
+      }
+      .sol-desc { opacity: 0.55; font-size: 0.95rem; line-height: 1.8; }
+      .sol-links { margin-top: 2rem; display: flex; flex-direction: column; gap: 0.5rem; }
+      .sol-links a {
+        font-size: 0.8rem; text-transform: uppercase;
+        letter-spacing: 0.1em; color: var(--teal);
+        display: inline-flex; align-items: center; gap: 0.4rem;
+      }
+      .sol-links a::after { content: '→'; }
+
+      .sol-right { padding-top: 2rem; }
+      .workflow-title {
+        font-size: 0.75rem; text-transform: uppercase;
+        letter-spacing: 0.15em; opacity: 0.35; margin-bottom: 1.5rem;
+      }
+      .workflow-steps { display: flex; flex-direction: column; gap: 0; }
+      .step {
+        display: grid; grid-template-columns: 28px 1fr;
+        gap: 1rem; padding: 1.2rem 0;
+        border-bottom: 1px solid #0f0f0f;
+      }
+      .step:last-child { border-bottom: none; }
+      .step-num {
+        font-size: 0.7rem; opacity: 0.3;
+        font-family: 'forma-djr-mono', monospace;
+        padding-top: 0.15rem;
+      }
+      .step-content {}
+      .step-label { font-size: 0.85rem; margin-bottom: 0.3rem; }
+      .step-code {
+        font-family: 'forma-djr-mono', monospace;
+        font-size: 0.8rem; color: var(--teal);
+        background: rgba(0,200,160,0.05);
+        padding: 0.4rem 0.7rem; border-radius: 3px;
+        display: inline-block; margin-top: 0.3rem;
+      }
+      .step-note { font-size: 0.78rem; opacity: 0.4; margin-top: 0.2rem; }
+
+      .module-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
+      .mtag {
+        font-size: 0.75rem; border: 1px solid #1f1f1f;
+        padding: 0.25rem 0.6rem;
+        font-family: 'forma-djr-mono', monospace; opacity: 0.6;
+      }
+
+      .footnote {
+        max-width: 1100px; margin: 0 auto;
+        padding: 2rem 1.5rem 5rem;
+        border-top: 1px solid #111;
+        font-size: 0.8rem; opacity: 0.35;
+      }
+          .nav-ico { height: 26px; width: auto; display: block; }
+    </style>
+  </head>
+  <body>
+    <nav class="page-nav">
+      <a href="index.html" class="logo-mark">
+        <img src="whiteico.svg" alt="Pclika" class="nav-ico">
+      </a>
+      <div class="nav-links">
+        <a href="platform.html">Platform</a>
+        <a href="hardware.html">Hardware</a>
+        <a href="modules.html">Modules</a>
+        <a href="examples.html">Examples</a>
+        <a href="kits.html">Kits</a>
+        <a href="docs.html">Docs</a>
+        <a href="downloads.html">Downloads</a>
+        <a href="support.html">Support</a>
+        <a href="https://mall.pclika.com/" target="_blank" rel="noreferrer">Store</a>
+        <a href="b2b.html">B2B</a>
+        <a href="https://github.com/Pclika/mcp-platform" target="_blank" rel="noreferrer">GitHub</a>
+      </div>
+    </nav>
+
+    <main>
+      <div class="hero">
+        <div class="hero-label">Solutions · By Use Case</div>
+        <h1>The same bridge.<br>Every workflow.</h1>
+        <p>
+          Whether you're logging sensor data, running a robot arm, teaching
+          embedded systems, or connecting a factory to an LLM — Pclika MCP works
+          the same way. Import the repo. Flash the board. Call the tool.
+        </p>
+      </div>
+
+      <!-- IoT -->
+      <div class="solution-block">
+        <div class="sol-inner">
+          <div class="sol-left">
+            <div class="sol-num">01</div>
+            <div class="sol-tag">IoT / Remote Monitoring</div>
+            <h2 class="sol-title">Sensors → Structured data → AI action</h2>
+            <p class="sol-desc">
+              Connect environment, light, and distance sensors. Let Claude read
+              them, summarize trends, detect anomalies, and write the alert logic
+              — all through standard MCP tool calls. No custom API. No middleware.
+            </p>
+            <div class="sol-links">
+              <a href="https://github.com/Pclika/mcp-platform/tree/main/examples/env-monitor">env-monitor example</a>
+              <a href="https://github.com/Pclika/mcp-platform/tree/main/examples/wifi-scanner">wifi-scanner example</a>
+              <a href="modules.html">Sensor modules</a>
+            </div>
+          </div>
+          <div class="sol-right">
+            <div class="workflow-title">Typical Workflow</div>
+            <div class="workflow-steps">
+              <div class="step">
+                <div class="step-num">01</div>
+                <div class="step-content">
+                  <div class="step-label">Flash firmware with sensor drivers</div>
+                  <code class="step-code">idf.py build flash monitor</code>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-num">02</div>
+                <div class="step-content">
+                  <div class="step-label">Connect the MCP bridge</div>
+                  <code class="step-code">pclika-bridge --port /dev/ttyUSB0</code>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-num">03</div>
+                <div class="step-content">
+                  <div class="step-label">Read live environment data</div>
+                  <code class="step-code">env_read(sensor_id="bme280")</code>
+                  <div class="step-note">Returns temp, humidity, pressure, dew point</div>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-num">04</div>
+                <div class="step-content">
+                  <div class="step-label">Ask Claude to summarize or alert</div>
+                  <div class="step-note">"Humidity is above 80% for 3 consecutive readings. Trigger relay_set(channel=0, state='on') to activate the ventilation relay."</div>
+                </div>
+              </div>
+            </div>
+            <div class="module-tags">
+              <span class="mtag">DHT22</span><span class="mtag">BME280</span>
+              <span class="mtag">SHT31</span><span class="mtag">BH1750</span>
+              <span class="mtag">VL53L0X</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Maker -->
+      <div class="solution-block">
+        <div class="sol-inner">
+          <div class="sol-left">
+            <div class="sol-num">02</div>
+            <div class="sol-tag">Maker / Rapid Prototyping</div>
+            <h2 class="sol-title">Idea → Hardware → Working prototype</h2>
+            <p class="sol-desc">
+              Stop writing driver code. Import the Pclika repo into Claude, plug
+              in your sensors and servos, and describe what you want to build.
+              Claude writes the logic; the MCP bridge executes it on real hardware.
+            </p>
+            <div class="sol-links">
+              <a href="https://github.com/Pclika/mcp-platform/tree/main/examples/servo-control">servo-control example</a>
+              <a href="https://github.com/Pclika/mcp-platform/tree/main/examples/hello-mcp">hello-mcp example</a>
+              <a href="kits.html">Starter Kit</a>
+            </div>
+          </div>
+          <div class="sol-right">
+            <div class="workflow-title">Typical Workflow</div>
+            <div class="workflow-steps">
+              <div class="step">
+                <div class="step-num">01</div>
+                <div class="step-content">
+                  <div class="step-label">Add the repo to your AI tool</div>
+                  <code class="step-code">claude mcp add pclika-bridge -- pclika-bridge --port /dev/ttyUSB0</code>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-num">02</div>
+                <div class="step-content">
+                  <div class="step-label">Confirm device is live</div>
+                  <code class="step-code">device_info()</code>
+                  <div class="step-note">Returns board ID, FW version, capabilities list</div>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-num">03</div>
+                <div class="step-content">
+                  <div class="step-label">Describe the interaction to Claude</div>
+                  <div class="step-note">"When the button is pressed, sweep servo channel 0 to 180°, show 'ACTIVATED' on the OLED, and set LED red."</div>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-num">04</div>
+                <div class="step-content">
+                  <div class="step-label">Claude sequences the tool calls</div>
+                  <code class="step-code">button_read() → servo_move() → display_text() → led_control()</code>
+                </div>
+              </div>
+            </div>
+            <div class="module-tags">
+              <span class="mtag">SSD1306</span><span class="mtag">ST7789</span>
+              <span class="mtag">SG90 Servo</span><span class="mtag">MPU6050</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Education -->
+      <div class="solution-block">
+        <div class="sol-inner">
+          <div class="sol-left">
+            <div class="sol-num">03</div>
+            <div class="sol-tag">Education / Lab</div>
+            <h2 class="sol-title">Teach embedded systems with AI assistance</h2>
+            <p class="sol-desc">
+              Students ask their AI tools to explain sensor readings, debug
+              firmware, and iterate on hardware behaviour — with a structured
+              tool contract that prevents hallucination about hardware state.
+            </p>
+            <div class="sol-links">
+              <a href="docs.html">Quickstart guide</a>
+              <a href="kits.html">Education Lab Kit</a>        <a href="b2b.html">Volume pricing</a>
+            </div>
+          </div>
+          <div class="sol-right">
+            <div class="workflow-title">Classroom Workflow</div>
+            <div class="workflow-steps">
+              <div class="step">
+                <div class="step-num">01</div>
+                <div class="step-content">
+                  <div class="step-label">One setup per lab station</div>
+                  <code class="step-code">pip install ./bridge/mcp-server</code>
+                  <div class="step-note">No USB drivers, no IDE setup needed on student machine</div>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-num">02</div>
+                <div class="step-content">
+                  <div class="step-label">Students interact through AI tools</div>
+                  <div class="step-note">"What does the IMU say about the board's current angle?" Claude calls imu_read() and explains the vector.</div>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-num">03</div>
+                <div class="step-content">
+                  <div class="step-label">Lab exercises are MCP tool sequences</div>
+                  <code class="step-code">sensor_read() → display_text() → gpio_write()</code>
+                </div>
+              </div>
+            </div>
+            <div class="module-tags">
+              <span class="mtag">DHT22</span><span class="mtag">SSD1306</span>
+              <span class="mtag">MPU6050</span><span class="mtag">SG90</span>
+              <span class="mtag">BH1750</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Industrial -->
+      <div class="solution-block">
+        <div class="sol-inner">
+          <div class="sol-left">
+            <div class="sol-num">04</div>
+            <div class="sol-tag">Industrial Automation</div>
+            <h2 class="sol-title">Modbus RTU meets the MCP protocol</h2>
+            <p class="sol-desc">
+              Read PLC registers, control relay banks, sample analog inputs, and
+              query digital I/O — all through the same JSON-RPC tool interface that
+              Claude and Codex already understand.
+            </p>
+            <div class="sol-links">
+              <a href="https://github.com/Pclika/mcp-platform/tree/main/examples/industrial-gateway">industrial-gateway example</a>
+              <a href="kits.html">Industrial Kit</a>        <a href="b2b.html">Integration services</a>
+            </div>
+          </div>
+          <div class="sol-right">
+            <div class="workflow-title">Industrial Workflow</div>
+            <div class="workflow-steps">
+              <div class="step">
+                <div class="step-num">01</div>
+                <div class="step-content">
+                  <div class="step-label">Wire ESP32 to RS-485 transceiver</div>
+                  <div class="step-note">TX=GPIO17, RX=GPIO16, DE=GPIO5</div>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-num">02</div>
+                <div class="step-content">
+                  <div class="step-label">Read Modbus holding registers</div>
+                  <code class="step-code">modbus_read(slave_id=1, function="holding_registers", address=0, count=10)</code>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-num">03</div>
+                <div class="step-content">
+                  <div class="step-label">Control relay output</div>
+                  <code class="step-code">relay_set(channel=2, state="on", pulse_ms=500)</code>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-num">04</div>
+                <div class="step-content">
+                  <div class="step-label">Sample all ADC channels</div>
+                  <code class="step-code">adc_read_multi(channels=[0,1,2,3])</code>
+                </div>
+              </div>
+            </div>
+            <div class="module-tags">
+              <span class="mtag">MAX485</span><span class="mtag">8-ch Relay</span>
+              <span class="mtag">ADC1</span><span class="mtag">Digital I/O</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Vision -->
+      <div class="solution-block" style="margin-bottom: 4rem;">
+        <div class="sol-inner">
+          <div class="sol-left">
+            <div class="sol-num">05</div>
+            <div class="sol-tag">Vision / AI Inference</div>
+            <h2 class="sol-title">Capture → Encode → Reason</h2>
+            <p class="sol-desc">
+              ESP32-S3 captures JPEG frames from OV2640, Base64-encodes them, and
+              returns them as structured MCP tool output. Claude receives the image
+              data inline and can describe, classify, or act on what it sees.
+            </p>
+            <div class="sol-links">
+              <a href="https://github.com/Pclika/mcp-platform/tree/main/examples/vision-snapshot">vision-snapshot example</a>
+              <a href="modules.html">Camera modules</a>
+              <a href="kits.html">Pro Kit (vision path)</a>
+            </div>
+          </div>
+          <div class="sol-right">
+            <div class="workflow-title">Vision Workflow</div>
+            <div class="workflow-steps">
+              <div class="step">
+                <div class="step-num">01</div>
+                <div class="step-content">
+                  <div class="step-label">Check camera status</div>
+                  <code class="step-code">camera_status()</code>
+                  <div class="step-note">Returns OV2640 model, resolution, FPS</div>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-num">02</div>
+                <div class="step-content">
+                  <div class="step-label">Capture a JPEG frame</div>
+                  <code class="step-code">camera_capture(resolution="VGA", quality=20)</code>
+                  <div class="step-note">Returns base64 JPEG + width/height/size</div>
+                </div>
+              </div>
+              <div class="step">
+                <div class="step-num">03</div>
+                <div class="step-content">
+                  <div class="step-label">Claude describes the scene</div>
+                  <div class="step-note">The base64 frame is passed to the vision model inline. No separate upload needed.</div>
+                </div>
+              </div>
+            </div>
+            <div class="module-tags">
+              <span class="mtag">OV2640</span><span class="mtag">ESP32-S3</span>
+              <span class="mtag">ST7789</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footnote">
+        All solutions use the same MCP bridge contract · Apache-2.0 · Seal: PCK-MMXXVI-C4A32096
+      </div>
+    </main>
+  </body>
+</html>

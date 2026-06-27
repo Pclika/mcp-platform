@@ -1,0 +1,40 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import StorefrontSection from "../../components/StorefrontSection.astro";
+import StorefrontNotice from "../../components/StorefrontNotice.astro";
+import Separator from "../../components/Separator.astro";
+import { syliusPaths } from "../../lib/sylius";
+
+export const getStaticPaths = () => [
+  { params: { tokenValue: "PCL-2026-1010" } },
+  { params: { tokenValue: "PCL-2026-1011" } },
+];
+
+const { tokenValue = "ORDER_TOKEN" } = Astro.params;
+const title = "Register After Checkout | PCLIKA";
+---
+
+<BaseLayout title={title} description="Register-after-checkout alias aligned to the Sylius storefront flow.">
+  <section class="storefront-narrow">
+    <StorefrontSection
+      eyebrow="Guest Conversion"
+      title="Create Store Account After Checkout"
+      description="This route supports the Sylius flow where a guest order can be upgraded into a customer account after purchase."
+      compact
+    />
+    <Separator />
+    <StorefrontNotice
+      title="Current Integration Stage"
+      body={`Target Sylius route: ${syliusPaths.registerAfterCheckout(tokenValue)}. Connect the completed order token here to convert guest buyers into registered customers.`}
+    />
+    <p><a href="/register">Open standard registration</a></p>
+  </section>
+</BaseLayout>
+
+<style>
+  .storefront-narrow {
+    max-width: 38rem;
+    margin: 0 auto;
+    padding-bottom: 4rem;
+  }
+</style>

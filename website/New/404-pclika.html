@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>404 | Pclika MCP Platform</title>
+    <meta
+      name="description"
+      content="Pclika custom 404 page in the New website style."
+    />
+    <meta property="og:title" content="404 | Pclika MCP Platform" />
+    <meta
+      property="og:description"
+      content="The requested page is missing, but the Pclika platform is still online."
+    />
+    <link rel="icon" type="image/svg+xml" href="ico.svg" />
+    <link rel="shortcut icon" href="ico.svg" />
+    <link rel="stylesheet" href="https://use.typekit.net/upd0woi.css" />
+    <link rel="stylesheet" type="text/css" href="css/base.css" />
+    <style>
+      :root {
+        --teal: #00c8a0;
+        --copper: #c87941;
+      }
+
+      body {
+        min-height: 100vh;
+        overflow-x: hidden;
+      }
+
+      .video-bg {
+        position: fixed;
+        inset: 0;
+        z-index: -2;
+        overflow: hidden;
+        pointer-events: none;
+      }
+
+      .video-bg video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0.22;
+      }
+
+      .video-bg::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(circle at 50% 45%, rgba(0, 200, 160, 0.16), transparent 24%),
+          linear-gradient(to bottom, rgba(0, 0, 0, 0.46) 0%, rgba(0, 0, 0, 0.3) 35%, rgba(0, 0, 0, 0.82) 100%);
+      }
+
+      .float-mcp {
+        position: fixed;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 900;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .float-mcp-inner {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.6rem;
+        background: rgba(0, 0, 0, 0.88);
+        border: 1px solid #1e1e1e;
+        border-right: none;
+        border-radius: 6px 0 0 6px;
+        padding: 1rem 0.7rem;
+        backdrop-filter: blur(10px);
+        text-decoration: none;
+      }
+
+      .float-mcp-ico {
+        width: 28px;
+        height: 28px;
+        display: block;
+        opacity: 0.92;
+      }
+
+      .float-mcp-label {
+        font-family: "forma-djr-mono", monospace;
+        font-size: 0.55rem;
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+        color: #888;
+        writing-mode: vertical-rl;
+        text-orientation: mixed;
+        transform: rotate(180deg);
+        white-space: nowrap;
+        line-height: 1;
+      }
+
+      .float-mcp-pulse {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--teal);
+        box-shadow: 0 0 8px rgba(0, 200, 160, 0.7);
+        animation: pulse 2s ease-in-out infinite;
+      }
+
+      .error-shell {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 8rem 1.5rem 4rem;
+      }
+
+      .error-panel {
+        width: min(1080px, 100%);
+        display: grid;
+        grid-template-columns: minmax(0, 1.25fr) minmax(300px, 0.75fr);
+        gap: 1px;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+      }
+
+      .error-main,
+      .error-side {
+        background: rgba(0, 0, 0, 0.88);
+      }
+
+      .error-main {
+        padding: 2.4rem;
+      }
+
+      .error-side {
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+
+      .error-kicker,
+      .error-meta,
+      .error-links a,
+      .error-stat-label {
+        font-size: 0.7rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      .error-kicker {
+        color: var(--teal);
+        margin-bottom: 1.4rem;
+      }
+
+      .error-code {
+        font-family: "lores-12", sans-serif;
+        font-size: clamp(4.5rem, 18vw, 14rem);
+        line-height: 0.82;
+        color: #fff;
+        margin: 0 0 1rem;
+      }
+
+      .error-title {
+        font-family: "lores-12", sans-serif;
+        font-size: clamp(1.4rem, 4vw, 3.2rem);
+        line-height: 0.95;
+        margin: 0 0 1.2rem;
+        max-width: 12ch;
+      }
+
+      .error-copy {
+        max-width: 58ch;
+        color: rgba(255, 255, 255, 0.66);
+        font-size: 0.9rem;
+        line-height: 1.8;
+        margin-bottom: 2rem;
+        text-transform: none;
+      }
+
+      .error-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+      }
+
+      .error-links a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 180px;
+        padding: 1rem 1.2rem;
+        border: 1px solid #202020;
+        background: #0b0b0b;
+        color: #f3f3f3;
+        text-decoration: none;
+        transition:
+          background 0.2s ease,
+          border-color 0.2s ease,
+          color 0.2s ease;
+      }
+
+      .error-links a:hover {
+        background: rgba(0, 200, 160, 0.12);
+        border-color: rgba(0, 200, 160, 0.35);
+        color: var(--teal);
+      }
+
+      .error-meta {
+        margin-top: 1.6rem;
+        color: rgba(255, 255, 255, 0.42);
+      }
+
+      .error-stat {
+        border-top: 1px solid #1a1a1a;
+        padding-top: 1rem;
+      }
+
+      .error-stat:first-child {
+        border-top: none;
+        padding-top: 0;
+      }
+
+      .error-stat-label {
+        color: #666;
+        margin-bottom: 0.45rem;
+      }
+
+      .error-stat-value {
+        color: #f2f2f2;
+        font-size: 0.82rem;
+        line-height: 1.7;
+        text-transform: none;
+      }
+
+      .error-logo {
+        width: min(260px, 70%);
+        opacity: 0.9;
+        margin-top: auto;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+        50% {
+          opacity: 0.35;
+          transform: scale(0.72);
+        }
+      }
+
+      @media (max-width: 900px) {
+        .error-panel {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .error-shell {
+          padding-top: 10rem;
+        }
+
+        .error-main,
+        .error-side {
+          padding: 1.4rem;
+        }
+
+        .error-links a {
+          width: 100%;
+          min-width: 0;
+        }
+
+        .float-mcp {
+          display: none;
+        }
+      }
+    </style>
+    <script>
+      document.documentElement.className = "js";
+    </script>
+  </head>
+  <body>
+    <div class="video-bg" aria-hidden="true">
+      <video autoplay muted loop playsinline preload="auto">
+        <source src="Developer.mp4" type="video/mp4" />
+      </video>
+    </div>
+
+    <a class="float-mcp" href="https://hc.pclika.com/" target="_blank" rel="noreferrer" title="MCP Channel">
+      <div class="float-mcp-inner">
+        <div class="float-mcp-pulse"></div>
+        <img src="whiteico.svg" alt="Pclika MCP" class="float-mcp-ico" />
+        <span class="float-mcp-label">MCP Channel</span>
+      </div>
+    </a>
+
+    <header class="frame">
+      <h1 class="frame__title">Pclika / <span style="color: var(--teal)">404 Recovery</span> / MCP Platform / Route Missing</h1>
+      <a class="frame__archive" href="index.html">Home</a>
+      <a class="frame__github" href="https://github.com/Pclika/mcp-platform">GitHub</a>
+      <nav class="frame__tags">
+        <a href="platform.html">#platform</a>
+        <a href="hardware.html">#hardware</a>
+        <a href="modules.html">#modules</a>
+        <a href="examples.html">#examples</a>
+        <a href="docs.html">#docs</a>
+        <a href="support.html">#support</a>
+      </nav>
+    </header>
+
+    <main class="error-shell">
+      <section class="error-panel" aria-labelledby="error-title">
+        <div class="error-main">
+          <div class="error-kicker">PCLIKA MCP PLATFORM / 404</div>
+          <div class="error-code">404</div>
+          <h2 class="error-title" id="error-title">The page is missing, but the platform is still live.</h2>
+          <p class="error-copy">
+            The route you opened is not part of the current Pclika website map. Return to the homepage, continue into
+            the hardware and module paths, or jump straight to the repository and MCP channel to keep building.
+          </p>
+          <div class="error-links">
+            <a href="index.html">Open Home</a>
+            <a href="platform.html">Open Platform</a>
+            <a href="https://github.com/Pclika/mcp-platform" target="_blank" rel="noreferrer">Open Repository</a>
+          </div>
+          <div class="error-meta">STATUS / ESP32-S3 / MCP READY / STATIC WEBSITE / PCLIKA ONLINE</div>
+        </div>
+
+        <aside class="error-side">
+          <div class="error-stat">
+            <div class="error-stat-label">Suggested Paths</div>
+            <div class="error-stat-value">Platform, modules, examples, downloads, and support are all available from this website root.</div>
+          </div>
+          <div class="error-stat">
+            <div class="error-stat-label">MCP Direction</div>
+            <div class="error-stat-value">Claude, Codex, Cursor, and other MCP-compatible tools can continue from the repository and config templates.</div>
+          </div>
+          <div class="error-stat">
+            <div class="error-stat-label">Recovery</div>
+            <div class="error-stat-value">If this route should exist, map it back to `index.html`, `platform.html`, or the relevant product page before publishing.</div>
+          </div>
+          <img src="logo.svg" alt="Pclika" class="error-logo" />
+        </aside>
+      </section>
+    </main>
+  </body>
+</html>

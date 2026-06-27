@@ -1,0 +1,22 @@
+<svg width="1200" height="900" viewBox="0 0 1200 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="900" fill="#050505"/>
+  <circle cx="980" cy="180" r="250" fill="#0C5AD8" fill-opacity="0.16"/>
+  <circle cx="260" cy="700" r="240" fill="#09162E" fill-opacity="0.6"/>
+  <rect x="130" y="146" width="940" height="608" rx="30" stroke="#D9E8FF" stroke-opacity="0.2" stroke-width="2"/>
+  <rect x="184" y="208" width="832" height="60" rx="12" fill="#0F1320"/>
+  <circle cx="228" cy="238" r="10" fill="#4C8BFF"/>
+  <circle cx="262" cy="238" r="10" fill="#6AA1FF"/>
+  <circle cx="296" cy="238" r="10" fill="#9ABEFF"/>
+  <rect x="184" y="308" width="260" height="360" rx="24" fill="#0D111B"/>
+  <rect x="476" y="308" width="230" height="170" rx="24" fill="#0D111B"/>
+  <rect x="736" y="308" width="280" height="170" rx="24" fill="#0D111B"/>
+  <rect x="476" y="498" width="540" height="170" rx="24" fill="#0D111B"/>
+  <path d="M220 362H404" stroke="#D9E8FF" stroke-opacity="0.7" stroke-width="3"/>
+  <path d="M220 408H370" stroke="#D9E8FF" stroke-opacity="0.35" stroke-width="3"/>
+  <path d="M220 454H342" stroke="#D9E8FF" stroke-opacity="0.22" stroke-width="3"/>
+  <path d="M512 362H660" stroke="#73A3FF" stroke-width="3"/>
+  <path d="M772 362H930" stroke="#73A3FF" stroke-width="3"/>
+  <path d="M512 552H960" stroke="#D9E8FF" stroke-opacity="0.72" stroke-width="3"/>
+  <path d="M512 596H908" stroke="#D9E8FF" stroke-opacity="0.4" stroke-width="3"/>
+  <text x="184" y="726" fill="#F4F8FF" fill-opacity="0.94" font-family="monospace" font-size="48">WEBSITE / PRODUCT PLATFORM</text>
+</svg>

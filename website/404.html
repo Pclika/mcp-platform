@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pclika | 404</title>
+    <meta
+      name="description"
+      content="Pclika custom 404 page for the MCP Platform website."
+    />
+    <link rel="icon" type="image/svg+xml" href="./ico.svg" />
+    <link rel="stylesheet" href="./styles.css" />
+    <style>
+      body.pclika-404 {
+        height: 100vh;
+        min-height: 100vh;
+        overflow: hidden;
+        background:
+          radial-gradient(circle at 50% 45%, rgba(245, 221, 156, 0.16), transparent 24%),
+          radial-gradient(circle at 22% 18%, rgba(118, 178, 255, 0.12), transparent 22%),
+          radial-gradient(circle at 78% 78%, rgba(255, 138, 101, 0.16), transparent 26%),
+          #0a0a0a;
+      }
+
+      .error-shell {
+        position: relative;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 7rem 2rem 2rem;
+      }
+
+      .error-grid {
+        position: relative;
+        z-index: 2;
+        width: min(1180px, 100%);
+        display: grid;
+        grid-template-columns: minmax(0, 1.2fr) minmax(320px, 0.8fr);
+        gap: 2rem;
+        align-items: end;
+      }
+
+      .error-panel,
+      .error-side {
+        border: 1px solid rgba(245, 245, 245, 0.18);
+        background: rgba(10, 10, 10, 0.46);
+        backdrop-filter: blur(16px);
+      }
+
+      .error-panel {
+        padding: 2rem;
+      }
+
+      .error-kicker {
+        font-size: 11px;
+        letter-spacing: 0.24em;
+        color: rgba(245, 245, 245, 0.64);
+        margin-bottom: 1.2rem;
+      }
+
+      .error-code {
+        font-size: clamp(4rem, 15vw, 11rem);
+        line-height: 0.9;
+        letter-spacing: -0.08em;
+        color: rgba(255, 255, 255, 0.94);
+        margin-bottom: 1rem;
+      }
+
+      .error-title {
+        max-width: 15ch;
+        font-size: clamp(1.3rem, 3.8vw, 3.5rem);
+        line-height: 0.94;
+        letter-spacing: -0.05em;
+        color: rgba(245, 245, 245, 0.94);
+        margin-bottom: 1.2rem;
+      }
+
+      .error-copy {
+        max-width: 58ch;
+        font-size: 12px;
+        line-height: 1.75;
+        color: rgba(245, 245, 245, 0.7);
+        margin-bottom: 1.8rem;
+      }
+
+      .error-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.85rem;
+      }
+
+      .error-actions a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 180px;
+        padding: 1rem 1.2rem;
+        border: 1px solid rgba(245, 245, 245, 0.22);
+        color: rgba(245, 245, 245, 0.9);
+        text-decoration: none;
+        letter-spacing: 0.14em;
+        transition:
+          border-color 0.24s ease,
+          background 0.24s ease,
+          color 0.24s ease,
+          transform 0.24s ease;
+      }
+
+      .error-actions a:hover {
+        background: rgba(245, 245, 245, 0.9);
+        color: #0a0a0a;
+        transform: translateY(-2px);
+      }
+
+      .error-side {
+        padding: 1.5rem;
+        display: grid;
+        gap: 1rem;
+      }
+
+      .error-stat {
+        border-bottom: 1px solid rgba(245, 245, 245, 0.12);
+        padding-bottom: 1rem;
+      }
+
+      .error-stat:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+      }
+
+      .error-stat span {
+        display: block;
+        color: rgba(245, 245, 245, 0.5);
+        margin-bottom: 0.4rem;
+      }
+
+      .error-stat strong {
+        display: block;
+        color: rgba(245, 245, 245, 0.94);
+        font-size: 13px;
+        line-height: 1.5;
+        font-weight: normal;
+      }
+
+      .error-orbit {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      .error-orbit::before,
+      .error-orbit::after {
+        content: "";
+        position: absolute;
+        border-radius: 50%;
+        border: 1px solid rgba(245, 245, 245, 0.16);
+      }
+
+      .error-orbit::before {
+        width: min(55vw, 740px);
+        height: min(55vw, 740px);
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+      }
+
+      .error-orbit::after {
+        width: min(28vw, 360px);
+        height: min(28vw, 360px);
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        box-shadow: 0 0 80px rgba(245, 221, 156, 0.14);
+      }
+
+      .error-footer-logo {
+        width: clamp(90px, 12vw, 150px);
+        opacity: 0.88;
+      }
+
+      .error-note {
+        position: absolute;
+        left: 2rem;
+        bottom: 1.4rem;
+        z-index: 2;
+        font-size: 10px;
+        letter-spacing: 0.24em;
+        color: rgba(245, 245, 245, 0.48);
+      }
+
+      .error-note-right {
+        position: absolute;
+        right: 2rem;
+        bottom: 1.4rem;
+        z-index: 2;
+        display: flex;
+        align-items: center;
+      }
+
+      @media (max-width: 900px) {
+        body.pclika-404 {
+          overflow-y: auto;
+          height: auto;
+        }
+
+        .error-shell {
+          min-height: 100vh;
+          padding-top: 9rem;
+          padding-bottom: 6rem;
+        }
+
+        .error-grid {
+          grid-template-columns: 1fr;
+          align-items: stretch;
+        }
+
+        .error-note,
+        .error-note-right {
+          position: static;
+        }
+
+        .error-note {
+          margin: 1.5rem 0 0;
+        }
+
+        .error-note-right {
+          margin-top: 1rem;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .error-shell {
+          padding-left: 1rem;
+          padding-right: 1rem;
+        }
+
+        .error-panel,
+        .error-side {
+          padding: 1rem;
+        }
+
+        .error-actions a {
+          width: 100%;
+          min-width: 0;
+        }
+      }
+    </style>
+  </head>
+  <body class="pclika-404">
+    <header class="site-header">
+      <div class="header-container">
+        <div class="logo-container">
+          <div class="logo-circles" aria-hidden="true">
+            <div class="circle circle-1"></div>
+            <div class="circle circle-2"></div>
+          </div>
+          <a href="./index.html" aria-label="Pclika home">
+            <img src="./logo.svg" alt="Pclika" class="logo-wordmark" />
+          </a>
+        </div>
+
+        <nav class="main-nav" aria-label="Primary">
+          <ul>
+            <li>
+              <a href="./index.html">HOME</a>
+              <div class="nav-hover-square"></div>
+            </li>
+            <li>
+              <a href="./mcp.html?entry=mcp">MCP ENTRY</a>
+              <div class="nav-hover-square"></div>
+            </li>
+            <li>
+              <a href="https://github.com/Pclika/mcp-platform" target="_blank" rel="noopener noreferrer">GITHUB</a>
+              <div class="nav-hover-square"></div>
+            </li>
+          </ul>
+        </nav>
+
+        <div class="contact-link">
+          <a href="https://www.pclika.com" target="_blank" rel="noopener noreferrer">+PCLIKA.COM</a>
+        </div>
+      </div>
+    </header>
+
+    <main class="error-shell">
+      <div class="error-orbit" aria-hidden="true"></div>
+
+      <div class="error-grid">
+        <section class="error-panel" aria-labelledby="error-title">
+          <p class="error-kicker">PCLIKA MCP PLATFORM / NOT FOUND</p>
+          <div class="error-code">404</div>
+          <h1 class="error-title" id="error-title">This route is missing, but the platform is still online.</h1>
+          <p class="error-copy">
+            The page you requested is not part of the current Pclika website path. Return to the homepage, open the
+            MCP developer entry, or go directly to the public repository to continue the hardware and workflow setup.
+          </p>
+          <div class="error-actions">
+            <a href="./index.html">OPEN HOME</a>
+            <a href="./mcp.html?entry=mcp">OPEN MCP ENTRY</a>
+            <a href="https://github.com/Pclika/mcp-platform" target="_blank" rel="noopener noreferrer">OPEN REPOSITORY</a>
+          </div>
+        </section>
+
+        <aside class="error-side" aria-label="Helpful links">
+          <div class="error-stat">
+            <span>STATUS</span>
+            <strong>FOUNDATION ACTIVE / MCP READY DIRECTION / OPEN SOURCE BUILD</strong>
+          </div>
+          <div class="error-stat">
+            <span>CORE PATHS</span>
+            <strong>ESP32-S3 / SENSOR / VISION / SERVO / DISPLAY / INDUSTRIAL IO</strong>
+          </div>
+          <div class="error-stat">
+            <span>AI TOOL FLOW</span>
+            <strong>CLAUDE / CODEX / CURSOR / OPENCODE IMPORT THE REPOSITORY AND START FROM STANDARD INVOCATION</strong>
+          </div>
+          <div class="error-stat">
+            <span>RECOVERY</span>
+            <strong>USE THE BUTTONS ON THE LEFT TO RETURN TO A VALID PCLIKA ENTRY POINT.</strong>
+          </div>
+        </aside>
+      </div>
+
+      <p class="error-note">BASE: ESP32-S3 / MODE: STATIC DEPLOY / SIGNAL: PCLIKA ONLINE</p>
+      <div class="error-note-right">
+        <img src="./logo.svg" alt="Pclika logo" class="error-footer-logo" />
+      </div>
+    </main>
+  </body>
+</html>

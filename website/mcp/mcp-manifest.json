@@ -1,0 +1,33 @@
+{
+  "schema_version": "1.0",
+  "name": "pclikaPlatform",
+  "display_name": "Pclika MCP Platform",
+  "description": "Direct AI-to-hardware bridge for Pclika ESP32-S3 development board. Exposes sensor reading, GPIO control, servo drive, display output, Wi-Fi scanning, and system diagnostics via the MCP protocol.",
+  "version": "0.1.0",
+  "homepage": "https://pclika.com",
+  "support": "https://pclika.com/support",
+  "repository": "https://github.com/Pclika/mcp-platform",
+  "transport": [
+    {
+      "type": "sse",
+      "url": "https://hc.pclika.com/sse"
+    },
+    {
+      "type": "http",
+      "url": "https://hc.pclika.com/mcp"
+    }
+  ],
+  "auth": {
+    "type": "header",
+    "header": "X-API-Key",
+    "description": "API key issued per device, format: pck_<32hex>"
+  },
+  "capabilities": {
+    "tools": true,
+    "resources": false,
+    "prompts": false,
+    "sampling": false
+  },
+  "tools_count": 11,
+  "categories": ["hardware", "iot", "embedded", "sensor", "gpio"]
+}

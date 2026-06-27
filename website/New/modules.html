@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Modules — Pclika MCP Platform</title>
+    <meta name="description" content="Pclika expansion modules — sensor, display, motion, industrial, and FPGA families. Every module ships with MCP-ready drivers and tool schemas." />
+    <meta name="keywords" content="pclika modules, mcp sensors, esp32 modules, bme280 mcp, ssd1306 mcp, servo mcp, modbus mcp, ov2640 mcp" />
+    <meta property="og:title" content="Modules — Pclika MCP Platform" />
+    <meta property="og:description" content="Hardware expansion modules with MCP-ready drivers. Plug in, connect, call the tool." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://pclika.com/modules" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="canonical" href="https://pclika.com/modules" />
+    <link rel="icon" type="image/svg+xml" href="ico.svg" />
+    <link rel="stylesheet" href="https://use.typekit.net/upd0woi.css" />
+    <link rel="stylesheet" href="css/base.css" />
+    <style>
+      :root { --teal: #00C8A0; --copper: #C87941; --amber: #F0A500; }
+
+      body { text-transform: none; font-size: 14px; line-height: 1.7; }
+
+      .page-nav {
+        position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+        padding: 1rem 1.5rem;
+        display: flex; justify-content: space-between; align-items: center;
+        background: rgba(0,0,0,0.92); backdrop-filter: blur(8px);
+        border-bottom: 1px solid #1a1a1a;
+      }
+      .page-nav a { text-transform: uppercase; font-size: 0.85rem; }
+      .page-nav .nav-links { display: flex; gap: 2rem; }
+      .logo-mark { display: flex; align-items: center; text-decoration: none !important; }
+
+      .hero {
+        padding: 160px 1.5rem 80px;
+        max-width: 1100px; margin: 0 auto;
+      }
+      .hero-label {
+        font-size: 0.8rem; text-transform: uppercase;
+        letter-spacing: 0.15em; color: var(--teal); margin-bottom: 1.5rem;
+      }
+      .hero h1 {
+        font-family: 'lores-12', sans-serif;
+        font-size: clamp(2rem, 6vw, 4rem);
+        line-height: 1.1; margin: 0 0 1.5rem; text-transform: uppercase;
+      }
+      .hero p { font-size: 1.1rem; opacity: 0.6; max-width: 680px; }
+
+      .section {
+        max-width: 1100px; margin: 0 auto;
+        padding: 0 1.5rem 80px;
+      }
+      .section-header {
+        display: flex; align-items: baseline; gap: 1.5rem;
+        padding-top: 60px; border-top: 1px solid #1a1a1a;
+        margin-bottom: 2rem;
+      }
+      .section-label {
+        font-size: 0.75rem; text-transform: uppercase;
+        letter-spacing: 0.2em; color: var(--teal);
+      }
+      .section-count { font-size: 0.75rem; opacity: 0.35; }
+
+      .module-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 1px; background: #111;
+        border: 1px solid #111; margin-bottom: 3rem;
+      }
+      .module-card {
+        background: #000; padding: 1.8rem;
+        display: flex; flex-direction: column; gap: 1rem;
+        transition: background 0.2s;
+      }
+      .module-card:hover { background: #0a0a0a; }
+
+      .module-family {
+        font-size: 0.7rem; text-transform: uppercase;
+        letter-spacing: 0.15em; opacity: 0.4;
+      }
+      .module-name {
+        font-family: 'lores-12', sans-serif;
+        font-size: 1.1rem; line-height: 1.3; text-transform: uppercase;
+      }
+      .module-chip {
+        font-size: 0.8rem; opacity: 0.5;
+      }
+      .module-tool {
+        font-size: 0.8rem;
+        color: var(--teal);
+        font-family: 'forma-djr-mono', monospace;
+        background: rgba(0,200,160,0.06);
+        padding: 0.3rem 0.6rem; border-radius: 3px;
+        display: inline-block;
+      }
+      .module-status {
+        font-size: 0.7rem; text-transform: uppercase;
+        letter-spacing: 0.1em; margin-top: auto;
+        padding-top: 1rem; border-top: 1px solid #111;
+        display: flex; justify-content: space-between; align-items: center;
+      }
+      .status-dot {
+        width: 6px; height: 6px; border-radius: 50%; display: inline-block;
+        margin-right: 0.4rem;
+      }
+      .status-ready { background: var(--teal); }
+      .status-phase2 { background: var(--copper); }
+      .status-phase3 { background: #444; }
+
+      /* Selector tool */
+      .selector-section {
+        max-width: 1100px; margin: 0 auto;
+        padding: 0 1.5rem 100px;
+      }
+      .selector-box {
+        border: 1px solid #1a1a1a; padding: 2.5rem;
+        background: #050505;
+      }
+      .selector-title {
+        font-family: 'lores-12', sans-serif;
+        font-size: 1.4rem; text-transform: uppercase;
+        margin: 0 0 0.5rem;
+      }
+      .selector-desc { opacity: 0.5; margin: 0 0 2rem; font-size: 0.9rem; }
+      .selector-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 1rem; margin-bottom: 2rem;
+      }
+      .selector-group label {
+        display: block; font-size: 0.75rem;
+        text-transform: uppercase; letter-spacing: 0.1em;
+        opacity: 0.5; margin-bottom: 0.5rem;
+      }
+      .selector-group select {
+        width: 100%; background: #000; color: #fff;
+        border: 1px solid #2a2a2a; padding: 0.6rem 0.8rem;
+        font-family: 'forma-djr-mono', monospace;
+        font-size: 0.85rem; cursor: pointer;
+        -webkit-appearance: none; border-radius: 0;
+      }
+      .selector-result {
+        border-top: 1px solid #1a1a1a; padding-top: 1.5rem;
+        display: none;
+      }
+      .selector-result.visible { display: block; }
+      .result-label {
+        font-size: 0.75rem; text-transform: uppercase;
+        letter-spacing: 0.15em; color: var(--teal); margin-bottom: 1rem;
+      }
+      .result-modules {
+        display: flex; flex-wrap: wrap; gap: 0.5rem;
+      }
+      .result-tag {
+        font-size: 0.8rem;
+        border: 1px solid #2a2a2a; padding: 0.3rem 0.7rem;
+        font-family: 'forma-djr-mono', monospace;
+      }
+      .result-tag.match {
+        border-color: var(--teal); color: var(--teal);
+        background: rgba(0,200,160,0.06);
+      }
+
+      .footnote {
+        max-width: 1100px; margin: 0 auto;
+        padding: 2rem 1.5rem 4rem;
+        border-top: 1px solid #111;
+        font-size: 0.8rem; opacity: 0.35;
+      }
+          .nav-ico { height: 26px; width: auto; display: block; }
+    </style>
+  </head>
+  <body>
+    <nav class="page-nav">
+      <a href="index.html" class="logo-mark">
+        <img src="whiteico.svg" alt="Pclika" class="nav-ico">
+      </a>
+      <div class="nav-links">
+        <a href="platform.html">Platform</a>
+        <a href="hardware.html">Hardware</a>
+        <a href="modules.html" class="active">Modules</a>
+        <a href="examples.html">Examples</a>
+        <a href="kits.html">Kits</a>
+        <a href="docs.html">Docs</a>
+        <a href="downloads.html">Downloads</a>
+        <a href="support.html">Support</a>
+        <a href="https://mall.pclika.com/" target="_blank" rel="noreferrer">Store</a>
+        <a href="b2b.html">B2B</a>
+        <a href="https://github.com/Pclika/mcp-platform" target="_blank" rel="noreferrer">GitHub</a>
+      </div>
+    </nav>
+
+    <main>
+      <div class="hero">
+        <div class="hero-label">Module Catalog · v1.0</div>
+        <h1>Every sensor.<br>Every display.<br>One tool call.</h1>
+        <p>
+          All Pclika modules ship with MCP-ready firmware drivers and validated
+          tool schemas. Plug the module in, flash the firmware, and your AI tool
+          immediately knows how to read it, configure it, and act on its data —
+          without writing a single line of glue code.
+        </p>
+      </div>
+
+      <!-- SENSOR FAMILY -->
+      <div class="section">
+        <div class="section-header">
+          <span class="section-label">Sensor Modules</span>
+          <span class="section-count">6 drivers · Phase 1</span>
+        </div>
+        <div class="module-grid">
+          <div class="module-card">
+            <div class="module-family">Environment</div>
+            <div class="module-name">DHT22<br>Temp / Humidity</div>
+            <div class="module-chip">Single-wire · 3.3–5 V · ±0.5 °C</div>
+            <code class="module-tool">env_read(sensor_id="dht22")</code>
+            <div class="module-status">
+              <span><span class="status-dot status-ready"></span>Phase 1 — Ready</span>
+              <span style="opacity:.35">GPIO</span>
+            </div>
+          </div>
+          <div class="module-card">
+            <div class="module-family">Environment</div>
+            <div class="module-name">BME280<br>Temp / Humidity / Pressure</div>
+            <div class="module-chip">I2C 0x76/0x77 · ±1 hPa · Bosch</div>
+            <code class="module-tool">env_read(sensor_id="bme280")</code>
+            <div class="module-status">
+              <span><span class="status-dot status-ready"></span>Phase 1 — Ready</span>
+              <span style="opacity:.35">I2C</span>
+            </div>
+          </div>
+          <div class="module-card">
+            <div class="module-family">Environment</div>
+            <div class="module-name">SHT31<br>Precision Temp / Humidity</div>
+            <div class="module-chip">I2C 0x44/0x45 · ±0.2 °C · CRC-8</div>
+            <code class="module-tool">env_read(sensor_id="sht31")</code>
+            <div class="module-status">
+              <span><span class="status-dot status-ready"></span>Phase 1 — Ready</span>
+              <span style="opacity:.35">I2C</span>
+            </div>
+          </div>
+          <div class="module-card">
+            <div class="module-family">Light</div>
+            <div class="module-name">BH1750<br>Ambient Light</div>
+            <div class="module-chip">I2C 0x23/0x5C · 0–65535 lux</div>
+            <code class="module-tool">light_read()</code>
+            <div class="module-status">
+              <span><span class="status-dot status-ready"></span>Phase 1 — Ready</span>
+              <span style="opacity:.35">I2C</span>
+            </div>
+          </div>
+          <div class="module-card">
+            <div class="module-family">Motion / IMU</div>
+            <div class="module-name">MPU6050<br>6-Axis IMU</div>
+            <div class="module-chip">I2C 0x68/0x69 · Accel + Gyro · InvenSense</div>
+            <code class="module-tool">imu_read(include_temp=true)</code>
+            <div class="module-status">
+              <span><span class="status-dot status-ready"></span>Phase 1 — Ready</span>
+              <span style="opacity:.35">I2C</span>
+            </div>
+          </div>
+          <div class="module-card">
+            <div class="module-family">Distance</div>
+            <div class="module-name">VL53L0X<br>ToF Distance Sensor</div>
+            <div class="module-chip">I2C 0x29 · 30–2000 mm · ST Micro</div>
+            <code class="module-tool">distance_read(mode="single")</code>
+            <div class="module-status">
+              <span><span class="status-dot status-ready"></span>Phase 1 — Ready</span>
+              <span style="opacity:.35">I2C</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DISPLAY FAMILY -->
+      <div class="section">
+        <div class="section-header">
+          <span class="section-label">Display Modules</span>
+          <span class="section-count">2 drivers · Phase 1</span>
+        </div>
+        <div class="module-grid">
+          <div class="module-card">
+            <div class="module-family">OLED</div>
+            <div class="module-name">SSD1306<br>128×64 OLED</div>
+            <div class="module-chip">I2C 0x3C/0x3D · 5×7 font · Framebuffer</div>
+            <code class="module-tool">display_text(text="Hello", clear=true)</code>
+            <div class="module-status">
+              <span><span class="status-dot status-ready"></span>Phase 1 — Ready</span>
+              <span style="opacity:.35">I2C</span>
+            </div>
+          </div>
+          <div class="module-card">
+            <div class="module-family">TFT Color</div>
+            <div class="module-name">ST7789<br>240×240 TFT</div>
+            <div class="module-chip">SPI Mode 3 · RGB565 · 40 MHz max</div>
+            <code class="module-tool">display_text(text="Claude", display_id="tft")</code>
+            <div class="module-status">
+              <span><span class="status-dot status-ready"></span>Phase 1 — Ready</span>
+              <span style="opacity:.35">SPI</span>
+            </div>
+          </div>
+          <div class="module-card">
+            <div class="module-family">e-Paper</div>
+            <div class="module-name">SSD1680<br>2.13″ e-Paper</div>
+            <div class="module-chip">SPI · 250×122 · 2-color</div>
+            <code class="module-tool">display_text(display_id="epaper")</code>
+            <div class="module-status">
+              <span><span class="status-dot status-phase2"></span>Phase 2</span>
+              <span style="opacity:.35">SPI</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MOTION FAMILY -->
+      <div class="section">
+        <div class="section-header">
+          <span class="section-label">Motion Modules</span>
+          <span class="section-count">3 tool families · Phase 1–2</span>
+        </div>
+        <div class="module-grid">
+          <div class="module-card">
+            <div class="module-family">Servo</div>
+            <div class="module-name">SG90 / MG996R<br>PWM Servo</div>
+            <div class="module-chip">50 Hz · 500–2500 µs · 1–16 channels</div>
+            <code class="module-tool">servo_move(channel=0, angle=90)</code>
+            <div class="module-status">
+              <span><span class="status-dot status-ready"></span>Phase 1 — Ready</span>
+              <span style="opacity:.35">PWM</span>
+            </div>
+          </div>
+          <div class="module-card">
+            <div class="module-family">DC Motor</div>
+            <div class="module-name">TB6612FNG<br>Dual DC Motor Driver</div>
+            <div class="module-chip">2-channel · 1.2 A continuous · PWM speed</div>
+            <code class="module-tool">motor_set(channel=0, speed=200, direction="forward")</code>
+            <div class="module-status">
+              <span><span class="status-dot status-phase2"></span>Phase 2</span>
+              <span style="opacity:.35">GPIO+PWM</span>
+            </div>
+          </div>
+          <div class="module-card">
+            <div class="module-family">Stepper</div>
+            <div class="module-name">A4988 / DRV8825<br>Stepper Driver</div>
+            <div class="module-chip">Microstepping 1/32 · STEP/DIR interface</div>
+            <code class="module-tool">stepper_move(steps=200, speed_rpm=60)</code>
+            <div class="module-status">
+              <span><span class="status-dot status-phase2"></span>Phase 2</span>
+              <span style="opacity:.35">GPIO</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- VISION FAMILY -->
+      <div class="section">
+        <div class="section-header">
+          <span class="section-label">Vision Modules</span>
+          <span class="section-count">ESP32-S3 camera path</span>
+        </div>
+        <div class="module-grid">
+          <div class="module-card">
+            <div class="module-family">Camera</div>
+            <div class="module-name">OV2640<br>2MP JPEG Camera</div>
+            <div class="module-chip">DVP · QVGA–UXGA · JPEG/RGB565</div>
+            <code class="module-tool">camera_capture(resolution="VGA")</code>
+            <div class="module-status">
+              <span><span class="status-dot status-ready"></span>Phase 1 — Ready</span>
+              <span style="opacity:.35">DVP / esp_camera</span>
+            </div>
+          </div>
+          <div class="module-card">
+            <div class="module-family">Camera</div>
+            <div class="module-name">OV5640<br>5MP Auto-Focus Camera</div>
+            <div class="module-chip">DVP/MIPI · AF · 1080p</div>
+            <code class="module-tool">camera_capture(resolution="HD")</code>
+            <div class="module-status">
+              <span><span class="status-dot status-phase2"></span>Phase 2</span>
+              <span style="opacity:.35">DVP</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- INDUSTRIAL FAMILY -->
+      <div class="section">
+        <div class="section-header">
+          <span class="section-label">Industrial Modules</span>
+          <span class="section-count">RS-485 / Relay / ADC / Digital I/O</span>
+        </div>
+        <div class="module-grid">
+          <div class="module-card">
+            <div class="module-family">Communication</div>
+            <div class="module-name">MAX485 / SP3485<br>RS-485 Transceiver</div>
+            <div class="module-chip">Half-duplex · 2.5 Mbps · DE/RE control</div>
+            <code class="module-tool">modbus_read(slave_id=1, address=0, count=5)</code>
+            <div class="module-status">
+              <span><span class="status-dot status-ready"></span>Phase 1 — Ready</span>
+              <span style="opacity:.35">UART2 + GPIO</span>
+            </div>
+          </div>
+          <div class="module-card">
+            <div class="module-family">Relay</div>
+            <div class="module-name">8-Channel Relay Module<br>Optocoupler Isolated</div>
+            <div class="module-chip">5 V coil · 10 A 250 VAC · Active-HIGH</div>
+            <code class="module-tool">relay_set(channel=0, state="on")</code>
+            <div class="module-status">
+              <span><span class="status-dot status-ready"></span>Phase 1 — Ready</span>
+              <span style="opacity:.35">GPIO</span>
+            </div>
+          </div>
+          <div class="module-card">
+            <div class="module-family">Analog</div>
+            <div class="module-name">MCP3204<br>12-bit 4-ch SPI ADC</div>
+            <div class="module-chip">SPI · 100 ksps · 2.7–5.5 V</div>
+            <code class="module-tool">adc_read_multi(channels=[0,1,2,3], adc_source="mcp3204")</code>
+            <div class="module-status">
+              <span><span class="status-dot status-phase2"></span>Phase 2</span>
+              <span style="opacity:.35">SPI</span>
+            </div>
+          </div>
+          <div class="module-card">
+            <div class="module-family">Digital I/O</div>
+            <div class="module-name">PCF8574<br>8-Channel I/O Expander</div>
+            <div class="module-chip">I2C · Quasi-bidirectional · 100 mA sink</div>
+            <code class="module-tool">digital_io_read(bank=0)</code>
+            <div class="module-status">
+              <span><span class="status-dot status-phase2"></span>Phase 2</span>
+              <span style="opacity:.35">I2C</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SELECTION GUIDE TOOL -->
+      <div class="selector-section">
+        <div class="selector-box">
+          <div class="selector-title">Module Selector</div>
+          <p class="selector-desc">Answer three questions — get the right module list for your project.</p>
+          <div class="selector-grid">
+            <div class="selector-group">
+              <label>What are you building?</label>
+              <select id="sel-use">
+                <option value="">Select use case</option>
+                <option value="iot">IoT / Remote Monitoring</option>
+                <option value="maker">Maker / Prototype</option>
+                <option value="education">Education / Lab</option>
+                <option value="industrial">Industrial Automation</option>
+                <option value="vision">Vision / AI Inference</option>
+                <option value="robotics">Robotics / Motion</option>
+              </select>
+            </div>
+            <div class="selector-group">
+              <label>Interface preference?</label>
+              <select id="sel-bus">
+                <option value="">Any</option>
+                <option value="i2c">I2C</option>
+                <option value="spi">SPI</option>
+                <option value="uart">UART / RS-485</option>
+                <option value="gpio">GPIO / PWM</option>
+              </select>
+            </div>
+            <div class="selector-group">
+              <label>Development phase?</label>
+              <select id="sel-phase">
+                <option value="">Any</option>
+                <option value="1">Phase 1 — Available now</option>
+                <option value="2">Phase 2 — Coming soon</option>
+              </select>
+            </div>
+          </div>
+          <div class="selector-result" id="selector-result">
+            <div class="result-label">Recommended Modules</div>
+            <div class="result-modules" id="result-modules"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footnote">
+        Phase 1 = driver implemented and tested · Phase 2 = driver in roadmap · Phase 3 = hardware design phase<br>
+        All MCP tool schemas follow the <a href="https://github.com/Pclika/mcp-platform/tree/main/bridge/tool-schemas" target="_blank">bridge/tool-schemas</a> contract.
+        Seal: PCK-MMXXVI-C4A32096
+      </div>
+    </main>
+
+    <script>
+      const DB = [
+        { name:"DHT22",    bus:"gpio", phase:1, uses:["iot","maker","education"] },
+        { name:"BME280",   bus:"i2c",  phase:1, uses:["iot","maker","education","industrial"] },
+        { name:"SHT31",    bus:"i2c",  phase:1, uses:["iot","industrial"] },
+        { name:"BH1750",   bus:"i2c",  phase:1, uses:["iot","maker","education"] },
+        { name:"MPU6050",  bus:"i2c",  phase:1, uses:["maker","robotics","education"] },
+        { name:"VL53L0X",  bus:"i2c",  phase:1, uses:["robotics","maker"] },
+        { name:"SSD1306",  bus:"i2c",  phase:1, uses:["maker","education","robotics"] },
+        { name:"ST7789",   bus:"spi",  phase:1, uses:["maker","vision","iot"] },
+        { name:"SSD1680 e-Paper",bus:"spi",phase:2,uses:["iot","industrial"] },
+        { name:"SG90/MG996R Servo",bus:"gpio",phase:1,uses:["maker","robotics","education"] },
+        { name:"TB6612FNG DC Motor",bus:"gpio",phase:2,uses:["robotics","maker"] },
+        { name:"A4988 Stepper",bus:"gpio",phase:2,uses:["robotics","industrial"] },
+        { name:"OV2640 Camera",bus:"spi",phase:1,uses:["vision","maker"] },
+        { name:"OV5640 Camera",bus:"spi",phase:2,uses:["vision"] },
+        { name:"MAX485 RS-485",bus:"uart",phase:1,uses:["industrial"] },
+        { name:"8-ch Relay",bus:"gpio",phase:1,uses:["industrial","iot"] },
+        { name:"MCP3204 ADC",bus:"spi",phase:2,uses:["industrial","maker"] },
+        { name:"PCF8574 I/O",bus:"i2c",phase:2,uses:["industrial","robotics"] },
+      ];
+
+      function runSelector() {
+        const use   = document.getElementById('sel-use').value;
+        const bus   = document.getElementById('sel-bus').value;
+        const phase = document.getElementById('sel-phase').value;
+        if (!use) return;
+
+        const matches = DB.filter(m =>
+          (!use   || m.uses.includes(use)) &&
+          (!bus   || m.bus === bus) &&
+          (!phase || m.phase === parseInt(phase))
+        );
+
+        const el = document.getElementById('result-modules');
+        el.innerHTML = matches.length
+          ? matches.map(m =>
+              `<span class="result-tag match">${m.name}</span>`
+            ).join('')
+          : '<span style="opacity:.4;font-size:.85rem">No modules match all filters — try relaxing the interface or phase filter.</span>';
+
+        document.getElementById('selector-result').classList.add('visible');
+      }
+
+      ['sel-use','sel-bus','sel-phase'].forEach(id =>
+        document.getElementById(id).addEventListener('change', runSelector)
+      );
+    </script>
+  </body>
+</html>

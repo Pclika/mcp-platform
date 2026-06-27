@@ -1,0 +1,40 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import StorefrontSection from "../../../components/StorefrontSection.astro";
+import StorefrontNotice from "../../../components/StorefrontNotice.astro";
+import Separator from "../../../components/Separator.astro";
+import { syliusPaths } from "../../../lib/sylius";
+
+export const getStaticPaths = () => [
+  { params: { hash: "demo-hash" } },
+  { params: { hash: "payment-return-001" } },
+];
+
+const { hash = "PAYMENT_HASH" } = Astro.params;
+const title = "Payment Callback | PCLIKA";
+---
+
+<BaseLayout title={title} description="Payment callback alias aligned to the Sylius after-pay route.">
+  <section class="storefront-narrow">
+    <StorefrontSection
+      eyebrow="After Pay"
+      title="Payment Callback Landing"
+      description="This route is reserved for payment-return handling after hosted checkout completion."
+      compact
+    />
+    <Separator />
+    <StorefrontNotice
+      title="Current Integration Stage"
+      body={`Target Sylius route: ${syliusPaths.orderAfterPay(hash)}. Use this alias to normalize post-payment redirect behavior once the checkout is bound to Sylius.`}
+    />
+    <p><a href="/order/thank-you">Continue to thank-you page</a></p>
+  </section>
+</BaseLayout>
+
+<style>
+  .storefront-narrow {
+    max-width: 38rem;
+    margin: 0 auto;
+    padding-bottom: 4rem;
+  }
+</style>

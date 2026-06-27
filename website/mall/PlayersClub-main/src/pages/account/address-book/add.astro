@@ -1,0 +1,46 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import AccountShell from "../../../components/AccountShell.astro";
+import StorefrontForm from "../../../components/StorefrontForm.astro";
+import { storefrontAliases, syliusPaths } from "../../../lib/sylius";
+
+const title = "Add Address | PCLIKA";
+const tabs = [
+  { href: storefrontAliases.accountDashboard, label: "Dashboard" },
+  { href: storefrontAliases.accountOrders, label: "Orders" },
+  { href: storefrontAliases.accountAddressBook, label: "Addresses", current: true },
+  { href: storefrontAliases.accountProfile, label: "Profile" },
+  { href: storefrontAliases.accountPassword, label: "Password" },
+];
+---
+
+<BaseLayout title={title} description="Add account address aligned to Sylius address book creation route.">
+  <section>
+    <AccountShell
+      title="Add Address"
+      description="This page should eventually submit to the Sylius address book creation route."
+      tabs={tabs}
+    >
+      <StorefrontForm action={syliusPaths.accountAddressBookAdd()} method="post">
+        <div class="storefront-form__grid storefront-form__grid--2">
+          <label><span>Label</span><input name="addressBook[label]" placeholder="Warehouse / Office / Home" /></label>
+          <label><span>Name</span><input name="addressBook[fullName]" placeholder="Recipient name" /></label>
+        </div>
+        <label><span>Street</span><input name="addressBook[street]" /></label>
+        <div class="storefront-form__grid storefront-form__grid--2">
+          <label><span>City</span><input name="addressBook[city]" /></label>
+          <label><span>Province / State</span><input name="addressBook[province]" /></label>
+        </div>
+        <div class="storefront-form__grid storefront-form__grid--2">
+          <label><span>Postcode</span><input name="addressBook[postcode]" /></label>
+          <label><span>Country</span><input name="addressBook[country]" /></label>
+        </div>
+        <label><span>Phone</span><input name="addressBook[phone]" /></label>
+        <div class="storefront-form__actions">
+          <a class="storefront-button storefront-button--secondary" href={storefrontAliases.accountAddressBook}>Back</a>
+          <button type="submit">Save address</button>
+        </div>
+      </StorefrontForm>
+    </AccountShell>
+  </section>
+</BaseLayout>

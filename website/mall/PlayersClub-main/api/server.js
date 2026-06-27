@@ -108,6 +108,28 @@ app.post("/api/login", async (req, res) => {
   }
 });
 
+// POST /api/forgot-password
+app.post("/api/forgot-password", async (req, res) => {
+  try {
+    const { email } = req.body;
+    if (!email) return res.status(400).json({ error: "Email is required" });
+
+    const [rows] = await pool.query(
+      "SELECT id FROM sylius_shop_user WHERE username = ? OR email = ? LIMIT 1",
+      [email, email]
+    );
+
+    // Do not reveal whether the account exists.
+    res.json({
+      ok: true,
+      message: "If the account exists, a reset request has been received. Please contact Pclika support while password reset delivery is being finalized."
+    });
+  } catch (err) {
+    console.error("Forgot password error:", err);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
 // ── GET /api/me ──
 app.get("/api/me", auth, async (req, res) => {
   try {

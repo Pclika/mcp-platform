@@ -4,7 +4,7 @@ import Separator from "../../components/Separator.astro";
 import StorefrontSection from "../../components/StorefrontSection.astro";
 import StorefrontCard from "../../components/StorefrontCard.astro";
 import StorefrontCardGrid from "../../components/StorefrontCardGrid.astro";
-import { syliusPaths } from "../../lib/sylius";
+import { storefrontAliases } from "../../lib/sylius";
 
 const title = "Order Confirmed | PCLIKA";
 ---
@@ -29,9 +29,9 @@ const title = "Order Confirmed | PCLIKA";
           <li>Tracking and invoice updates appear in the account area.</li>
         </ul>
       </StorefrontCard>
-      <StorefrontCard title="Next actions" subtitle="Sylius follow-up routes">
-        <a href={syliusPaths.accountOrders()} class="storefront-card__action">View account orders</a>
-        <a href={syliusPaths.orderShow("PCL-2026-1010")} class="storefront-card__action">Open guest order</a>
+      <StorefrontCard title="Next actions" subtitle="Storefront follow-up routes">
+        <a href={storefrontAliases.accountOrders} class="storefront-card__action">View account orders</a>
+        <a href="/order/PCL-2026-1010" class="storefront-card__action">Open guest order</a>
       </StorefrontCard>
     </StorefrontCardGrid>
   </section>

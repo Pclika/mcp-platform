@@ -44,10 +44,37 @@ const activeLabel =
       </a>
     </li>
     <li class="nav-auth">
-      <a href={storefrontAliases.login} class={`auth-link ${currentPath === storefrontAliases.login ? "current" : ""}`}>Sign In</a>
-    </li>
-    <li class="nav-auth">
-      <a href={storefrontAliases.account} class={`auth-link ${activeLabel === "Account" ? "current" : ""}`}>Account</a>
+      <button
+        type="button"
+        class={`auth-trigger ${activeLabel === "Account" ? "current" : ""}`}
+        id="header-auth-toggle"
+        aria-expanded="false"
+        aria-controls="header-auth-menu"
+        aria-label="Account menu"
+        title="Account menu"
+      >
+        <span class="auth-trigger__icon" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="7" r="4"></circle>
+            <path d="M5.5 21a7.5 7.5 0 0 1 13 0"></path>
+          </svg>
+        </span>
+      </button>
+      <span class="account-label" id="header-account-name" style="display:none;">Account</span>
+      <div class="auth-menu" id="header-auth-menu" hidden>
+        <div class="auth-menu__section" id="auth-menu-guest">
+          <a href={storefrontAliases.login} class="auth-menu__item">Sign In</a>
+          <a href={storefrontAliases.register} class="auth-menu__item">Register</a>
+          <a href={storefrontAliases.forgotPassword} class="auth-menu__item">Forgot Password</a>
+        </div>
+        <div class="auth-menu__section" id="auth-menu-user" style="display:none;">
+          <a href={storefrontAliases.account} class="auth-menu__item">Account Center</a>
+          <a href={storefrontAliases.accountOrders} class="auth-menu__item">My Orders</a>
+          <a href={storefrontAliases.accountAddressBook} class="auth-menu__item">Address Book</a>
+          <a href={storefrontAliases.accountProfile} class="auth-menu__item">Profile</a>
+          <button type="button" class="auth-menu__item auth-menu__item--button" id="header-logout-btn">Log Out</button>
+        </div>
+      </div>
     </li>
   </ul>
 </header>
@@ -132,9 +159,74 @@ const activeLabel =
     align-items: center;
     justify-content: center;
   }
-  .nav-auth a {
-    font-size: 0.85rem;
+  .nav-auth {
+    position: relative;
+    gap: 0.45rem;
+    align-items: center;
+  }
+  .auth-trigger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+  }
+  .auth-trigger__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .account-label {
+    display: inline-block;
+    font-size: 0.82rem;
     font-weight: 600;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 6.5rem;
+  }
+  .auth-menu {
+    position: absolute;
+    top: calc(100% + 0.65rem);
+    right: 0;
+    min-width: 12rem;
+    padding: 0.45rem;
+    background: rgba(255, 255, 255, 0.97);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 1rem 2.5rem rgba(0, 0, 0, 0.08);
+    display: grid;
+    gap: 0.2rem;
+    z-index: 20;
+  }
+  .auth-menu[hidden] {
+    display: none;
+  }
+  .auth-menu__section {
+    display: grid;
+    gap: 0.2rem;
+  }
+  .auth-menu__item {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0.7rem 0.8rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--color-text);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .auth-menu__item--button {
+    width: 100%;
+    background: transparent;
+    text-transform: none;
+    letter-spacing: 0;
+    padding: 0.7rem 0.8rem;
+  }
+  .auth-menu__item:hover,
+  .auth-menu__item--button:hover {
+    background: var(--color-placeholder);
+    color: var(--color-text);
   }
   @media screen and (max-width: 62em) {
     header {
@@ -143,9 +235,12 @@ const activeLabel =
     ul {
       gap: 0.8rem;
     }
-    .nav-auth a,
+    .account-label,
     ul a {
       font-size: 0.82rem;
+    }
+    .account-label {
+      max-width: 5rem;
     }
   }
   @media screen and (max-width: 50em) {
@@ -169,5 +264,77 @@ const activeLabel =
     .nav-cart {
       margin-left: 0.3rem;
     }
+    .auth-menu {
+      left: 0;
+      right: auto;
+    }
   }
 </style>
+
+<script>
+  (function() {
+    var authToggle = document.getElementById('header-auth-toggle');
+    var authMenu = document.getElementById('header-auth-menu');
+    var accountName = document.getElementById('header-account-name');
+    var guestMenu = document.getElementById('auth-menu-guest');
+    var userMenu = document.getElementById('auth-menu-user');
+    var logoutBtn = document.getElementById('header-logout-btn');
+
+    function closeMenu() {
+      if (!authToggle || !authMenu) return;
+      authToggle.setAttribute('aria-expanded', 'false');
+      authMenu.hidden = true;
+    }
+
+    function openMenu() {
+      if (!authToggle || !authMenu) return;
+      authToggle.setAttribute('aria-expanded', 'true');
+      authMenu.hidden = false;
+    }
+
+    if (authToggle && authMenu) {
+      authToggle.addEventListener('click', function(event) {
+        event.preventDefault();
+        if (authMenu.hidden) openMenu();
+        else closeMenu();
+      });
+
+      document.addEventListener('click', function(event) {
+        if (!authMenu.hidden && !event.target.closest('.nav-auth')) {
+          closeMenu();
+        }
+      });
+
+      document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') closeMenu();
+      });
+    }
+
+    try {
+      var rawUser = localStorage.getItem('_user');
+      var token = localStorage.getItem('_token');
+      if (!rawUser || !token) return;
+
+      var user = JSON.parse(rawUser);
+      var displayName = user.id || user.email || user.firstName || 'Account';
+
+      if (accountName) {
+        accountName.textContent = displayName;
+        accountName.style.display = 'inline-block';
+        authToggle?.setAttribute('title', displayName);
+      }
+
+      if (guestMenu) guestMenu.style.display = 'none';
+      if (userMenu) userMenu.style.display = 'grid';
+    } catch (err) {
+      // Fall back to guest menu if local storage is invalid.
+    }
+
+    logoutBtn?.addEventListener('click', function() {
+      localStorage.removeItem('_token');
+      localStorage.removeItem('_user');
+      closeMenu();
+      window.location.href = storefrontAliases.login;
+    });
+  })();
+</script>

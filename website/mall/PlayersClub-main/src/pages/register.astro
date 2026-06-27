@@ -1,7 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Separator from "../components/Separator.astro";
-import { storefrontAliases, syliusPaths } from "../lib/sylius";
+import { storefrontAliases } from "../lib/sylius";
 
 const title = "Register | PCLIKA";
 ---
@@ -14,7 +14,6 @@ const title = "Register | PCLIKA";
     <Separator />
     <div class="auth-form">
       <div id="auth-error" class="auth-error" style="display:none;"></div>
-      <p class="auth-meta">Storefront alias: <code>{storefrontAliases.register}</code> · Target Sylius route: <code>{syliusPaths.register()}</code></p>
       <form id="register-form">
         <label>
           <span>Email</span>
@@ -38,7 +37,6 @@ const title = "Register | PCLIKA";
 <style>
   .auth-page { max-width: 420px; margin: 0 auto; padding: 2rem 0 6rem; }
   .auth-error { color: #d32f2f; margin-bottom: 1rem; padding: 0.5rem; border: 1px solid #d32f2f; font-size: 0.85rem; }
-  .auth-meta { color: var(--color-text-alt); font-size: 0.78rem; line-height: 1.5; margin: 0 0 1rem; }
   .auth-form label { display: block; margin-bottom: 1.25rem; }
   .auth-form span { display: block; font-weight: 700; font-size: 0.85rem; margin-bottom: 0.3rem; }
   .auth-form input {
